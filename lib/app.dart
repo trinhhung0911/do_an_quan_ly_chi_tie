@@ -1,6 +1,9 @@
 
 import 'package:flutter/material.dart';
+import 'package:quan_ly_chi_tieu/configs/colors.dart';
 import 'login/login_screen.dart';
+import 'package:quan_ly_chi_tieu/router.dart';
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -10,12 +13,12 @@ class MyApp extends StatelessWidget {
         },
         child: MaterialApp(
           theme: ThemeData(
-              primaryColor: Colors.teal
+              primaryColor: AppColors.appColor
           ),
           debugShowCheckedModeBanner: false,
           home: const LoginScreen(),
-        )
-
+          onGenerateRoute: onGenerateRoute,
+        ),
     );
   }
 }
