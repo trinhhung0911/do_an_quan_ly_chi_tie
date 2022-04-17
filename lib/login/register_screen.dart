@@ -19,11 +19,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: AppColors.appColor,
         title: const Text('Đăng ký'),
+        titleSpacing: 24,
       ),
       body: Container(
-        padding: const EdgeInsets.only(left: 30, right: 30),
+        padding: const EdgeInsets.only(left: 24, right: 24),
         constraints: const BoxConstraints.expand(),
         color: Colors.white,
         child: SingleChildScrollView(

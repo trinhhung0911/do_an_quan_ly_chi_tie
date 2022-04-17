@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quan_ly_chi_tieu/configs/colors.dart';
-import 'Components/drawer_item_card.dart';
+import '../configs/themes.dart';
+import 'Components/home_components/drawer_item_card.dart';
+import 'Components/home_components/money_home.dart';
 
 class HomeScreen extends StatefulWidget {
   final dynamic arg;
@@ -16,12 +18,15 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: AppColors.appColor,
         title: const Center(child: Text('Trang Chủ'),),
+        centerTitle: true,
       ),
-      body: Container(
+      body:Column(
+        children: const <Widget>[
+          MoneyHome(),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          //Navigator.push(context, MaterialPageRoute(builder: (context) => const NewTransactionPage()),);
         },
         child: const Icon(
           Icons.add,

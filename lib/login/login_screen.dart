@@ -18,7 +18,6 @@ class _LoginScreenState extends State<LoginScreen> {
     // TODO: implement initState
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -180,7 +179,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-
 showAlertDialog(BuildContext context) {
   // Create button
   Widget okButton = FlatButton(
