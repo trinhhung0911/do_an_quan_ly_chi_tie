@@ -6,4 +6,5 @@ class AppThemes{
   AppThemes(this.context);
   static TextStyle lightText = const TextStyle(color: Color(0xff327708),fontSize: 16);
   static TextStyle moneyText =const TextStyle(color: AppColors.textColor,fontSize: 25);
+  static TextStyle commonText=const TextStyle(fontSize: 18);
 }

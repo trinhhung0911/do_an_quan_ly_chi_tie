@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quan_ly_chi_tieu/configs/constants.dart';
+import 'package:quan_ly_chi_tieu/ui/home_screen.dart';
 
 class DrawerItem extends StatefulWidget {
   String email;
@@ -7,7 +8,6 @@ class DrawerItem extends StatefulWidget {
   @override
   State<DrawerItem> createState() => _DrawerItemState();
 }
-
 class _DrawerItemState extends State<DrawerItem> {
   @override
   Widget build(BuildContext context) {
@@ -28,6 +28,13 @@ class _DrawerItemState extends State<DrawerItem> {
           ),
           ListTile(
             leading: const Icon(Icons.account_balance_wallet_sharp),
+            title: const Text("Trang chủ"),
+            onTap: () {
+              Navigator.pushNamed(context, Constants.homeScreen,arguments:HomeScreen.email);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.account_balance_wallet_sharp),
             title: const Text("Quản lý thu"),
             onTap: () {
             },
@@ -36,7 +43,7 @@ class _DrawerItemState extends State<DrawerItem> {
             leading: const Icon(Icons.add_photo_alternate_outlined),
             title: const Text("Quản lý chi"),
             onTap: () {
-             // Navigator.push(context, MaterialPageRoute(builder: (context)=> const ManagementSpend()));
+             Navigator.pushNamed(context, Constants.spendScreen);
             },
           ),
           ListTile(

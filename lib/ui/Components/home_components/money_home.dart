@@ -13,12 +13,12 @@ class _MoneyHomeState extends State<MoneyHome> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(right: 24,left: 24,top: 20,bottom: 20),
+      padding: const EdgeInsets.only(right: 24,left: 24,top: 10,bottom: 10),
       color:AppColors.appColor,
       width: double.infinity,
       child: Container(
         width: double.infinity,
-        height: 60,
+        height: 50,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10.0),
