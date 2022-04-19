@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:quan_ly_chi_tieu/configs/constants.dart';
 import 'package:quan_ly_chi_tieu/login/login_screen.dart';
 import 'package:quan_ly_chi_tieu/login/register_screen.dart';
-import 'package:quan_ly_chi_tieu/ui/Quan_ly_chi/quan_l%C3%BD_chi/them_khoan_chi_screen.dart';
+
 import 'package:quan_ly_chi_tieu/ui/Quan_ly_chi/chi_screen.dart';
+import 'package:quan_ly_chi_tieu/ui/Quan_ly_chi/danh_muc_chi/them_danh_muc_chi_screen.dart';
+import 'package:quan_ly_chi_tieu/ui/Quan_ly_chi/quan_ly_chi/them_khoan_chi_screen.dart';
 import 'package:quan_ly_chi_tieu/ui/home_screen.dart';
 import 'login/forgot_password_screen.dart';
 
@@ -22,6 +24,8 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       return generateRouter(screen: const SpendScreen());
     case Constants.addSpendScreen:
       return generateRouter(screen: const AddSpendScreen());
+    case Constants.addTypeSpendScreen:
+      return generateRouter(screen: const AddTypeSpendScreen());
     default:
       throw ('This route name does not exit');
   }

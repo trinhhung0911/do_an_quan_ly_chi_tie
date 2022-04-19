@@ -5,4 +5,5 @@ class Constants {
   static const String registerScreen='/register_screen';
   static const String spendScreen='/spend_screen';
   static const String addSpendScreen='/add_spend_screen';
+  static const String addTypeSpendScreen='/them_danh_muc_chi_screen';
 }

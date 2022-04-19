@@ -49,7 +49,9 @@ class _QuanLyChiScreenState extends State<QuanLyChiScreen> {
             Icons.add,
             color: Colors.white,
           ),
-          backgroundColor:AppColors.appColor),
+          backgroundColor:AppColors.appColor,
+        heroTag: "btn_qlct",
+      ),
       drawer:  DrawerItem(email: HomeScreen.email,),
     );
   }
