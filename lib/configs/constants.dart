@@ -7,3 +7,4 @@ class Constants {
   static const String addSpendScreen='/add_spend_screen';
   static const String addTypeSpendScreen='/them_danh_muc_chi_screen';
 }
+enum CollectionName { users, loaithu,loaichi,khoanthu,khoanchi }
