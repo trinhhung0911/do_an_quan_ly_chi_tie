@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:quan_ly_chi_tieu/configs/colors.dart';
 import 'login/login_screen.dart';
 import 'package:quan_ly_chi_tieu/router.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -11,13 +12,17 @@ class MyApp extends StatelessWidget {
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
         },
-        child: MaterialApp(
-          theme: ThemeData(
-              primaryColor: AppColors.appColor
+        child: GlobalLoaderOverlay(
+          overlayColor: Colors.black,
+          overlayOpacity: 0.7,
+          child: MaterialApp(
+            theme: ThemeData(
+                primaryColor: AppColors.appColor
+            ),
+            debugShowCheckedModeBanner: false,
+            home: const LoginScreen(),
+            onGenerateRoute: onGenerateRoute,
           ),
-          debugShowCheckedModeBanner: false,
-          home: const LoginScreen(),
-          onGenerateRoute: onGenerateRoute,
         ),
     );
   }

@@ -13,7 +13,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield* _mapLoginAddEventToState(event);
     }
   }
-
   Stream<LoginState> _mapLoginAddEventToState(LoginAddEvent  event) async*{
     yield LoginLoadingState();
     try {

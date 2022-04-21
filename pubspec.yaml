@@ -46,8 +46,9 @@ dependencies:
   fluttertoast: ^8.0.8
   flutter_bloc: ^7.1.0
   equatable: ^2.0.3
-  loader_overlay: ^2.0.5+1
+  loader_overlay: ^2.0.6
   intl: ^0.17.0
+  flutter_secure_storage: ^5.0.2
 
 dev_dependencies:
   flutter_test:
