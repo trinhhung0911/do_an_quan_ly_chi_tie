@@ -22,8 +22,9 @@ class _ChartCollectionState extends State<ChartCollection> {
       width: double.infinity,
       padding: const EdgeInsets.only(top: 10, bottom: 10),
       margin: const EdgeInsets.only(top: 10),
-      decoration: const BoxDecoration(
+      decoration:  BoxDecoration(
         color: Colors.white,
+        borderRadius: BorderRadius.circular(10)
       ),
       child: Column(
         children: <Widget>[

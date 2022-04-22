@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
 class LoaiChi {
+  String ? uId;
+  String ? IdUser;
   final String name;
-  int money;
-  Color color;
-  LoaiChi(this.name, this.money, this.color);
+  int ? maximum;
+  String ?note;
+  LoaiChi(this.uId, this.IdUser, this.name, this.maximum, this.note);
 }

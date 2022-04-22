@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quan_ly_chi_tieu/configs/colors.dart';
 import 'package:quan_ly_chi_tieu/configs/constants.dart';
 import 'package:quan_ly_chi_tieu/ui/Components/home_components/drawer_item_card.dart';
-import 'package:quan_ly_chi_tieu/ui/Components/input_search.dart';
+import 'package:quan_ly_chi_tieu/ui/Components/input/input_search.dart';
 import 'package:quan_ly_chi_tieu/ui/home_screen.dart';
 
 class QuanLyChiScreen extends StatefulWidget {

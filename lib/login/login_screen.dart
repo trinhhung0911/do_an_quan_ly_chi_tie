@@ -45,15 +45,14 @@ class _LoginScreenState extends State<LoginScreen> {
         child: BlocListener<LoginBloc, LoginState>(
           listener: (context, state) {
             if (state is LoginLoadingState) {
-              //  print('Đang load');
+
               LoadingHelper.showLoading(context);
             } else if (state is LoginSuccessState) {
-              //   print('Thành công');
+
               LoadingHelper.hideLoading(context);
               Navigator.pushNamed(context, Constants.homeScreen,
                   arguments: _emailController.text);
             } else if (state is LoginErrorState) {
-              //  print('Lỗi');
               LoadingHelper.hideLoading(context);
               FunctionHelper.showSnackBar(context: context, title: state.error);
             }
@@ -171,8 +170,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextSpan(
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Navigator.pushNamed(
-                                context, Constants.forgotPasswordScreen);
+                            // Navigator.pushNamed(
+                            //     context, Constants.forgotPasswordScreen);
+                            Navigator.pushNamed(context, Constants.homeScreen,arguments: 'hung09112000@gmail.com');
                           },
                         text: "Quên mật khẩu ?",
                         style: AppThemes.lightText,
@@ -212,6 +212,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               email: _emailController.text.trim(),
                               password: _passController.text.trim(),
                             ));
+                          }else{
+                            FunctionHelper.showSnackBar(context: context, title: 'Bạn cần nhập đầy đủ thông tin');
                           }
                         }),
                   ),

@@ -20,8 +20,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       await userRepository.createUser(user: event.users);
       yield CreateUserSuccessState();
     } on FirebaseAuthException catch (e) {
-      String a=e.code;
-        yield  CreateUserErrorState(error:a.toString());
+      if(e.code=='email-already-in-use'){
+        yield  CreateUserErrorState(error: 'Email đã tồn tại');
+      }
+
+
     }
 
   }

@@ -13,7 +13,7 @@ class CreateUserLoadingState extends UserState {}
 class CreateUserSuccessState extends UserState {}
 class CreateUserErrorState extends UserState {
    String error;
-   CreateUserErrorState({required this.error});
+  CreateUserErrorState({required this.error});
   @override
   // TODO: implement props
   List<Object?> get props => [error];

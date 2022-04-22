@@ -4,6 +4,7 @@ import 'package:quan_ly_chi_tieu/ui/Components/home_components/item_chart.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../models/loai_chi.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class SpendChartCircle extends StatefulWidget {
   const SpendChartCircle({Key? key}) : super(key: key);
@@ -12,23 +13,30 @@ class SpendChartCircle extends StatefulWidget {
 }
 
 class _SpendChartCircleState extends State<SpendChartCircle> {
+  late TooltipBehavior _tooltipBehavior;
+  @override
+  void initState() {
+    _tooltipBehavior =  TooltipBehavior(enable: true);
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return SingleChildScrollView(
+      child: Column(
         children: [
           SfCircularChart(
-            series: <CircularSeries>[
-              PieSeries<LoaiChi, String>(
-                  dataSource: AppData.danhmucchi,
-                  xValueMapper: (LoaiChi data, _) => data.name,
-                  yValueMapper: (LoaiChi data, _) => data.money,
-                  dataLabelSettings: const DataLabelSettings(isVisible: true),
-                  pointColorMapper: (LoaiChi data, _) => data.color)
-            ],
-          ),
-          ItemChart(),
+              legend: Legend(isVisible: true),
+              tooltipBehavior: _tooltipBehavior,
+              series: <CircularSeries<SalesData, String>>[
+                // Initialize line series
+                PieSeries<SalesData, String>(
+                    dataSource: AppData.danhmucchi,
+                    xValueMapper: (SalesData sales, _) => sales.name,
+                    yValueMapper: (SalesData sales, _) => sales.money,
+                    name: 'Số tiền',
+                    dataLabelSettings: const DataLabelSettings(isVisible: true))
+              ]),
         ],
       ),
     );

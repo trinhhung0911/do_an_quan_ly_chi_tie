@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quan_ly_chi_tieu/configs/colors.dart';
-import '../../Components/spend_components/loai_chi_card.dart';
+
 
 class AddSpendScreen extends StatefulWidget {
   const AddSpendScreen({Key? key}) : super(key: key);
@@ -97,11 +97,6 @@ class _AddSpendScreenState extends State<AddSpendScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         child: InkWell(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const TypeSpendCard()),
-                            );
                           },
                           child: Row(
                             children: <Widget>[
