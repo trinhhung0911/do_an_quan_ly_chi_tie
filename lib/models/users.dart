@@ -1,5 +1,5 @@
 class Users {
-  String? uId;
+  String? uid;
   String? id;
   String? name;
   String email;
@@ -8,7 +8,7 @@ class Users {
   DateTime? startDate;
 
   Users(
-      {this.uId,
+      {this.uid,
       this.id,
       this.name,
       required this.email,
@@ -36,7 +36,7 @@ class Users {
   }*/
 //gửi lên
   Map<String, dynamic> toJson() => {
-    "uId": uId,
+    "uId": uid,
     "name": name,
     "email": email,
     "password": password,

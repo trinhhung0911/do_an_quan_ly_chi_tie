@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quan_ly_chi_tieu/storage/secure_storge.dart';
 
 import '../../../configs/colors.dart';
 import '../../../configs/themes.dart';
@@ -38,7 +39,9 @@ class _MoneyHomeState extends State<MoneyHome> {
               '10.000.000',
               style: AppThemes.moneyText,),
             InkWell(
-              onTap: (){
+              onTap: () async {
+                var uId = await SecureStorage().getString(key: SecureStorage.userId);
+                print(uId);
               },
               child: const Icon(
                 Icons.add,
