@@ -34,3 +34,10 @@ class UpdateCategorySpendErrorState extends CategorySpendState {
   final String error;
   const UpdateCategorySpendErrorState({required this.error});
 }
+//Delete
+class DeleteCategorySpendLoadingState extends CategorySpendState {}
+class DeleteCategorySpendSuccessState extends CategorySpendState {}
+class DeleteCategorySpendErrorState extends CategorySpendState {
+  final String error;
+  const DeleteCategorySpendErrorState({required this.error});
+}

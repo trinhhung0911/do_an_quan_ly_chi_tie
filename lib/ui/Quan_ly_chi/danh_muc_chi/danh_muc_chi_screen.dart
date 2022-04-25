@@ -5,7 +5,7 @@ import 'package:quan_ly_chi_tieu/bloc/category_spend_bloc/category_spend_event.d
 import 'package:quan_ly_chi_tieu/bloc/category_spend_bloc/category_spend_state.dart';
 import 'package:quan_ly_chi_tieu/configs/app_data.dart';
 import 'package:quan_ly_chi_tieu/models/categor_spend.dart';
-import 'package:quan_ly_chi_tieu/ui/Components/card/loai_chi_card.dart';
+import 'package:quan_ly_chi_tieu/ui/Components/card/type_spend_card.dart';
 import 'package:quan_ly_chi_tieu/utils/function_helper.dart';
 import 'package:quan_ly_chi_tieu/utils/loading_helper.dart';
 import '../../../configs/colors.dart';

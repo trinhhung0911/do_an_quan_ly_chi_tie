@@ -8,7 +8,7 @@ abstract class CategorySpendEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-//Employee
+//CategorySpend
 class CreateCategorySpendEvent extends CategorySpendEvent {
   final CategorySpend categorySpend;
   const CreateCategorySpendEvent({required this.categorySpend});

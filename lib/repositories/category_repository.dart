@@ -13,5 +13,9 @@ class CategorySpendRepository{
       {required CategorySpend categorySpend}) async {
     await CategorySpendService().updateCategorySpend(categorySpend: categorySpend);
   }
+  Future<dynamic> deleteCategorySpend(
+      {required CategorySpend categorySpend}) async {
+    await CategorySpendService().deleteCategorySpend(categorySpend: categorySpend);
+  }
 
 }

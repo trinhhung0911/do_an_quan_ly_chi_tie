@@ -20,6 +20,8 @@ class CategorySpendBloc extends Bloc<CategorySpendEvent, CategorySpendState> {
       yield* _mapGetCategorySpendsToState(event);
     }else if (event is UpdateCategorySpendEvent) {
       yield* _mapUpdateCategorySpendToState(event);
+    }else if(event is DeleteCategorySpendEvent){
+      yield* _mapDeleteCategorySpendToState(event);
     }
   }
 
@@ -51,6 +53,16 @@ class CategorySpendBloc extends Bloc<CategorySpendEvent, CategorySpendState> {
       yield  UpdateCategorySpendSuccessState();
     } on FirebaseAuthException catch (e) {
       yield const UpdateCategorySpendErrorState(error: 'Cập nhật thất bại !');
+    }
+
+  }
+  Stream<CategorySpendState>   _mapDeleteCategorySpendToState(DeleteCategorySpendEvent event) async*{
+    yield DeleteCategorySpendLoadingState();
+    try {
+      await categorySpendRepository.deleteCategorySpend(categorySpend: event.categorySpend);
+      yield DeleteCategorySpendSuccessState();
+    } on FirebaseAuthException catch (e) {
+      yield const DeleteCategorySpendErrorState(error: 'Xóa thất bại !');
     }
 
   }

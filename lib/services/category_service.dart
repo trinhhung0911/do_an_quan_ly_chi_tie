@@ -23,13 +23,17 @@ class CategorySpendService{
     }
     return categorySpend;
   }
-  Future<dynamic> updateCategorySpend(
-      {required CategorySpend categorySpend}) async {
+  Future<dynamic> updateCategorySpend({required CategorySpend categorySpend}) async {
     print(categorySpend.id);
     CollectionReference categorySpendCollection =
     FirebaseFirestore.instance.collection(CollectionName.categorySpend.name);
-    //var data = await categorySpendCollection.get();
     await categorySpendCollection.doc(categorySpend.id).update(categorySpend.toJson());
+
+  }
+  Future<dynamic> deleteCategorySpend({required CategorySpend categorySpend}) async {
+
+    CollectionReference categorySpendCollection = FirebaseFirestore.instance.collection(CollectionName.categorySpend.name);
+    await categorySpendCollection.doc(categorySpend.id).delete();
 
   }
 
