@@ -6,13 +6,14 @@ import 'package:quan_ly_chi_tieu/repositories/forgot_repository.dart';
 
 
 class ForgotBloc extends Bloc<ForgotEvent, ForgotState> {
-
   final ForgotRepository forgotRepository;
   ForgotBloc({required this.forgotRepository}) : super(ForgotInitialState());
   @override
   Stream<ForgotState> mapEventToState(ForgotEvent event) async* {
     if (event is ForgotPasswordEvent) {
-      yield* _mapForgotPasswordToState(event)  ;
+      yield* _mapForgotPasswordToState(event) ;
+    }else if(event is UpdatePasswordEvent){
+      yield* _mapUpdatePasswordToState(event) ;
     }
   }
   Stream<ForgotState>  _mapForgotPasswordToState(ForgotPasswordEvent event) async*{
@@ -31,6 +32,18 @@ class ForgotBloc extends Bloc<ForgotEvent, ForgotState> {
         yield const ForgotErrorState(error: 'Sai định dạng email');
       }
       yield const ForgotErrorState(error: 'Không tìm thấy email');
+    }
+
+  }
+  Stream<ForgotState>   _mapUpdatePasswordToState(UpdatePasswordEvent event) async*{
+    yield UpdatePasswordLoadingState();
+    try {
+      await forgotRepository.updatePassword(
+          currentPassword: event.currentPassword,
+          newPassword: event.newPassword);
+      yield UpdatePasswordSuccessState();
+    }  on FirebaseAuthException catch (e) {
+      yield  UpdatePasswordErrorState(error: e.code);
     }
 
   }

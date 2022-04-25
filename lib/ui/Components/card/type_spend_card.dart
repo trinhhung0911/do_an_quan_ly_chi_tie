@@ -25,17 +25,14 @@ class _TypeSpendCardState extends State<TypeSpendCard> {
     return BlocListener<CategorySpendBloc, CategorySpendState>(
       listener: (context, state) {
         if (state is DeleteCategorySpendLoadingState) {
-          //   LoadingHelper.showLoading(context);
-          print('đang load');
+          LoadingHelper.showLoading(context);
         } else if (state is DeleteCategorySpendSuccessState) {
-          // LoadingHelper.hideLoading(context);
-
-          // BlocProvider.of<CategorySpendBloc>(context).add(GetCategorySpendsEvent());
-          print('xoa thanh cong');
+          LoadingHelper.hideLoading(context);
+          BlocProvider.of<CategorySpendBloc>(context)
+              .add(GetCategorySpendsEvent());
         } else if (state is DeleteCategorySpendErrorState) {
-          print('xóa lỗi');
-          // LoadingHelper.hideLoading(context);
-          // FunctionHelper.showSnackBar(context: context, title:state.error);
+          LoadingHelper.hideLoading(context);
+          FunctionHelper.showSnackBar(context: context, title: state.error);
         }
       },
       child: Container(
@@ -62,18 +59,23 @@ class _TypeSpendCardState extends State<TypeSpendCard> {
             }
           },
           onLongPress: () async {
-            // var result = await showOkCancelAlertDialog(
-            //     context: context,
-            //     title: "Thông báo ",
-            //     okLabel: "Đồng ý",
-            //     cancelLabel: "Hủy",
-            //     message:
-            //         'Bạn có muốn xóa danh mục chi ${widget.categorySpend.name} !');
-            // if (result == OkCancelResult.ok) {
-            //   //    BlocProvider.of<CategorySpendBloc>(context).add(DeleteCategorySpendEvent(categorySpend: widget.categorySpend));
-            //   print('Xóa thành công');
-            // }
-            print(widget.categorySpend.id);
+            var result = await showOkCancelAlertDialog(
+                context: context,
+                title: "Thông báo ",
+                okLabel: "Đồng ý",
+                cancelLabel: "Hủy",
+                message:
+                    'Bạn có muốn xóa danh mục chi ${widget.categorySpend.name} !');
+            if (result == OkCancelResult.ok) {
+              BlocProvider.of<CategorySpendBloc>(context).add(
+                DeleteCategorySpendEvent(categorySpend: widget.categorySpend),
+              );
+              FunctionHelper.showSnackBar(
+                context: context,
+                title:
+                    "Xóa danh muc chi ${widget.categorySpend.name} thành công !",
+              );
+            }
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,

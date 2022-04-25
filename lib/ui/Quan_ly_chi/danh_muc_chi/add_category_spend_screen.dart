@@ -133,7 +133,7 @@ class _AddTypeSpendScreenState extends State<AddTypeSpendScreen> {
                     if(_nameController.text.trim().isNotEmpty){
                       var categorySpend1 = CategorySpend(
                           name:_nameController.text.trim(),
-                        maximum: int.parse(_maximumController.text.trim()),
+                        maximum:_maximumController.text.isEmpty?int.tryParse(_maximumController.text.trim()) : 0,
                         note: _noteController.text.trim()
                       );
                       if(categorySpend==null){
@@ -143,7 +143,6 @@ class _AddTypeSpendScreenState extends State<AddTypeSpendScreen> {
                         categorySpend1.idUser = categorySpend!.idUser;
                         BlocProvider.of<CategorySpendBloc>(context).add(UpdateCategorySpendEvent(categorySpend: categorySpend1));
                       }
-
                     }else{
                       FunctionHelper.showSnackBar(context: context, title: 'Bạn cần nhập tên danh mục chi !');
                       FocusScope.of(context).requestFocus(nameFocus);
