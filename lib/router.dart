@@ -25,12 +25,11 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
     case Constants.addSpendScreen:
       return generateRouter(screen: const AddSpendScreen());
     case Constants.addTypeSpendScreen:
-      return generateRouter(screen: const AddTypeSpendScreen());
+      return generateRouter(screen: AddTypeSpendScreen(arg: args,));
     default:
       throw ('This route name does not exit');
   }
 }
-
 generateRouter({required Widget screen}) {
   return MaterialPageRoute(builder: (context) => screen);
 }

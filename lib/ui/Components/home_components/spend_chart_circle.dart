@@ -3,7 +3,7 @@ import 'package:quan_ly_chi_tieu/configs/app_data.dart';
 import 'package:quan_ly_chi_tieu/ui/Components/home_components/item_chart.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import '../../../models/loai_chi.dart';
+import '../../../models/categor_spend.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class SpendChartCircle extends StatefulWidget {

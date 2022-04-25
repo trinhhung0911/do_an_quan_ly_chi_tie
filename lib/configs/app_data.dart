@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:quan_ly_chi_tieu/models/loai_chi.dart';
+import 'package:quan_ly_chi_tieu/models/categor_spend.dart';
+import 'package:quan_ly_chi_tieu/storage/secure_storge.dart';
 
 class AppData {
 static List<SalesData> danhmucchi=[
@@ -9,22 +10,9 @@ static List<SalesData> danhmucchi=[
   SalesData('Điện nước', 32000),
   SalesData('Sức khỏe', 40000),
 ];
-static List<LoaiChi> listLoaiChi=[
-  LoaiChi('1', '1', 'Quần áo', 2000, 'Chi tiêu mua quần áo'),
-  LoaiChi('2', '1', 'Giay dép', 2000, 'Chi tiêu mua quần áo'),
-  LoaiChi('3', '2', 'Du lịch', 2000, 'Chi tiêu mua quần áo'),
-  LoaiChi('4', '2', 'Mỹ phẩm', 2000, 'Chi tiêu mua quần áo'),
-  LoaiChi('5', '2', 'Súc khỏe', 2000, 'Chi tiêu mua quần áo'),
-  LoaiChi('1', '1', 'Quần áo', 2000, 'Chi tiêu mua quần áo'),
-  LoaiChi('2', '1', 'Giay dép', 2000, 'Chi tiêu mua quần áo'),
-  LoaiChi('3', '2', 'Du lịch', 2000, 'Chi tiêu mua quần áo'),
-  LoaiChi('4', '2', 'Mỹ phẩm', 2000, 'Chi tiêu mua quần áo'),
-  LoaiChi('5', '2', 'Súc khỏe', 2000, 'Chi tiêu mua quần áo'),
-  LoaiChi('1', '1', 'Quần áo', 2000, 'Chi tiêu mua quần áo'),
-  LoaiChi('2', '1', 'Giay dép', 2000, 'Chi tiêu mua quần áo'),
-  LoaiChi('3', '2', 'Du lịch', 2000, 'Chi tiêu mua quần áo'),
-  LoaiChi('4', '2', 'Mỹ phẩm', 2000, 'Chi tiêu mua quần áo'),
-  LoaiChi('5', '2', 'Súc khỏe', 2000, 'Chi tiêu mua quần áo'),
+static List<CategorySpend> listLoaiChi=[
+  CategorySpend(id: '1',name: 'Gia đình' ,note: 'Chi tiêu cho gia đình'),
+  CategorySpend(id: '2',name: 'Sức khỏe' ,note: 'Chi tiêu cho sức khỏe'),
 ];
 }
 class SalesData {
