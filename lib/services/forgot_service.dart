@@ -18,7 +18,7 @@ class ForgotService{
     CollectionReference employeeCollection = FirebaseFirestore.instance.collection(CollectionName.users.name);
     await user.reauthenticateWithCredential(cred);
     await user.updatePassword(newPassword);
-    await employeeCollection.doc(id).update({"password": EncryptionManager().encryption(plainText: newPassword)});
+    await employeeCollection.doc(id).update({"password": newPassword});
   }
 
 }

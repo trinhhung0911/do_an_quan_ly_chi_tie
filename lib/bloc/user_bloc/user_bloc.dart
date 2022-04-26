@@ -23,8 +23,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       if(e.code=='email-already-in-use'){
         yield  CreateUserErrorState(error: 'Email đã tồn tại');
       }
-
-
+      else if(e.code=='network-request-failed'){
+        yield  CreateUserErrorState(error: 'Kiểm tra lại kết nối internet của bạn !');
+      }
     }
 
   }

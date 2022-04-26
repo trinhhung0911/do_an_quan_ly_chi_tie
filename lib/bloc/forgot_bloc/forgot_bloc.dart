@@ -24,16 +24,16 @@ class ForgotBloc extends Bloc<ForgotEvent, ForgotState> {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         yield const ForgotErrorState(
-            error: 'Không tìm thấy email đăng nhập');
+            error: 'Không tìm thấy email !');
       } else if (e.code == 'wrong-password') {
         yield const ForgotErrorState(
             error: 'Sai mật khẩu');
       } else if (e.code == "invalid-email") {
-        yield const ForgotErrorState(error: 'Sai định dạng email');
+        yield const ForgotErrorState(error: 'Sai định dạng email !');
+      } else if(e.code=='network-request-failed'){
+        yield const ForgotErrorState(error: 'Kiểm tra lại kết nối internet của bạn !');
       }
-      yield const ForgotErrorState(error: 'Không tìm thấy email');
     }
-
   }
   Stream<ForgotState>   _mapUpdatePasswordToState(UpdatePasswordEvent event) async*{
     yield UpdatePasswordLoadingState();
@@ -43,7 +43,13 @@ class ForgotBloc extends Bloc<ForgotEvent, ForgotState> {
           newPassword: event.newPassword);
       yield UpdatePasswordSuccessState();
     }  on FirebaseAuthException catch (e) {
-      yield  UpdatePasswordErrorState(error: e.code);
+      if (e.code == 'wrong-password') {
+        yield const UpdatePasswordErrorState(
+            error: 'Mật khẩu của bạn chưa đúng !');
+      } else if(e.code=='network-request-failed'){
+        yield const UpdatePasswordErrorState(error: 'Kiểm tra lại kết nối internet của bạn !');
+      }
+
     }
 
   }

@@ -40,22 +40,21 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       body: BlocListener<ForgotBloc, ForgotState>(
         listener: (context, state) {
           if (state is UpdatePasswordLoadingState) {
-         //   LoadingHelper.showLoading(context);
-            print('Đang load');
+            LoadingHelper.showLoading(context);
           }
           else if (state is UpdatePasswordSuccessState) {
-            print('Thành công');
-         //   LoadingHelper.hideLoading(context);
-         //    FunctionHelper.showSnackBar(
-         //      context: context,
-         //      title: "Đổi mật khẩu thành công",
-         //    );
+           LoadingHelper.hideLoading(context);
+            FunctionHelper.showSnackBar(
+              context: context,
+              title: "Đổi mật khẩu thành công",
+            );
+            _refresh();
+
+
           }
           else if (state is UpdatePasswordErrorState) {
-            print('Thất bại');
-            // LoadingHelper.hideLoading(context);
+             LoadingHelper.hideLoading(context);
              FunctionHelper.showSnackBar(context: context, title: state.error);
-            print(state.error);
           }
         },
         child: Padding(
@@ -242,6 +241,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       return false;
   }
     return true;
+
+}
+void _refresh(){
+    _oldPasswordController.clear();
+    _newPasswordController.clear();
+    _retypePasswordController.clear();
 
 }
 }

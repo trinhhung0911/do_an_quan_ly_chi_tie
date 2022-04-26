@@ -69,7 +69,7 @@ class _DrawerItemState extends State<DrawerItem> {
           ),
           ListTile(
             leading: const Icon(Icons.arrow_back),
-            title: const Text("Thoát"),
+            title: const Text("Đăng xuất"),
             onTap: () {
              Navigator.pushNamed(context, Constants.loginScreen);
             },

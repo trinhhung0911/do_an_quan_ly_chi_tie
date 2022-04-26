@@ -24,7 +24,7 @@ class CategorySpendService{
     return categorySpend;
   }
   Future<dynamic> updateCategorySpend({required CategorySpend categorySpend}) async {
-    print(categorySpend.id);
+    // print(categorySpend.id);
     CollectionReference categorySpendCollection =
     FirebaseFirestore.instance.collection(CollectionName.categorySpend.name);
     await categorySpendCollection.doc(categorySpend.id).update(categorySpend.toJson());

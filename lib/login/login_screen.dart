@@ -26,6 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool validateEmail = true;
   bool passwordVisible = true;
   String errorText = 'Nhập đúng định dạng email !';
+
   @override
   void initState() {
     // TODO: implement initState
@@ -47,12 +48,14 @@ class _LoginScreenState extends State<LoginScreen> {
             if (state is LoginLoadingState) {
 
               LoadingHelper.showLoading(context);
+              print('Đang load');
             } else if (state is LoginSuccessState) {
-
               LoadingHelper.hideLoading(context);
               Navigator.pushNamed(context, Constants.homeScreen,
                   arguments: _emailController.text);
+              print('Thành công');
             } else if (state is LoginErrorState) {
+              print('Thất bại');
               LoadingHelper.hideLoading(context);
               FunctionHelper.showSnackBar(context: context, title: state.error);
             }
@@ -170,9 +173,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextSpan(
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            // Navigator.pushNamed(
-                            //     context, Constants.forgotPasswordScreen);
-                            Navigator.pushNamed(context, Constants.homeScreen,arguments: 'hung09112000@gmail.com');
+                            Navigator.pushNamed(
+                                context, Constants.forgotPasswordScreen);
+                           // Navigator.pushNamed(context, Constants.homeScreen,arguments: 'hung09112000@gmail.com');
                           },
                         text: "Quên mật khẩu ?",
                         style: AppThemes.lightText,
@@ -193,11 +196,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             fontSize: 18,
                           ),
                         ),
-                        color: (_email.trim().isEmpty ||
-                                validateEmail == false ||
-                                _pass.trim().isEmpty)
-                            ? AppColors.hiedColor
-                            : AppColors.appColor,
+                        color: AppColors.appColor,
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(
                             Radius.circular(10),

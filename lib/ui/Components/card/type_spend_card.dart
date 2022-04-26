@@ -28,6 +28,11 @@ class _TypeSpendCardState extends State<TypeSpendCard> {
           LoadingHelper.showLoading(context);
         } else if (state is DeleteCategorySpendSuccessState) {
           LoadingHelper.hideLoading(context);
+          FunctionHelper.showSnackBar(
+            context: context,
+            title:
+            "Xóa danh muc chi ${widget.categorySpend.name} thành công !",
+          );
           BlocProvider.of<CategorySpendBloc>(context)
               .add(GetCategorySpendsEvent());
         } else if (state is DeleteCategorySpendErrorState) {
@@ -70,11 +75,7 @@ class _TypeSpendCardState extends State<TypeSpendCard> {
               BlocProvider.of<CategorySpendBloc>(context).add(
                 DeleteCategorySpendEvent(categorySpend: widget.categorySpend),
               );
-              FunctionHelper.showSnackBar(
-                context: context,
-                title:
-                    "Xóa danh muc chi ${widget.categorySpend.name} thành công !",
-              );
+
             }
           },
           child: Row(

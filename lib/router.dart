@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quan_ly_chi_tieu/configs/constants.dart';
 import 'package:quan_ly_chi_tieu/login/login_screen.dart';
 import 'package:quan_ly_chi_tieu/login/register_screen.dart';
-import 'package:quan_ly_chi_tieu/ui/Doi_Mat_Khau/change_password_screen.dart';
+import 'package:quan_ly_chi_tieu/login/change_password_screen.dart';
 
 import 'package:quan_ly_chi_tieu/ui/Quan_ly_chi/spend_screen.dart';
 import 'package:quan_ly_chi_tieu/ui/Quan_ly_chi/danh_muc_chi/add_category_spend_screen.dart';

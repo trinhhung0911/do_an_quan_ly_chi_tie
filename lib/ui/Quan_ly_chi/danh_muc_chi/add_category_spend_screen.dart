@@ -117,11 +117,12 @@ class _AddTypeSpendScreenState extends State<AddTypeSpendScreen> {
                       const Icon(
                         Icons.arrow_circle_down_sharp,
                         size: 28,
+                        color: Colors.white,
                       ),
                       const SizedBox(
                         width: 5,
                       ),
-                      Text(categorySpend==null?"Thêm":"Cập nhật"),
+                      Text(categorySpend==null?"Thêm":"Cập nhật",style: AppThemes.commonText.copyWith(color: Colors.white),),
                     ],
                   ),
                   shape: const RoundedRectangleBorder(
@@ -133,7 +134,7 @@ class _AddTypeSpendScreenState extends State<AddTypeSpendScreen> {
                     if(_nameController.text.trim().isNotEmpty){
                       var categorySpend1 = CategorySpend(
                           name:_nameController.text.trim(),
-                        maximum:_maximumController.text.isEmpty?int.tryParse(_maximumController.text.trim()) : 0,
+                        maximum:_maximumController.text.isNotEmpty?int.tryParse(_maximumController.text.trim()) : 0,
                         note: _noteController.text.trim()
                       );
                       if(categorySpend==null){

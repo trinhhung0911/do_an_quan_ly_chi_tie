@@ -8,6 +8,7 @@ import 'package:quan_ly_chi_tieu/configs/colors.dart';
 import 'package:quan_ly_chi_tieu/configs/constants.dart';
 import 'package:quan_ly_chi_tieu/configs/themes.dart';
 import 'package:quan_ly_chi_tieu/models/users.dart';
+import 'package:quan_ly_chi_tieu/utils/encryption_manager.dart';
 import 'package:quan_ly_chi_tieu/utils/function_helper.dart';
 import 'package:quan_ly_chi_tieu/utils/loading_helper.dart';
 import 'package:quan_ly_chi_tieu/utils/validate_helper.dart';
@@ -28,15 +29,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool confirmPasswordVisible = true;
 
   bool validateEmail = true;
-  String errorEmailText= '';
+  String errorEmailText = '';
 
   bool validatePassWord = true;
-  String errorPassWordText='' ;
+  String errorPassWordText = '';
 
   String _email = '';
-   String _password = '';
-   String _confirmPassword='';
-
+  String _password = '';
+  String _confirmPassword = '';
 
   @override
   Widget build(BuildContext context) {
@@ -210,9 +210,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                       ),
                     ),
-                    onChanged: (value){
+                    onChanged: (value) {
                       setState(() {
-                        _confirmPassword=value;
+                        _confirmPassword = value;
                       });
                     },
                   ),
@@ -225,33 +225,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       "Đăng ký",
                       style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
-                    color: (validatePassWord == false ||
-                            validateEmail == false ||
-                            _email.trim().isEmpty ||
-                           _password.trim().isEmpty||
-                     _confirmPassword.trim().isEmpty
-                           )
-                        ? AppColors.hiedColor
-                        : AppColors.appColor,
+                    color: AppColors.appColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                     onPressed: () {
-                      if(validatePassWord == true && validateEmail == true && _email.isNotEmpty && _password.isNotEmpty&&_password.trim() == _confirmPassword.trim()){
+                      if (validatePassWord == true &&
+                          validateEmail == true &&
+                          _email.isNotEmpty &&
+                          _password.isNotEmpty &&
+                          _password.trim() == _confirmPassword.trim()) {
                         var user = Users(
                             name: _nameController.text.trim(),
                             email: _emailController.text.trim(),
-                            password: _passController.text.trim(),
+                            password:  _passController.text.trim(),
                             startDate: DateTime.now());
-                        BlocProvider.of<UserBloc>(context)
-                            .add(CreateUserEvent(users: user));
+                        BlocProvider.of<UserBloc>(context).add(
+                          CreateUserEvent(users: user),
+                        );
+
                       }
-                      if(_email.isEmpty||_password.isEmpty||_confirmPassword.isEmpty){
+                      if (_email.isEmpty ||
+                          _password.isEmpty ||
+                          _confirmPassword.isEmpty) {
                         FunctionHelper.showSnackBar(
-                            context: context,
-                            title: 'Nhập đầy đủ thông tin !');
+                            context: context, title: 'Nhập đầy đủ thông tin !');
                       }
-                      if (_password.trim() != _confirmPassword.trim()&&_password.isNotEmpty&&_confirmPassword.isNotEmpty){
+                      if (_password.trim() != _confirmPassword.trim() &&
+                          _password.isNotEmpty &&
+                          _confirmPassword.isNotEmpty) {
                         FunctionHelper.showSnackBar(
                             context: context,
                             title: 'Mật khẩu chưa trùng nhau !');
@@ -285,7 +287,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
-  void refresh(){
+
+  void refresh() {
     setState(() {
       _emailController.clear();
       _nameController.clear();
@@ -294,14 +297,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
       passwordVisible = true;
       confirmPasswordVisible = true;
       validateEmail = true;
-      errorEmailText= '';
+      errorEmailText = '';
       validatePassWord = true;
-      errorPassWordText='' ;
+      errorPassWordText = '';
       _email = '';
       _password = '';
-      _confirmPassword='';
+      _confirmPassword = '';
     });
-
   }
-
 }

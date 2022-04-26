@@ -28,7 +28,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             error: 'Sai mật khẩu');
       } else if (e.code == "invalid-email") {
         yield const LoginErrorState(error: 'Sai định dạng email');
+      } else if(e.code=='network-request-failed'){
+        yield  const LoginErrorState(error: 'Kiểm tra lại kết nối internet của bạn !');
       }
+
     }
 
   }

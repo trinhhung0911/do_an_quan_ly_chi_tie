@@ -41,13 +41,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           listener: (context, state) {
             if (state is ForgotLoadingState) {
              LoadingHelper.showLoading(context);
-             // print('đang load');
             } else if (state is ForgotSuccessState) {
               LoadingHelper.hideLoading(context);
               FunctionHelper.showSnackBar(context: context, title: 'Kiểm tra email của bạn để đặt mật khẩu mới');
-              Navigator.pushNamed(context, Constants.loginScreen);
+              _emailController.clear();
+             Navigator.pushNamed(context, Constants.loginScreen);
             } else if (state is ForgotErrorState) {
-            //  print('Lỗi');
               LoadingHelper.hideLoading(context);
               FunctionHelper.showSnackBar(context: context, title: state.error);
             }
@@ -122,9 +121,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                               "Gửi",
                               style: TextStyle(color: Colors.white, fontSize: 18),
                             ),
-                            color:  (validateEmail == false||_emailController.text.isEmpty)
-                                ? AppColors.hiedColor
-                                : AppColors.appColor,
+                            color: AppColors.appColor,
                             shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.all(
                                 Radius.circular(10),
