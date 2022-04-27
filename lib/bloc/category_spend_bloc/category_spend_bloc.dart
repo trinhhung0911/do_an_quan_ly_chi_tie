@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quan_ly_chi_tieu/bloc/category_spend_bloc/category_spend_event.dart';
 import 'package:quan_ly_chi_tieu/bloc/category_spend_bloc/category_spend_state.dart';
-import 'package:quan_ly_chi_tieu/models/categor_spend.dart';
-import 'package:quan_ly_chi_tieu/repositories/category_repository.dart';
+import 'package:quan_ly_chi_tieu/models/category_spend.dart';
+import 'package:quan_ly_chi_tieu/repositories/category_spend_repository.dart';
 
 
 

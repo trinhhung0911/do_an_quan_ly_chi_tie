@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:quan_ly_chi_tieu/models/categor_spend.dart';
+import 'package:quan_ly_chi_tieu/models/category_spend.dart';
 
 abstract class CategorySpendState extends Equatable {
   const CategorySpendState();

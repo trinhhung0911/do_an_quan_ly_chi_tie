@@ -173,9 +173,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextSpan(
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Navigator.pushNamed(
-                                context, Constants.forgotPasswordScreen);
-                           // Navigator.pushNamed(context, Constants.homeScreen,arguments: 'hung09112000@gmail.com');
+                            // Navigator.pushNamed(
+                            //     context, Constants.forgotPasswordScreen);
+                           Navigator.pushNamed(context, Constants.homeScreen,arguments: 'hung09112000@gmail.com');
                           },
                         text: "Quên mật khẩu ?",
                         style: AppThemes.lightText,

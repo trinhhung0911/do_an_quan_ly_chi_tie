@@ -6,7 +6,7 @@ import 'package:quan_ly_chi_tieu/bloc/category_spend_bloc/category_spend_state.d
 import 'package:quan_ly_chi_tieu/configs/colors.dart';
 import 'package:quan_ly_chi_tieu/configs/constants.dart';
 import 'package:quan_ly_chi_tieu/configs/themes.dart';
-import 'package:quan_ly_chi_tieu/models/categor_spend.dart';
+import 'package:quan_ly_chi_tieu/models/category_spend.dart';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:quan_ly_chi_tieu/utils/function_helper.dart';
 import 'package:quan_ly_chi_tieu/utils/loading_helper.dart';

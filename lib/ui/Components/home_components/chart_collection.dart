@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quan_ly_chi_tieu/configs/app_data.dart';
-import 'package:quan_ly_chi_tieu/models/categor_spend.dart';
+import 'package:quan_ly_chi_tieu/models/category_spend.dart';
 import 'package:quan_ly_chi_tieu/ui/Components/home_components/spend_chart_circle.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import '../../../configs/themes.dart';

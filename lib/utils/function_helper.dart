@@ -5,19 +5,15 @@ class FunctionHelper {
   static String formatDate(DateTime dateTime) {
     return DateFormat('yyyy-MM-dd').format(dateTime);
   }
-
   static DateTime formatDateText(String text) {
     return DateFormat("yyyy-MM-dd").parse(text);
   }
-
   static String formatDateHour(DateTime dateTime) {
     return DateFormat('kk:mm a').format(dateTime);
   }
-
   static String formatDateYearMonthDay(DateTime dateTime){
     return DateFormat('yyyy-MM-dd - kk:mm').format(dateTime);
   }
-
 
   static Future<dynamic> showSnackBar({
     required BuildContext context,
@@ -33,7 +29,6 @@ class FunctionHelper {
       ),
     );
   }
-
   static Future<dynamic> selectDate(
       {required BuildContext context,
         DateTime? initialDate,

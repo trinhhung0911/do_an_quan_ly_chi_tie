@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quan_ly_chi_tieu/bloc/category_spend_bloc/category_spend_bloc.dart';
 import 'package:quan_ly_chi_tieu/bloc/category_spend_bloc/category_spend_event.dart';
 import 'package:quan_ly_chi_tieu/bloc/category_spend_bloc/category_spend_state.dart';
-import 'package:quan_ly_chi_tieu/models/categor_spend.dart';
+import 'package:quan_ly_chi_tieu/models/category_spend.dart';
 import 'package:quan_ly_chi_tieu/ui/Components/card/refresh_card.dart';
 import 'package:quan_ly_chi_tieu/ui/Components/card/type_spend_card.dart';
 import 'package:quan_ly_chi_tieu/utils/function_helper.dart';
@@ -13,22 +13,23 @@ import '../../../configs/constants.dart';
 import '../../Components/home_components/drawer_item_card.dart';
 import '../../home_screen.dart';
 
-class DanhMucChiScreen extends StatefulWidget {
-  const DanhMucChiScreen({Key? key}) : super(key: key);
+class CategorySpendScreen extends StatefulWidget {
+  const CategorySpendScreen({Key? key}) : super(key: key);
   @override
-  _DanhMucChiScreenState createState() => _DanhMucChiScreenState();
+  _CategorySpendScreenState createState() => _CategorySpendScreenState();
 }
 
 List<CategorySpend> categorySpends = [];
 
-class _DanhMucChiScreenState extends State<DanhMucChiScreen> {
+class _CategorySpendScreenState extends State<CategorySpendScreen> {
   @override
   void initState() {
     BlocProvider.of<CategorySpendBloc>(context).add(GetCategorySpendsEvent());
     // TODO: implement initState
     super.initState();
   }
-  final refreshKeyEmployee = GlobalKey<RefreshIndicatorState>();
+
+  final refreshKeyCategory = GlobalKey<RefreshIndicatorState>();
 
   @override
   Widget build(BuildContext context) {
@@ -40,20 +41,19 @@ class _DanhMucChiScreenState extends State<DanhMucChiScreen> {
         ),
         centerTitle: true,
       ),
-      body:  RefreshWidget(
+      body: RefreshWidget(
         onRefresh: refresh,
-        keyRefresh: refreshKeyEmployee,
+        keyRefresh: refreshKeyCategory,
         child: BlocConsumer<CategorySpendBloc, CategorySpendState>(
           buildWhen: (context, state) {
             return state is GetCategorySpendLoadingState ||
                 state is GetCategorySpendLoadedState ||
-                state is GetCategorySpendLoadedState;
+                state is GetCategorySpendErrorState;
           },
           builder: (context, state) {
             if (state is GetCategorySpendLoadingState) {
               LoadingHelper.showLoading(context);
-            }
-            else if (state is GetCategorySpendLoadedState) {
+            } else if (state is GetCategorySpendLoadedState) {
               LoadingHelper.hideLoading(context);
               categorySpends = state.categorySpend;
               return categorySpends.isNotEmpty
@@ -111,8 +111,9 @@ class _DanhMucChiScreenState extends State<DanhMucChiScreen> {
       ),
     );
   }
+
   Future<void> refresh() async {
-    refreshKeyEmployee.currentState?.show();
+    refreshKeyCategory.currentState?.show();
     await Future.delayed(const Duration(microseconds: 400));
     BlocProvider.of<CategorySpendBloc>(context).add(GetCategorySpendsEvent());
   }

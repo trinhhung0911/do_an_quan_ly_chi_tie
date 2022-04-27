@@ -4,10 +4,11 @@ import 'package:quan_ly_chi_tieu/bloc/category_spend_bloc/category_spend_event.d
 import 'package:quan_ly_chi_tieu/bloc/category_spend_bloc/category_spend_state.dart';
 import 'package:quan_ly_chi_tieu/configs/colors.dart';
 import 'package:quan_ly_chi_tieu/configs/themes.dart';
-import 'package:quan_ly_chi_tieu/models/categor_spend.dart';
+import 'package:quan_ly_chi_tieu/models/category_spend.dart';
 import 'package:quan_ly_chi_tieu/utils/function_helper.dart';
 import 'package:quan_ly_chi_tieu/utils/loading_helper.dart';
 import '../../../bloc/category_spend_bloc/category_spend_bloc.dart';
+
 class AddTypeSpendScreen extends StatefulWidget {
 
   final dynamic arg;
@@ -39,23 +40,26 @@ class _AddTypeSpendScreenState extends State<AddTypeSpendScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.appColor,
-        title:  Center(child: Text(categorySpend==null?"Thêm danh mục chi ":"Cập nhật danh mục chi"),),
+        title:  Center(child: Text(categorySpend==null?"Thêm danh mục chi ":"Cập nhật danh mục chi !"),),
       ),
       body: BlocListener<CategorySpendBloc, CategorySpendState>(
         listener: (context, state) {
           if (state is CreateCategorySpendLoadingState||
               state is UpdateCategorySpendLoadingState) {
+
             LoadingHelper.showLoading(context);
           }
           else if (state is CreateCategorySpendSuccessState||
               state is UpdateCategorySpendSuccessState) {
+
             LoadingHelper.hideLoading(context);
             Navigator.pop(context);
             FunctionHelper.showSnackBar(
                 context: context,
                 title:categorySpend==null?
-                'Thêm danh mục chi thành công !': 'Cập nhật danh mục chi thành công');
+                'Thêm danh mục chi thành công !': 'Cập nhật danh mục chi thành công !');
             BlocProvider.of<CategorySpendBloc>(context).add(GetCategorySpendsEvent());
+
           }
           else if (state is CreateCategorySpendErrorState) {
             LoadingHelper.hideLoading(context);

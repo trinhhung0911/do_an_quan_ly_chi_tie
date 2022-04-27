@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quan_ly_chi_tieu/configs/colors.dart';
 import 'package:quan_ly_chi_tieu/ui/Quan_ly_chi/danh_muc_chi/category_spend_screen.dart';
-import 'package:quan_ly_chi_tieu/ui/Quan_ly_chi/quan_ly_chi/quan_ly_chi_screen.dart';
+import 'package:quan_ly_chi_tieu/ui/Quan_ly_chi/quan_ly_chi/manage_spend_screen.dart';
 class SpendScreen extends StatefulWidget {
   const SpendScreen({Key? key}) : super(key: key);
   @override
@@ -10,8 +10,8 @@ class SpendScreen extends StatefulWidget {
 class _SpendScreenState extends State<SpendScreen> {
   int _selectedIndex = 0;
   final List<Widget> _widgetOptions=[
-    const QuanLyChiScreen(),
-    const DanhMucChiScreen(),
+    const ManageSpendScreen(),
+    const CategorySpendScreen(),
   ];
   @override
   void initState() {

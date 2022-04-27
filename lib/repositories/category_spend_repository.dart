@@ -1,5 +1,5 @@
-import 'package:quan_ly_chi_tieu/models/categor_spend.dart';
-import 'package:quan_ly_chi_tieu/services/category_service.dart';
+import 'package:quan_ly_chi_tieu/models/category_spend.dart';
+import 'package:quan_ly_chi_tieu/services/category_spend_service.dart';
 
 class CategorySpendRepository{
   Future<dynamic> createCategorySpend({required CategorySpend categorySpend,

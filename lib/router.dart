@@ -6,7 +6,7 @@ import 'package:quan_ly_chi_tieu/login/change_password_screen.dart';
 
 import 'package:quan_ly_chi_tieu/ui/Quan_ly_chi/spend_screen.dart';
 import 'package:quan_ly_chi_tieu/ui/Quan_ly_chi/danh_muc_chi/add_category_spend_screen.dart';
-import 'package:quan_ly_chi_tieu/ui/Quan_ly_chi/quan_ly_chi/them_khoan_chi_screen.dart';
+import 'package:quan_ly_chi_tieu/ui/Quan_ly_chi/quan_ly_chi/add_cost_spend_screen.dart';
 import 'package:quan_ly_chi_tieu/ui/home_screen.dart';
 import 'login/forgot_password_screen.dart';
 
@@ -24,7 +24,7 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
     case Constants.spendScreen:
       return generateRouter(screen: const SpendScreen());
     case Constants.addSpendScreen:
-      return generateRouter(screen: const AddSpendScreen());
+      return generateRouter(screen: AddSpendScreen(arg: args,));
     case Constants.addTypeSpendScreen:
       return generateRouter(screen: AddTypeSpendScreen(arg: args,));
     case Constants.changePasswordScreen:
