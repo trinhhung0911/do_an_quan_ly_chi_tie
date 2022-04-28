@@ -1,41 +1,44 @@
+
+
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quan_ly_chi_tieu/bloc/category_spend_bloc/category_spend_bloc.dart';
-import 'package:quan_ly_chi_tieu/bloc/category_spend_bloc/category_spend_event.dart';
-import 'package:quan_ly_chi_tieu/bloc/category_spend_bloc/category_spend_state.dart';
+import 'package:quan_ly_chi_tieu/bloc/category_collect_bloc/category_collect_bloc.dart';
+import 'package:quan_ly_chi_tieu/bloc/category_collect_bloc/category_collect_event.dart';
+import 'package:quan_ly_chi_tieu/bloc/category_collect_bloc/category_collect_state.dart';
 import 'package:quan_ly_chi_tieu/configs/colors.dart';
 import 'package:quan_ly_chi_tieu/configs/constants.dart';
 import 'package:quan_ly_chi_tieu/configs/themes.dart';
-import 'package:quan_ly_chi_tieu/models/category_spend.dart';
-import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:quan_ly_chi_tieu/models/category_Collect.dart';
 import 'package:quan_ly_chi_tieu/utils/function_helper.dart';
 import 'package:quan_ly_chi_tieu/utils/loading_helper.dart';
 
-class TypeSpendCard extends StatefulWidget {
-  CategorySpend categorySpend;
+class TypeCollectCard extends StatefulWidget {
+  CategoryCollect categoryCollect;
   int index;
-  TypeSpendCard(this.categorySpend, this.index, {Key? key}) : super(key: key);
+  TypeCollectCard(this.categoryCollect, this.index, {Key? key})
+      : super(key: key);
   @override
-  _TypeSpendCardState createState() => _TypeSpendCardState();
+  _TypeCollectCardState createState() => _TypeCollectCardState();
 }
 
-class _TypeSpendCardState extends State<TypeSpendCard> {
+class _TypeCollectCardState extends State<TypeCollectCard> {
   @override
   Widget build(BuildContext context) {
-    return BlocListener<CategorySpendBloc, CategorySpendState>(
+    return BlocListener<CategoryCollectBloc, CategoryCollectState>(
       listener: (context, state) {
-        if (state is DeleteCategorySpendLoadingState) {
+        if (state is DeleteCategoryCollectLoadingState) {
           LoadingHelper.showLoading(context);
-        } else if (state is DeleteCategorySpendSuccessState) {
+        } else if (state is DeleteCategoryCollectSuccessState) {
           LoadingHelper.hideLoading(context);
           FunctionHelper.showSnackBar(
             context: context,
             title:
-            "Xóa danh muc chi ${widget.categorySpend.name} thành công !",
+                "Xóa danh muc chi ${widget.categoryCollect.name} thành công !",
           );
-          BlocProvider.of<CategorySpendBloc>(context)
-              .add(GetCategorySpendsEvent());
-        } else if (state is DeleteCategorySpendErrorState) {
+          BlocProvider.of<CategoryCollectBloc>(context)
+              .add(GetCategoryCollectsEvent());
+        } else if (state is DeleteCategoryCollectErrorState) {
           LoadingHelper.hideLoading(context);
           FunctionHelper.showSnackBar(context: context, title: state.error);
         }
@@ -52,13 +55,13 @@ class _TypeSpendCardState extends State<TypeSpendCard> {
           onTap: () async {
             var result = await Navigator.pushNamed(
               context,
-              Constants.addTypeSpendScreen,
-              arguments: widget.categorySpend,
+              Constants.addCategoryCollectScreen,
+              arguments: widget.categoryCollect,
             );
             if (result != null) {
               setState(
                 () {
-                  widget.categorySpend = result as CategorySpend;
+                  widget.categoryCollect = result as CategoryCollect;
                 },
               );
             }
@@ -70,26 +73,26 @@ class _TypeSpendCardState extends State<TypeSpendCard> {
                 okLabel: "Đồng ý",
                 cancelLabel: "Hủy",
                 message:
-                    'Bạn có muốn xóa danh mục chi ${widget.categorySpend.name} !');
+                    'Bạn có muốn xóa danh mục chi ${widget.categoryCollect.name} !');
             if (result == OkCancelResult.ok) {
-              BlocProvider.of<CategorySpendBloc>(context).add(
-                DeleteCategorySpendEvent(categorySpend: widget.categorySpend),
+              BlocProvider.of<CategoryCollectBloc>(context).add(
+                DeleteCategoryCollectEvent(
+                    categoryCollect: widget.categoryCollect),
               );
-
             }
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               const Icon(
-                Icons.account_circle_outlined,
+                Icons.archive_outlined,
                 size: 40,
               ),
               const SizedBox(
                 width: 20,
               ),
               Text(
-                widget.categorySpend.name,
+                widget.categoryCollect.name,
                 style: AppThemes.commonText,
               )
             ],
@@ -98,4 +101,5 @@ class _TypeSpendCardState extends State<TypeSpendCard> {
       ),
     );
   }
+
 }

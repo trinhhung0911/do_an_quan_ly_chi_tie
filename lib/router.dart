@@ -34,7 +34,7 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
     case Constants.collectScreen:
       return generateRouter(screen: const CollectScreen());
     case Constants.addCategoryCollectScreen:
-      return generateRouter(screen: const AddCategoryCollectScreen());
+      return generateRouter(screen:  AddCategoryCollectScreen(arg: args,));
     default:
       throw ('This route name does not exit');
   }

@@ -93,7 +93,7 @@ class _AddTypeSpendScreenState extends State<AddTypeSpendScreen> {
                   controller: _maximumController,
                   style:AppThemes.commonText,
                   decoration: InputDecoration(
-                    prefixIcon:const Icon(Icons.notes,size: 30,) ,
+                    prefixIcon:const Icon(Icons.work,size: 30,) ,
                     hintText: 'Hạn mức ',
                     hintStyle:AppThemes.commonText,
                   ),

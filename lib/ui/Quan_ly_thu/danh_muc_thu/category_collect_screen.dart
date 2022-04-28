@@ -6,6 +6,7 @@ import 'package:quan_ly_chi_tieu/configs/colors.dart';
 import 'package:quan_ly_chi_tieu/configs/constants.dart';
 
 import 'package:quan_ly_chi_tieu/ui/Components/card/drawer_item_card.dart';
+import 'package:quan_ly_chi_tieu/ui/Components/card/type_collect_card.dart';
 import 'package:quan_ly_chi_tieu/ui/home_screen.dart';
 import 'package:quan_ly_chi_tieu/utils/function_helper.dart';
 import 'package:quan_ly_chi_tieu/utils/loading_helper.dart';
@@ -64,7 +65,7 @@ class _CategoryCollectScreenState extends State<CategoryCollectScreen> {
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: categoryCollects.length,
-                      itemBuilder: (context, index) =>Text(categoryCollects[index].name),
+                      itemBuilder: (context, index) =>TypeCollectCard(categoryCollects[index],index),
                     ),
                   ],
                 ),

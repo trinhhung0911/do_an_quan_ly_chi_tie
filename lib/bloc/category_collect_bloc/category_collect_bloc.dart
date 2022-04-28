@@ -17,12 +17,12 @@ class CategoryCollectBloc extends Bloc<CategoryCollectEvent, CategoryCollectStat
 
     } else if (event is GetCategoryCollectsEvent) {
       yield* _mapGetCategoryCollectsToState(event);
+
+    } else if (event is UpdateCategoryCollectEvent) {
+      yield* _mapUpdateCategoryCollectToState(event);
+    } else if (event is DeleteCategoryCollectEvent) {
+      yield* _mapDeleteCategoryCollectToState(event);
     }
-    // } else if (event is UpdateCategoryCollectEvent) {
-    //   yield* _mapUpdateCategoryCollectToState(event);
-    // } else if (event is DeleteCategoryCollectEvent) {
-    //   yield* _mapDeleteCategoryCollectToState(event);
-    // }
   }
 
   Stream<CategoryCollectState> _mapCreateCategoryCollectToState(
@@ -50,27 +50,27 @@ class CategoryCollectBloc extends Bloc<CategoryCollectEvent, CategoryCollectStat
     }
   }
 
-  // Stream<CategoryCollectState> _mapUpdateCategoryCollectToState(
-  //     UpdateCategoryCollectEvent event) async* {
-  //   yield UpdateCategoryCollectLoadingState();
-  //   try {
-  //     await categoryCollectRepository.updateCategoryCollect(
-  //         categoryCollect: event.categoryCollect);
-  //     yield UpdateCategoryCollectSuccessState();
-  //   } on FirebaseAuthException catch (e) {
-  //     yield const UpdateCategoryCollectErrorState(error: 'Cập nhật thất bại !');
-  //   }
-  // }
-  //
-  // Stream<CategoryCollectState> _mapDeleteCategoryCollectToState(
-  //     DeleteCategoryCollectEvent event) async* {
-  //   yield DeleteCategoryCollectLoadingState();
-  //   try {
-  //     await categoryCollectRepository.deleteCategoryCollect(
-  //         categoryCollect: event.categoryCollect);
-  //     yield DeleteCategoryCollectSuccessState();
-  //   } on FirebaseAuthException catch (e) {
-  //     yield const DeleteCategoryCollectErrorState(error: 'Xóa thất bại !');
-  //   }
-  // }
+  Stream<CategoryCollectState> _mapUpdateCategoryCollectToState(
+      UpdateCategoryCollectEvent event) async* {
+    yield UpdateCategoryCollectLoadingState();
+    try {
+      await categoryCollectRepository.updateCategoryCollect(
+          categoryCollect: event.categoryCollect);
+      yield UpdateCategoryCollectSuccessState();
+    } on FirebaseAuthException catch (e) {
+      yield const UpdateCategoryCollectErrorState(error: 'Cập nhật thất bại !');
+    }
+  }
+
+  Stream<CategoryCollectState> _mapDeleteCategoryCollectToState(
+      DeleteCategoryCollectEvent event) async* {
+    yield DeleteCategoryCollectLoadingState();
+    try {
+      await categoryCollectRepository.deleteCategoryCollect(
+          categoryCollect: event.categoryCollect);
+      yield DeleteCategoryCollectSuccessState();
+    } on FirebaseAuthException catch (e) {
+      yield const DeleteCategoryCollectErrorState(error: 'Xóa thất bại !');
+    }
+  }
 }

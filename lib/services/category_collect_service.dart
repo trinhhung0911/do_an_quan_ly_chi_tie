@@ -24,8 +24,6 @@ class CategoryCollectService{
       var e = CategoryCollect.fromJson(item.data() as Map<String, dynamic>)..id = item.id;
       if(e.idUser == idUser) {
         categoryCollect.add(e,);
-        print(e.name);
-        print(e.note);
       }
     }
     return categoryCollect;
@@ -37,6 +35,7 @@ class CategoryCollectService{
     FirebaseFirestore.instance.collection(CollectionName.categoryCollect.name);
     await categoryCollectCollection.doc(categoryCollect.id).update(categoryCollect.toJson());
   }
+
   Future<dynamic> deleteCategoryCollect({required CategoryCollect categoryCollect}) async {
     CollectionReference categoryCollectCollection = FirebaseFirestore.instance.collection(CollectionName.categoryCollect.name);
     await categoryCollectCollection.doc(categoryCollect.id).delete();
