@@ -280,6 +280,7 @@ class _AddSpendScreenState extends State<AddSpendScreen> {
               physics: const AlwaysScrollableScrollPhysics(),
               child: Column(
                 children: [
+                  categorySpends.isNotEmpty?
                   ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
@@ -305,7 +306,7 @@ class _AddSpendScreenState extends State<AddSpendScreen> {
                         ),
                       ),
                     ),
-                  ),
+                  ):Center(child: Text("Chưa có danh mục chi !",style: AppThemes.commonText,),),
                 ],
               ),
             ),

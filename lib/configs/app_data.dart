@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:quan_ly_chi_tieu/models/category_spend.dart';
-import 'package:quan_ly_chi_tieu/storage/secure_storge.dart';
 
 class AppData {
 static List<SalesData> danhmucchi=[

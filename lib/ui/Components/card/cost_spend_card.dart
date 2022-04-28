@@ -42,7 +42,6 @@ class _CostSpendCardState extends State<CostSpendCard> {
         }
       },
       child: Container(
-
         width: double.infinity,
         decoration: BoxDecoration(
           color: AppColors.spendCardColor,

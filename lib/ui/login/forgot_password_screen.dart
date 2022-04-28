@@ -1,6 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quan_ly_chi_tieu/bloc/forgot_bloc/forgot_bloc.dart';
+import 'package:quan_ly_chi_tieu/bloc/forgot_bloc/forgot_event.dart';
+import 'package:quan_ly_chi_tieu/bloc/forgot_bloc/forgot_state.dart';
 import 'package:quan_ly_chi_tieu/configs/colors.dart';
 import 'package:quan_ly_chi_tieu/configs/constants.dart';
 import 'package:quan_ly_chi_tieu/configs/themes.dart';
@@ -8,9 +11,6 @@ import 'package:quan_ly_chi_tieu/utils/function_helper.dart';
 import 'package:quan_ly_chi_tieu/utils/loading_helper.dart';
 import 'package:quan_ly_chi_tieu/utils/validate_helper.dart';
 
-import '../bloc/forgot_bloc/forgot_bloc.dart';
-import '../bloc/forgot_bloc/forgot_event.dart';
-import '../bloc/forgot_bloc/forgot_state.dart';
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({Key? key}) : super(key: key);
   @override

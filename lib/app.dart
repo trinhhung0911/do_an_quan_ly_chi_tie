@@ -1,9 +1,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:quan_ly_chi_tieu/configs/colors.dart';
-import 'login/login_screen.dart';
+
 import 'package:quan_ly_chi_tieu/router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:quan_ly_chi_tieu/ui/login/login_screen.dart';
 
 class MyApp extends StatelessWidget {
   @override

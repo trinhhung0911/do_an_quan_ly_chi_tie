@@ -37,6 +37,7 @@ class _DrawerItemState extends State<DrawerItem> {
             leading: const Icon(Icons.account_balance_wallet_sharp),
             title: const Text("Quản lý thu"),
             onTap: () {
+              Navigator.pushNamed(context, Constants.collectScreen);
             },
           ),
           ListTile(

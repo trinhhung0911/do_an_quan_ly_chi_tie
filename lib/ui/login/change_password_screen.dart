@@ -6,7 +6,7 @@ import 'package:quan_ly_chi_tieu/bloc/forgot_bloc/forgot_event.dart';
 import 'package:quan_ly_chi_tieu/bloc/forgot_bloc/forgot_state.dart';
 import 'package:quan_ly_chi_tieu/configs/colors.dart';
 import 'package:quan_ly_chi_tieu/models/users.dart';
-import 'package:quan_ly_chi_tieu/ui/Components/home_components/drawer_item_card.dart';
+import 'package:quan_ly_chi_tieu/ui/Components/card/drawer_item_card.dart';
 import 'package:quan_ly_chi_tieu/ui/home_screen.dart';
 import 'package:quan_ly_chi_tieu/utils/function_helper.dart';
 import 'package:quan_ly_chi_tieu/utils/loading_helper.dart';
@@ -49,7 +49,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               title: "Đổi mật khẩu thành công",
             );
             _refresh();
-
 
           }
           else if (state is UpdatePasswordErrorState) {

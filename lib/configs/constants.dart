@@ -7,5 +7,10 @@ class Constants {
   static const String addSpendScreen='/add_spend_screen';
   static const String addTypeSpendScreen='/them_danh_muc_chi_screen';
   static const String changePasswordScreen='/change_password_screen';
+
+  static const String  collectScreen='/collect_screen';
+  static const String addCategoryCollectScreen='/add_category_collect_screen';
+  static const String addCostCollectScreen='/add_cost_collect_screen';
+
 }
-enum CollectionName { users, loaithu,categorySpend,khoanthu,costSpend }
+enum CollectionName {users, categoryCollect,categorySpend,costCollect,costSpend }

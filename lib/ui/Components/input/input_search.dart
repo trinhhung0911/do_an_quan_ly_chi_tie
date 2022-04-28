@@ -8,7 +8,6 @@ class InputSearch extends StatefulWidget {
   static TextEditingController textSearchController = TextEditingController();
   static List<String> items = [
     'Tất cả',
-    'Ngày này',
     'Tuần này',
     'Tháng này',
     'Năm này',

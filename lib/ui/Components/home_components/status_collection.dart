@@ -9,7 +9,7 @@ class StatusCollection extends StatefulWidget {
 
 class _StatusCollectionState extends State<StatusCollection> {
   static List<String> items = [
-   "Tháng này", "Hôm nay", "Tuần này", "Năm nay"
+  "Tất cả" ,"Tháng này", "Tuần này", "Năm nay"
   ];
   static String dropDownValue = items[0];
   @override

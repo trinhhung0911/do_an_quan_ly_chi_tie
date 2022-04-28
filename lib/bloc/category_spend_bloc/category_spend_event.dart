@@ -14,12 +14,11 @@ class CreateCategorySpendEvent extends CategorySpendEvent {
   const CreateCategorySpendEvent({required this.categorySpend});
 }
 class GetCategorySpendsEvent extends CategorySpendEvent {}
-class UpdateCategorySpendEvent extends CategorySpendEvent{
-  final CategorySpend categorySpend ;
+class UpdateCategorySpendEvent extends CategorySpendEvent {
+  final CategorySpend categorySpend;
   const UpdateCategorySpendEvent({required this.categorySpend});
 }
-
-class DeleteCategorySpendEvent extends CategorySpendEvent{
+class DeleteCategorySpendEvent extends CategorySpendEvent {
   final CategorySpend categorySpend;
   const DeleteCategorySpendEvent({required this.categorySpend});
 }
