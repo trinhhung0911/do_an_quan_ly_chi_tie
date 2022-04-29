@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quan_ly_chi_tieu/app.dart';
+import 'package:quan_ly_chi_tieu/bloc/cost_collect_bloc/cost_collect_bloc.dart';
 import 'package:quan_ly_chi_tieu/bloc/cost_spend_bloc/cost_spend_bloc.dart';
 import 'package:quan_ly_chi_tieu/bloc/forgot_bloc/forgot_bloc.dart';
 import 'package:quan_ly_chi_tieu/bloc/user_bloc/user_bloc.dart';
 import 'package:quan_ly_chi_tieu/repositories/category_collect_repository.dart';
 import 'package:quan_ly_chi_tieu/repositories/category_spend_repository.dart';
+import 'package:quan_ly_chi_tieu/repositories/cost_collect_repository.dart';
 import 'package:quan_ly_chi_tieu/repositories/cost_spend_repository.dart';
 import 'package:quan_ly_chi_tieu/repositories/forgot_repository.dart';
 import 'package:quan_ly_chi_tieu/repositories/login_repository.dart';
@@ -53,6 +55,11 @@ Future<void> main() async {
         BlocProvider(
           create: (context) =>CategoryCollectBloc(
              categoryCollectRepository: CategoryCollectRepository()
+          ),
+        ),
+        BlocProvider(
+          create: (context) =>CostCollectBloc(
+            costCollectRepository: CostCollectRepository()
           ),
         ),
       ],

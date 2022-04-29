@@ -8,7 +8,6 @@ import 'package:quan_ly_chi_tieu/configs/constants.dart';
 import 'package:quan_ly_chi_tieu/configs/themes.dart';
 import 'package:quan_ly_chi_tieu/models/cost_spend.dart';
 import 'package:quan_ly_chi_tieu/storage/secure_storge.dart';
-import 'package:quan_ly_chi_tieu/ui/Components/card/refresh_card.dart';
 import 'package:quan_ly_chi_tieu/ui/Quan_ly_chi/danh_muc_chi/category_spend_screen.dart';
 import 'package:quan_ly_chi_tieu/utils/function_helper.dart';
 import 'package:quan_ly_chi_tieu/utils/loading_helper.dart';
@@ -323,9 +322,4 @@ class _AddSpendScreenState extends State<AddSpendScreen> {
     );
   }
 
-  Future<void> refresh() async {
-    refreshKeyCategory.currentState?.show();
-    await Future.delayed(const Duration(microseconds: 400));
-    BlocProvider.of<CostSpendBloc>(context).add(GetCostCategorySpendsEvent());
-  }
 }

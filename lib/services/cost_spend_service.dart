@@ -25,6 +25,7 @@ class CostSpendService{
     }
     return categorySpend;
   }
+
   Future<List<CostSpend>> getCostSpends() async {
     var idUser=await SecureStorage().getString(key: SecureStorage.userId);
     List<CostSpend> costSpend=[];

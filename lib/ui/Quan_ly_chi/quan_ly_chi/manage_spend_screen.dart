@@ -27,7 +27,7 @@ final  refreshKeyManageSpend = GlobalKey<RefreshIndicatorState>();
 class _ManageSpendScreenState extends State<ManageSpendScreen> {
   @override
   void initState() {
-    BlocProvider.of<CostSpendBloc>(context).add(GetCostCategorySpendsEvent());
+   BlocProvider.of<CostSpendBloc>(context).add(GetCostCategorySpendsEvent());
     BlocProvider.of<CostSpendBloc>(context).add(GetCostSpendsEvent());
     // TODO: implement initState
     super.initState();
@@ -94,6 +94,10 @@ class _ManageSpendScreenState extends State<ManageSpendScreen> {
                 },
                 listener: (context, state) {
                   if (state is GetCostCategorySpendErrorState) {
+                    LoadingHelper.hideLoading(context);
+                    FunctionHelper.showSnackBar(context: context, title: state.error);
+                  }
+                  else if(state is GetCostSpendErrorState){
                     LoadingHelper.hideLoading(context);
                     FunctionHelper.showSnackBar(context: context, title: state.error);
                   }

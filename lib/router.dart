@@ -5,6 +5,7 @@ import 'package:quan_ly_chi_tieu/ui/Quan_ly_chi/danh_muc_chi/add_category_spend_
 import 'package:quan_ly_chi_tieu/ui/Quan_ly_chi/quan_ly_chi/add_cost_spend_screen.dart';
 import 'package:quan_ly_chi_tieu/ui/Quan_ly_thu/collect_screen.dart';
 import 'package:quan_ly_chi_tieu/ui/Quan_ly_thu/danh_muc_thu/add_category_collect_screen.dart';
+import 'package:quan_ly_chi_tieu/ui/Quan_ly_thu/quan_ly_thu/add_cost_collect_screen.dart';
 import 'package:quan_ly_chi_tieu/ui/home_screen.dart';
 import 'package:quan_ly_chi_tieu/ui/login/change_password_screen.dart';
 import 'package:quan_ly_chi_tieu/ui/login/forgot_password_screen.dart';
@@ -35,6 +36,8 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       return generateRouter(screen: const CollectScreen());
     case Constants.addCategoryCollectScreen:
       return generateRouter(screen:  AddCategoryCollectScreen(arg: args,));
+    case Constants.addCostCollectScreen:
+      return generateRouter(screen:  AddCostCollectScreen(arg: args,));
     default:
       throw ('This route name does not exit');
   }

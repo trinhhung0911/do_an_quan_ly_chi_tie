@@ -33,8 +33,7 @@ class _TypeCollectCardState extends State<TypeCollectCard> {
           LoadingHelper.hideLoading(context);
           FunctionHelper.showSnackBar(
             context: context,
-            title:
-                "Xóa danh muc chi ${widget.categoryCollect.name} thành công !",
+            title: "Xóa danh muc thu ${widget.categoryCollect.name} thành công !",
           );
           BlocProvider.of<CategoryCollectBloc>(context)
               .add(GetCategoryCollectsEvent());
