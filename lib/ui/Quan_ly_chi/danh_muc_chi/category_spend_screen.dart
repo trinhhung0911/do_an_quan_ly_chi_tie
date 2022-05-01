@@ -30,7 +30,6 @@ class _CategorySpendScreenState extends State<CategorySpendScreen> {
   }
 
   final refreshKeyCategory = GlobalKey<RefreshIndicatorState>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

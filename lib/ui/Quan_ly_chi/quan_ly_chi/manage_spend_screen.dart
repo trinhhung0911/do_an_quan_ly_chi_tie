@@ -12,7 +12,6 @@ import 'package:quan_ly_chi_tieu/ui/Components/input/input_search.dart';
 import 'package:quan_ly_chi_tieu/ui/home_screen.dart';
 import 'package:quan_ly_chi_tieu/utils/function_helper.dart';
 import 'package:quan_ly_chi_tieu/utils/loading_helper.dart';
-
 import '../../../bloc/cost_spend_bloc/cost_spend_bloc.dart';
 import '../../../bloc/cost_spend_bloc/cost_spend_state.dart';
 
@@ -21,13 +20,16 @@ class ManageSpendScreen extends StatefulWidget {
   @override
   _ManageSpendScreenState createState() => _ManageSpendScreenState();
 }
-List<CategorySpend> categorySpends = [];
+
 List<CostSpend> costSpends = [];
+
 final  refreshKeyManageSpend = GlobalKey<RefreshIndicatorState>();
+
+
 class _ManageSpendScreenState extends State<ManageSpendScreen> {
+
   @override
   void initState() {
-   BlocProvider.of<CostSpendBloc>(context).add(GetCostCategorySpendsEvent());
     BlocProvider.of<CostSpendBloc>(context).add(GetCostSpendsEvent());
     // TODO: implement initState
     super.initState();
@@ -47,26 +49,20 @@ class _ManageSpendScreenState extends State<ManageSpendScreen> {
           physics: const AlwaysScrollableScrollPhysics(),
           child:  Column(
             children: [
-              InputSearch(searchNameEmployee),
+              InputSearch(searchName),
               BlocConsumer<CostSpendBloc,CostSpendState>(
                 buildWhen: (context, state) {
-                  return state is GetCostCategorySpendLoadingState ||
-                      state is GetCostSpendLoadingState ||
-                      state is GetCostCategorySpendLoadedState ||
+                  return state is GetCostSpendLoadingState ||
                       state is GetCostSpendLoadedState ||
-                      state is GetCostCategorySpendErrorState||
                       state is GetCostSpendErrorState;
                 },
                 builder: (context, state) {
-                  if (state is GetCostCategorySpendLoadingState ||
+                  if (
                       state is GetCostSpendLoadingState
                   ) {
                     LoadingHelper.showLoading(context);
                   }
-                  else if (state is GetCostCategorySpendLoadedState) {
-                    LoadingHelper.hideLoading(context);
-                    categorySpends = state.categorySpend;
-                  }else if(state is GetCostSpendLoadedState){
+                else if(state is GetCostSpendLoadedState){
                     LoadingHelper.hideLoading(context);
                     costSpends=state.costSpend;
                     return costSpends.isNotEmpty
@@ -93,11 +89,7 @@ class _ManageSpendScreenState extends State<ManageSpendScreen> {
                   return Container();
                 },
                 listener: (context, state) {
-                  if (state is GetCostCategorySpendErrorState) {
-                    LoadingHelper.hideLoading(context);
-                    FunctionHelper.showSnackBar(context: context, title: state.error);
-                  }
-                  else if(state is GetCostSpendErrorState){
+                 if(state is GetCostSpendErrorState){
                     LoadingHelper.hideLoading(context);
                     FunctionHelper.showSnackBar(context: context, title: state.error);
                   }
@@ -134,5 +126,5 @@ class _ManageSpendScreenState extends State<ManageSpendScreen> {
     await Future.delayed(const Duration(microseconds: 400));
     BlocProvider.of<CostSpendBloc>(context).add(GetCostSpendsEvent());
   }
-  searchNameEmployee(String query) {}
+  searchName(String query) {}
 }

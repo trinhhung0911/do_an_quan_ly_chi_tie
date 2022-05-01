@@ -8,7 +8,7 @@ import 'package:quan_ly_chi_tieu/configs/constants.dart';
 import 'package:quan_ly_chi_tieu/configs/themes.dart';
 import 'package:quan_ly_chi_tieu/models/cost_collect.dart';
 import 'package:quan_ly_chi_tieu/storage/secure_storge.dart';
-import 'package:quan_ly_chi_tieu/ui/Quan_ly_thu/quan_ly_thu/manage_collect_screen.dart';
+import 'package:quan_ly_chi_tieu/ui/Quan_ly_thu/danh_muc_thu/category_collect_screen.dart';
 import 'package:quan_ly_chi_tieu/utils/function_helper.dart';
 import 'package:quan_ly_chi_tieu/utils/loading_helper.dart';
 
@@ -32,10 +32,10 @@ class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
   void initState() {
     if (widget.arg is CostCollect) {
       costCollect = widget.arg as CostCollect?;
-      // _moneyController.text=costSpend!.money.toString();
-      // _categorySpendController.text=costSpend!.nameCategorySpend;
-      // _dateController.text=  costSpend!.dateTime.toString().split(' ')[0];
-      // _noteController.text=costSpend!.note.toString();
+      _moneyController.text = costCollect!.money.toString();
+      _categoryCollectController.text = costCollect!.nameCategoryCollect;
+      _dateController.text = costCollect!.dateTime.toString().split(' ')[0];
+      _noteController.text = costCollect!.note.toString();
     }
     super.initState();
   }
@@ -50,24 +50,26 @@ class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
               costCollect == null ? 'Thêm nguồn thu' : 'Cập nhật nguồn thu'),
         ),
       ),
-      body:  BlocListener<CostCollectBloc, CostCollectState>(
+      body: BlocListener<CostCollectBloc, CostCollectState>(
         listener: (context, state) {
-          if (state is CreateCostCollectLoadingState||state is UpdateCostCollectLoadingState) {
+          if (state is CreateCostCollectLoadingState ||
+              state is UpdateCostCollectLoadingState) {
             LoadingHelper.showLoading(context);
-          } else if (state is CreateCostCollectSuccessState||
+          } else if (state is CreateCostCollectSuccessState ||
               state is UpdateCostCollectSuccessState) {
             LoadingHelper.hideLoading(context);
             Navigator.pop(context);
             FunctionHelper.showSnackBar(
                 context: context,
-                title:costCollect==null?
-                'Thêm khoản thu thành công !': 'Cập nhật khoản thu thành công !');
-            BlocProvider.of<CostCollectBloc>(context).add(GetCostCollectsEvent());
+                title: costCollect == null
+                    ? 'Thêm khoản thu thành công !'
+                    : 'Cập nhật khoản thu thành công !');
+            BlocProvider.of<CostCollectBloc>(context)
+                .add(GetCostCollectsEvent());
           } else if (state is CreateCostCollectErrorState) {
             LoadingHelper.hideLoading(context);
             FunctionHelper.showSnackBar(context: context, title: state.error);
-          }
-          else if ( state is UpdateCostCollectErrorState) {
+          } else if (state is UpdateCostCollectErrorState) {
             LoadingHelper.hideLoading(context);
             FunctionHelper.showSnackBar(context: context, title: state.error);
           }
@@ -215,7 +217,8 @@ class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
                       ),
                       Text(
                         costCollect == null ? "Ghi" : 'Cập nhật',
-                        style: AppThemes.commonText.copyWith(color: Colors.white),
+                        style:
+                            AppThemes.commonText.copyWith(color: Colors.white),
                       ),
                     ],
                   ),
@@ -247,7 +250,8 @@ class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
                       } else {
                         costCollect1.id = costCollect?.id;
                         costCollect1.idUser = costCollect!.idUser;
-                        // BlocProvider.of<CostSpendBloc>(context).add(UpdateCostSpendEvent(costSpend: costSpend1));
+                        BlocProvider.of<CostCollectBloc>(context).add(
+                            UpdateCostCollectEvent(costCollect: costCollect1));
                       }
                     } else {
                       FunctionHelper.showSnackBar(
@@ -318,12 +322,13 @@ class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
             ),
           ),
           TextButton(
-              onPressed: () async {
-                await Navigator.pushNamed(
-                    context, Constants.addCategoryCollectScreen);
-                Navigator.pop(context);
-              },
-              child: const Text('Thêm danh mục thu'))
+            onPressed: () async {
+              await Navigator.pushNamed(
+                  context, Constants.addCategoryCollectScreen);
+              Navigator.pop(context);
+            },
+            child: const Text('Thêm danh mục thu'),
+          )
         ],
       ),
     );

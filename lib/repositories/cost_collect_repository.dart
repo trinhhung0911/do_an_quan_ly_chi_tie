@@ -15,13 +15,13 @@ class CostCollectRepository{
   Future<List<CostCollect>> getCostCollects() async {
     return await CostCollectService().getCostCollects();
   }
-  // Future<dynamic> deleteCostCollect(
-  //     {required CostCollect costCollect}) async {
-  //   await CostCollectService().deleteCostCollect(costCollect: costCollect);
-  // }
-  // Future<dynamic> updateCostCollect(
-  //     {required CostCollect costCollect}) async {
-  //   await CostCollectService().updateCostCollect(costCollect: costCollect);
-  // }
+  Future<dynamic> deleteCostCollect(
+      {required CostCollect costCollect}) async {
+    await CostCollectService().deleteCostCollect(costCollect: costCollect);
+  }
+  Future<dynamic> updateCostCollect(
+      {required CostCollect costCollect}) async {
+    await CostCollectService().updateCostCollect(costCollect: costCollect);
+  }
 
 }

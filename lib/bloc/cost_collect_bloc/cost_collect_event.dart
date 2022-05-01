@@ -12,16 +12,15 @@ class CreateCostCollectEvent extends CostCollectEvent {
   final CostCollect costCollect ;
   const CreateCostCollectEvent({required this.costCollect});
 }
-
 class GetCostCategoryCollectsEvent extends CostCollectEvent{}
-
 class GetCostCollectsEvent extends CostCollectEvent{}
-//
-// class UpdateCostCollectEvent extends CostCollectEvent{
-//   final CostCollect costCollect ;
-//   const UpdateCostCollectEvent ({required this.costCollect});
-// }
-// class DeleteCostCollectEvent extends CostCollectEvent{
-//   final CostCollect costCollect;
-//   const DeleteCostCollectEvent({required this.costCollect});
-// }
+//Update
+class UpdateCostCollectEvent extends CostCollectEvent{
+  final CostCollect costCollect ;
+  const UpdateCostCollectEvent ({required this.costCollect});
+}
+//Delete
+class DeleteCostCollectEvent extends CostCollectEvent{
+  final CostCollect costCollect;
+  const DeleteCostCollectEvent({required this.costCollect});
+}

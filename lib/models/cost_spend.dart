@@ -6,11 +6,8 @@ class CostSpend{
   String nameCategorySpend;
   DateTime? dateTime;
   String ?note;
-
   CostSpend({this.id, this.idUser,  this.idCategorySpend, required this.money,
       required this.nameCategorySpend, this.dateTime, this.note});
-
-
   //Gửi lên
   Map<String, dynamic> toJson() => {
     "idUser":idUser,

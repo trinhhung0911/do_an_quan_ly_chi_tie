@@ -19,6 +19,7 @@ class CategoryCollectScreen extends StatefulWidget {
   _CategoryCollectScreenState createState() => _CategoryCollectScreenState();
 }
 final refreshKeyCategory = GlobalKey<RefreshIndicatorState>();
+
 List<CategoryCollect> categoryCollects=[];
 
 class _CategoryCollectScreenState extends State<CategoryCollectScreen> {
@@ -51,7 +52,6 @@ class _CategoryCollectScreenState extends State<CategoryCollectScreen> {
             if (state is GetCategoryCollectLoadingState) {
               LoadingHelper.showLoading(context);
             } else if (state is GetCategoryCollectLoadedState) {
-
               LoadingHelper.hideLoading(context);
               categoryCollects=state.categoryCollect;
               return categoryCollects.isNotEmpty

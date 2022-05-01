@@ -32,6 +32,7 @@ class _AddCategoryCollectScreenState extends State<AddCategoryCollectScreen> {
       super.initState();
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -150,8 +151,9 @@ class _AddCategoryCollectScreenState extends State<AddCategoryCollectScreen> {
                       }
                     } else {
                       FunctionHelper.showSnackBar(
-                          context: context,
-                          title: 'Bạn cần nhập tên danh mục thu !');
+                        context: context,
+                        title: 'Bạn cần nhập tên danh mục thu !',
+                      );
                       FocusScope.of(context).requestFocus(nameFocus);
                     }
                   },

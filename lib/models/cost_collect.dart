@@ -1,4 +1,7 @@
+
+
 class CostCollect{
+
   String ? id;
   String ?idUser;
   String ?idCategoryCollect;

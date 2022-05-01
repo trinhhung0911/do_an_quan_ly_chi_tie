@@ -14,7 +14,7 @@ import 'package:quan_ly_chi_tieu/utils/loading_helper.dart';
 
 class AddSpendScreen extends StatefulWidget {
   final dynamic arg;
-  const AddSpendScreen({Key? key,this.arg}) : super(key: key);
+  const AddSpendScreen({Key? key, this.arg}) : super(key: key);
   @override
   _AddSpendScreenState createState() => _AddSpendScreenState();
 }
@@ -22,51 +22,54 @@ class AddSpendScreen extends StatefulWidget {
 class _AddSpendScreenState extends State<AddSpendScreen> {
   final TextEditingController _moneyController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
-  final TextEditingController _categorySpendController = TextEditingController();
+  final TextEditingController _categorySpendController =
+      TextEditingController();
   final TextEditingController _dateController = TextEditingController();
   late String idCategorySpend;
   final refreshKeyCategory = GlobalKey<RefreshIndicatorState>();
-  CostSpend ?costSpend;
+  CostSpend? costSpend;
   @override
   void initState() {
     if (widget.arg is CostSpend) {
       costSpend = widget.arg as CostSpend?;
-      _moneyController.text=costSpend!.money.toString();
-      _categorySpendController.text=costSpend!.nameCategorySpend;
-      _dateController.text=  costSpend!.dateTime.toString().split(' ')[0];
-      _noteController.text=costSpend!.note.toString();
+      _moneyController.text = costSpend!.money.toString();
+      _categorySpendController.text = costSpend!.nameCategorySpend;
+      _dateController.text = costSpend!.dateTime.toString().split(' ')[0];
+      _noteController.text = costSpend!.note.toString();
     }
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.appColor,
-        title:  Center(
-          child: Text(costSpend==null? 'Thêm khoản chi' :'Cập nhật khoản chi'),
+        title: Center(
+          child:
+              Text(costSpend == null ? 'Thêm khoản chi' : 'Cập nhật khoản chi'),
         ),
       ),
       body: BlocListener<CostSpendBloc, CostSpendState>(
         listener: (context, state) {
-          if (state is CreateCostSpendLoadingState||state is UpdateCostSpendLoadingState) {
+          if (state is CreateCostSpendLoadingState ||
+              state is UpdateCostSpendLoadingState) {
             LoadingHelper.showLoading(context);
-          } else if (state is CreateCostSpendSuccessState||
+          } else if (state is CreateCostSpendSuccessState ||
               state is UpdateCostSpendSuccessState) {
             LoadingHelper.hideLoading(context);
             Navigator.pop(context);
             FunctionHelper.showSnackBar(
                 context: context,
-                title:costSpend==null?
-                'Thêm khoản chi thành công !': 'Cập nhật khoản chi chi thành công !');
+                title: costSpend == null
+                    ? 'Thêm khoản chi thành công !'
+                    : 'Cập nhật khoản chi chi thành công !');
             BlocProvider.of<CostSpendBloc>(context).add(GetCostSpendsEvent());
           } else if (state is CreateCostSpendErrorState) {
             LoadingHelper.hideLoading(context);
             FunctionHelper.showSnackBar(context: context, title: state.error);
-          }
-          else if ( state is UpdateCostSpendErrorState) {
+          } else if (state is UpdateCostSpendErrorState) {
             LoadingHelper.hideLoading(context);
             FunctionHelper.showSnackBar(context: context, title: state.error);
           }
@@ -213,7 +216,7 @@ class _AddSpendScreenState extends State<AddSpendScreen> {
                         width: 5,
                       ),
                       Text(
-                       costSpend==null? "Ghi":'Cập nhật',
+                        costSpend == null ? "Ghi" : 'Cập nhật',
                         style:
                             AppThemes.commonText.copyWith(color: Colors.white),
                       ),
@@ -240,14 +243,15 @@ class _AddSpendScreenState extends State<AddSpendScreen> {
                             : FunctionHelper.formatDateText(
                                 _dateController.text.trim()),
                       );
-                      if(costSpend==null){
-                        BlocProvider.of<CostSpendBloc>(context).add(CreateCostSpendEvent(costSpend: costSpend1));
-                      }else{
+                      if (costSpend == null) {
+                        BlocProvider.of<CostSpendBloc>(context)
+                            .add(CreateCostSpendEvent(costSpend: costSpend1));
+                      } else {
                         costSpend1.id = costSpend?.id;
                         costSpend1.idUser = costSpend!.idUser;
-                        BlocProvider.of<CostSpendBloc>(context).add(UpdateCostSpendEvent(costSpend: costSpend1));
+                        BlocProvider.of<CostSpendBloc>(context)
+                            .add(UpdateCostSpendEvent(costSpend: costSpend1));
                       }
-
                     } else {
                       FunctionHelper.showSnackBar(
                           context: context, title: "Nhập đầy đủ thông tin !");
@@ -279,33 +283,39 @@ class _AddSpendScreenState extends State<AddSpendScreen> {
               physics: const AlwaysScrollableScrollPhysics(),
               child: Column(
                 children: [
-                  categorySpends.isNotEmpty?
-                  ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    primary: false,
-                    itemCount: categorySpends.length,
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (context, index) => InkWell(
-                      onTap: () {
-                        setState(() {
-                          _categorySpendController.text =
-                              categorySpends[index].name;
-                          idCategorySpend = categorySpends[index].id!;
-                          Navigator.pop(context);
-                        });
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 5, bottom: 5),
-                        child: Center(
+                  categorySpends.isNotEmpty
+                      ? ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          primary: false,
+                          itemCount: categorySpends.length,
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (context, index) => InkWell(
+                            onTap: () {
+                              setState(() {
+                                _categorySpendController.text =
+                                    categorySpends[index].name;
+                                idCategorySpend = categorySpends[index].id!;
+                                Navigator.pop(context);
+                              });
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 5, bottom: 5),
+                              child: Center(
+                                child: Text(
+                                  categorySpends[index].name,
+                                  style: AppThemes.commonText,
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      : Center(
                           child: Text(
-                            categorySpends[index].name,
+                            "Chưa có danh mục chi !",
                             style: AppThemes.commonText,
                           ),
                         ),
-                      ),
-                    ),
-                  ):Center(child: Text("Chưa có danh mục chi !",style: AppThemes.commonText,),),
                 ],
               ),
             ),
@@ -321,5 +331,4 @@ class _AddSpendScreenState extends State<AddSpendScreen> {
       ),
     );
   }
-
 }

@@ -57,6 +57,7 @@ class CostSpendBloc extends Bloc<CostSpendEvent, CostSpendState> {
 
 
   }
+
   Stream<CostSpendState> _mapDeleteCostSpendState(DeleteCostSpendEvent event) async*{
     yield DeleteCostSpendLoadingState();
     try {

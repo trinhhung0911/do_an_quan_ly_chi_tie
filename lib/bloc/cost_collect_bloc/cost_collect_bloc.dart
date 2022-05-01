@@ -20,48 +20,61 @@ class CostCollectBloc extends Bloc<CostCollectEvent, CostCollectState> {
       yield* _mapCreateCostCollectToState(event);
     } else if (event is GetCostCollectsEvent) {
       yield* _mapGetCostCollectsToState(event);
-      // }else if(event is DeleteCostCollectEvent){
-      //   yield* _mapDeleteCostCollectState(event);
-      // }else if(event is UpdateCostCollectEvent){
-      //   yield* _mapUpdateCostCollectState(event);
-      // }
+      }else if(event is DeleteCostCollectEvent){
+        yield* _mapDeleteCostCollectState(event);
+      }else if(event is UpdateCostCollectEvent){
+        yield* _mapUpdateCostCollectState(event);
+      }
+    }
+
+  Stream<CostCollectState> _mapGetCostCategoryCollectsToState(GetCostCategoryCollectsEvent event) async*{
+    yield GetCostCategoryCollectLoadingState();
+    try {
+      final List<CategoryCollect> categoryCollect= await costCollectRepository.getCostCatgoryCollect();
+      yield GetCostCategoryCollectLoadedState(categoryCollect: categoryCollect);
+    }on FirebaseAuthException catch (e) {
+      yield const GetCostCategoryCollectErrorState(error: 'Lỗi');
     }
   }
-
-
-  Stream<CostCollectState> _mapCreateCostCollectToState(
-      CreateCostCollectEvent event) async* {
+  Stream<CostCollectState> _mapCreateCostCollectToState(CreateCostCollectEvent event) async* {
     yield CreateCostCollectLoadingState();
     try {
-      await costCollectRepository.createCostCollect(
-          costCollect: event.costCollect);
+      await costCollectRepository.createCostCollect(costCollect: event.costCollect);
       yield CreateCostCollectSuccessState();
     } on FirebaseAuthException catch (e) {
       yield const CreateCostCollectErrorState(
           error: 'Thêm khoản thu thất bại !');
     }
   }
-  Stream<CostCollectState> _mapGetCostCollectsToState(
-      GetCostCollectsEvent event) async* {
+  Stream<CostCollectState> _mapGetCostCollectsToState(GetCostCollectsEvent event) async* {
     yield GetCostCollectLoadingState();
     try {
-      final List<CostCollect> costCollect = await costCollectRepository
-          .getCostCollects();
+      final List<CostCollect> costCollect = await costCollectRepository.getCostCollects();
       yield GetCostCollectLoadedState(costCollect: costCollect);
-    } on FirebaseAuthException catch (e) {
+    }on FirebaseAuthException catch (e) {
       yield const GetCostCollectErrorState(error: 'Lỗi');
     }
 
-
   }
 
-  Stream<CostCollectState> _mapGetCostCategoryCollectsToState(GetCostCategoryCollectsEvent event) async*{
-    yield GetCostCategoryCollectLoadingState();
-    try{
-      final List<CategoryCollect> categoryCollect= await costCollectRepository.getCostCatgoryCollect();
-      yield GetCostCategoryCollectLoadedState(categoryCollect: categoryCollect);
-    }on FirebaseAuthException catch (e) {
-      yield const GetCostCategoryCollectErrorState(error: 'Lỗi');
+  Stream<CostCollectState> _mapDeleteCostCollectState(DeleteCostCollectEvent event) async*{
+    yield DeleteCostCollectLoadingState();
+    try {
+      await costCollectRepository.deleteCostCollect(costCollect: event.costCollect);
+      yield DeleteCostCollectSuccessState();
+    } on FirebaseAuthException catch (e) {
+      yield const DeleteCostCollectErrorState(error: 'Xóa thất bại !');
     }
+  }
+  Stream<CostCollectState> _mapUpdateCostCollectState(UpdateCostCollectEvent event) async*{
+    yield UpdateCostCollectLoadingState();
+    try {
+      await costCollectRepository.updateCostCollect(costCollect: event.costCollect);
+      yield  UpdateCostCollectSuccessState();
+    } on FirebaseAuthException catch (e) {
+      yield const UpdateCostCollectErrorState(error: 'Cập nhật thất bại !');
+    }
+
+
   }
 }

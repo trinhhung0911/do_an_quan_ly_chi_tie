@@ -39,15 +39,15 @@ class CostCollectService{
     }
     return costCollect;
   }
-  // Future<dynamic> deleteCostCollect({required CostCollect costCollect}) async {
-  //   CollectionReference categoryCollectCollection = FirebaseFirestore.instance.collection(CollectionName.costCollect.name);
-  //   await categoryCollectCollection.doc(costCollect.id).delete();
-  // }
-  // Future<dynamic> updateCostCollect({required CostCollect costCollect}) async {
-  //   CollectionReference costCollectCollection =
-  //   FirebaseFirestore.instance.collection(CollectionName.costCollect.name);
-  //   await costCollectCollection.doc(costCollect.id).update(costCollect.toJson());
-  // }
+  Future<dynamic> deleteCostCollect({required CostCollect costCollect}) async {
+    CollectionReference categoryCollectCollection = FirebaseFirestore.instance.collection(CollectionName.costCollect.name);
+    await categoryCollectCollection.doc(costCollect.id).delete();
+  }
+  Future<dynamic> updateCostCollect({required CostCollect costCollect}) async {
+    CollectionReference costCollectCollection =
+    FirebaseFirestore.instance.collection(CollectionName.costCollect.name);
+    await costCollectCollection.doc(costCollect.id).update(costCollect.toJson());
+  }
 
 
 }

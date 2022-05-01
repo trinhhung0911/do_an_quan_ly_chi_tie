@@ -44,13 +44,13 @@ class GetCostCollectErrorState extends CostCollectState {
 }
 
 //
-// //DeleteCostCollect
-// class DeleteCostCollectLoadingState extends CostCollectState{}
-// class DeleteCostCollectSuccessState extends CostCollectState {}
-// class DeleteCostCollectErrorState extends CostCollectState {
-//   final String error;
-//   const DeleteCostCollectErrorState({required this.error});
-// }
+//DeleteCostCollect
+class DeleteCostCollectLoadingState extends CostCollectState{}
+class DeleteCostCollectSuccessState extends CostCollectState {}
+class DeleteCostCollectErrorState extends CostCollectState {
+  final String error;
+  const DeleteCostCollectErrorState({required this.error});
+}
 //UpdateCostCollect
 class UpdateCostCollectLoadingState extends CostCollectState{}
 class UpdateCostCollectSuccessState extends CostCollectState {}
