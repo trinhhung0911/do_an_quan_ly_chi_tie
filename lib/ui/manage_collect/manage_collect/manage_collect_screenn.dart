@@ -8,13 +8,16 @@ import 'package:quan_ly_chi_tieu/bloc/cost_spend_bloc/cost_spend_event.dart';
 
 import 'package:quan_ly_chi_tieu/configs/colors.dart';
 import 'package:quan_ly_chi_tieu/configs/constants.dart';
+import 'package:quan_ly_chi_tieu/configs/themes.dart';
 import 'package:quan_ly_chi_tieu/models/cost_collect.dart';
 
 
 import 'package:quan_ly_chi_tieu/ui/Components/card/cost_collect_card.dart';
+import 'package:quan_ly_chi_tieu/ui/Components/card/drawer_item_card.dart';
 
 import 'package:quan_ly_chi_tieu/ui/Components/card/refresh_card.dart';
 import 'package:quan_ly_chi_tieu/ui/Components/input/input_search.dart';
+import 'package:quan_ly_chi_tieu/ui/home_screen.dart';
 import 'package:quan_ly_chi_tieu/utils/function_helper.dart';
 import 'package:quan_ly_chi_tieu/utils/loading_helper.dart';
 
@@ -62,7 +65,8 @@ class _ManageCollectScreenState extends State<ManageCollectScreen> {
                 builder: (context, state) {
                   if (state is GetCostCollectLoadingState) {
                     LoadingHelper.showLoading(context);
-                  } else if (state is GetCostCollectLoadedState) {
+                  }
+                  else if (state is GetCostCollectLoadedState) {
                     LoadingHelper.hideLoading(context);
                     costCollects = state.costCollect;
                     return costCollects.isNotEmpty
@@ -84,9 +88,12 @@ class _ManageCollectScreenState extends State<ManageCollectScreen> {
                               ],
                             ),
                           )
-                        : const Center(
-                            child: Text('Chưa có khoản chi nào!'),
-                          );
+                        : Padding(
+                          padding: const EdgeInsets.only(top: 250),
+                          child: Center(
+                              child: Text('Chưa có khoản thu !',style: AppThemes.commonText,),
+                            ),
+                        );
                   }
                   return Container();
                 },
@@ -121,6 +128,9 @@ class _ManageCollectScreenState extends State<ManageCollectScreen> {
         backgroundColor: AppColors.appColor,
         heroTag: "btn_qlct",
       ),
+      drawer: DrawerItem(
+        email: HomeScreen.email,
+      ),
     );
   }
 
@@ -129,5 +139,6 @@ class _ManageCollectScreenState extends State<ManageCollectScreen> {
     await Future.delayed(const Duration(microseconds: 400));
     BlocProvider.of<CostSpendBloc>(context).add(GetCostSpendsEvent());
   }
+
   searchName(String query) {}
 }

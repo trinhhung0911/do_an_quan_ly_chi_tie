@@ -49,7 +49,7 @@ class _TypeCollectCardState extends State<TypeCollectCard> {
           borderRadius: BorderRadius.circular(10),
         ),
         margin: const EdgeInsets.only(bottom: 10),
-        padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8),
+        padding: const EdgeInsets.only(left: 16, top: 10, bottom: 10),
         child: InkWell(
           onTap: () async {
             var result = await Navigator.pushNamed(
@@ -90,9 +90,14 @@ class _TypeCollectCardState extends State<TypeCollectCard> {
               const SizedBox(
                 width: 20,
               ),
-              Text(
-                widget.categoryCollect.name,
-                style: AppThemes.commonText,
+                SizedBox(
+                  width:280,
+                child: Text(
+                  widget.categoryCollect.name,
+                  style: AppThemes.commonText,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               )
             ],
           ),

@@ -20,22 +20,25 @@ class TypeSpendCard extends StatefulWidget {
 }
 
 class _TypeSpendCardState extends State<TypeSpendCard> {
+
   @override
   Widget build(BuildContext context) {
+
     return BlocListener<CategorySpendBloc, CategorySpendState>(
       listener: (context, state) {
         if (state is DeleteCategorySpendLoadingState) {
           LoadingHelper.showLoading(context);
-        } else if (state is DeleteCategorySpendSuccessState) {
+        }
+        else if (state is DeleteCategorySpendSuccessState) {
           LoadingHelper.hideLoading(context);
           FunctionHelper.showSnackBar(
             context: context,
-            title:
-            "Xóa danh muc chi ${widget.categorySpend.name} thành công !",
+            title: "Xóa danh muc chi ${widget.categorySpend.name} thành công !",
           );
           BlocProvider.of<CategorySpendBloc>(context)
               .add(GetCategorySpendsEvent());
-        } else if (state is DeleteCategorySpendErrorState) {
+        }
+        else if (state is DeleteCategorySpendErrorState) {
           LoadingHelper.hideLoading(context);
           FunctionHelper.showSnackBar(context: context, title: state.error);
         }
@@ -47,7 +50,7 @@ class _TypeSpendCardState extends State<TypeSpendCard> {
           borderRadius: BorderRadius.circular(10),
         ),
         margin: const EdgeInsets.only(bottom: 10),
-        padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8),
+        padding: const EdgeInsets.only(left: 16, top: 10, bottom: 10),
         child: InkWell(
           onTap: () async {
             var result = await Navigator.pushNamed(
@@ -69,28 +72,31 @@ class _TypeSpendCardState extends State<TypeSpendCard> {
                 title: "Thông báo ",
                 okLabel: "Đồng ý",
                 cancelLabel: "Hủy",
-                message:
-                    'Bạn có muốn xóa danh mục chi ${widget.categorySpend.name} !');
+                message: 'Bạn có muốn xóa danh mục chi ${widget.categorySpend.name} !');
             if (result == OkCancelResult.ok) {
               BlocProvider.of<CategorySpendBloc>(context).add(
                 DeleteCategorySpendEvent(categorySpend: widget.categorySpend),
               );
-
             }
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               const Icon(
-                Icons.account_circle_outlined,
+                Icons.margin,
                 size: 40,
               ),
               const SizedBox(
                 width: 20,
               ),
-              Text(
-                widget.categorySpend.name,
-                style: AppThemes.commonText,
+              SizedBox(
+                width:280,
+                child: Text(
+                  widget.categorySpend.name,
+                  style: AppThemes.commonText,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis
+                ),
               )
             ],
           ),

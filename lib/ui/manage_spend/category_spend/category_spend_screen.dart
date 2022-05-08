@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quan_ly_chi_tieu/bloc/category_spend_bloc/category_spend_bloc.dart';
 import 'package:quan_ly_chi_tieu/bloc/category_spend_bloc/category_spend_event.dart';
 import 'package:quan_ly_chi_tieu/bloc/category_spend_bloc/category_spend_state.dart';
+import 'package:quan_ly_chi_tieu/configs/themes.dart';
 import 'package:quan_ly_chi_tieu/models/category_spend.dart';
 import 'package:quan_ly_chi_tieu/ui/Components/card/refresh_card.dart';
 import 'package:quan_ly_chi_tieu/ui/Components/card/type_spend_card.dart';
@@ -65,6 +66,8 @@ class _CategorySpendScreenState extends State<CategorySpendScreen> {
                             padding: const EdgeInsets.only(left: 24, right: 24),
                             physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
+                            primary: false,
+                            scrollDirection: Axis.vertical,
                             itemCount: categorySpends.length,
                             itemBuilder: (context, index) =>
                                 TypeSpendCard(categorySpends[index], index),
@@ -72,8 +75,8 @@ class _CategorySpendScreenState extends State<CategorySpendScreen> {
                         ],
                       ),
                     )
-                  : const Center(
-                      child: Text('Chưa có danh mục chi !'),
+                  :  Center(
+                      child: Text('Chưa có danh mục chi !',style: AppThemes.commonText,),
                     );
             }
             return Container();

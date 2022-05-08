@@ -4,6 +4,7 @@ import 'package:quan_ly_chi_tieu/bloc/category_collect_bloc/category_collect_blo
 import 'package:quan_ly_chi_tieu/bloc/category_collect_bloc/category_collect_event.dart';
 import 'package:quan_ly_chi_tieu/configs/colors.dart';
 import 'package:quan_ly_chi_tieu/configs/constants.dart';
+import 'package:quan_ly_chi_tieu/configs/themes.dart';
 
 import 'package:quan_ly_chi_tieu/ui/Components/card/drawer_item_card.dart';
 import 'package:quan_ly_chi_tieu/ui/Components/card/type_collect_card.dart';
@@ -69,7 +70,7 @@ class _CategoryCollectScreenState extends State<CategoryCollectScreen> {
                     ),
                   ],
                 ),
-              ) : const Center(child: Text('Chưa có danh mục chi !'),
+              ) : Center(child: Text('Chưa có danh mục thu !',style: AppThemes.commonText,),
               );
             }
             return Container();

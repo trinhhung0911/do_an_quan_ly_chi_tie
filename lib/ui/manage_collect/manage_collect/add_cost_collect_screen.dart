@@ -1,43 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:quan_ly_chi_tieu/bloc/cost_spend_bloc/cost_spend_bloc.dart';
-import 'package:quan_ly_chi_tieu/bloc/cost_spend_bloc/cost_spend_event.dart';
-import 'package:quan_ly_chi_tieu/bloc/cost_spend_bloc/cost_spend_state.dart';
+import 'package:quan_ly_chi_tieu/bloc/cost_collect_bloc/cost_collect_bloc.dart';
+import 'package:quan_ly_chi_tieu/bloc/cost_collect_bloc/cost_collect_event.dart';
+import 'package:quan_ly_chi_tieu/bloc/cost_collect_bloc/cost_collect_state.dart';
 import 'package:quan_ly_chi_tieu/configs/colors.dart';
 import 'package:quan_ly_chi_tieu/configs/constants.dart';
 import 'package:quan_ly_chi_tieu/configs/themes.dart';
-import 'package:quan_ly_chi_tieu/models/cost_spend.dart';
+import 'package:quan_ly_chi_tieu/models/cost_collect.dart';
 import 'package:quan_ly_chi_tieu/storage/secure_storge.dart';
-import 'package:quan_ly_chi_tieu/ui/Quan_ly_chi/danh_muc_chi/category_spend_screen.dart';
 import 'package:quan_ly_chi_tieu/utils/function_helper.dart';
 import 'package:quan_ly_chi_tieu/utils/loading_helper.dart';
 
-class AddSpendScreen extends StatefulWidget {
+import '../category_collect/category_collect_screen.dart';
+
+class AddCostCollectScreen extends StatefulWidget {
   final dynamic arg;
-  const AddSpendScreen({Key? key, this.arg}) : super(key: key);
+  const AddCostCollectScreen({Key? key, this.arg}) : super(key: key);
   @override
-  _AddSpendScreenState createState() => _AddSpendScreenState();
+  _AddCostCollectScreenState createState() => _AddCostCollectScreenState();
 }
 
-class _AddSpendScreenState extends State<AddSpendScreen> {
+class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
   final TextEditingController _moneyController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
-  final TextEditingController _categorySpendController =
+  final TextEditingController _categoryCollectController =
       TextEditingController();
   final TextEditingController _dateController = TextEditingController();
-  late String idCategorySpend;
   final refreshKeyCategory = GlobalKey<RefreshIndicatorState>();
-  CostSpend? costSpend;
+  CostCollect? costCollect;
+  late String idCategoryCollect;
   @override
   void initState() {
-    if (widget.arg is CostSpend) {
-      costSpend = widget.arg as CostSpend?;
-      _moneyController.text = costSpend!.money.toString();
-      _categorySpendController.text = costSpend!.nameCategorySpend;
-      _dateController.text = costSpend!.dateTime.toString().split(' ')[0];
-      _noteController.text = costSpend!.note.toString();
+    if (widget.arg is CostCollect) {
+      costCollect = widget.arg as CostCollect?;
+      _moneyController.text = costCollect!.money.toString();
+      _categoryCollectController.text = costCollect!.nameCategoryCollect;
+      _dateController.text = costCollect!.dateTime.toString().split(' ')[0];
+      _noteController.text = costCollect!.note.toString();
+      idCategoryCollect=costCollect!.idCategoryCollect.toString();
     }
-    // TODO: implement initState
     super.initState();
   }
 
@@ -47,29 +48,30 @@ class _AddSpendScreenState extends State<AddSpendScreen> {
       appBar: AppBar(
         backgroundColor: AppColors.appColor,
         title: Center(
-          child:
-              Text(costSpend == null ? 'Thêm khoản chi' : 'Cập nhật khoản chi'),
+          child: Text(
+              costCollect == null ? 'Thêm nguồn thu' : 'Cập nhật nguồn thu'),
         ),
       ),
-      body: BlocListener<CostSpendBloc, CostSpendState>(
+      body: BlocListener<CostCollectBloc, CostCollectState>(
         listener: (context, state) {
-          if (state is CreateCostSpendLoadingState ||
-              state is UpdateCostSpendLoadingState) {
+          if (state is CreateCostCollectLoadingState ||
+              state is UpdateCostCollectLoadingState) {
             LoadingHelper.showLoading(context);
-          } else if (state is CreateCostSpendSuccessState ||
-              state is UpdateCostSpendSuccessState) {
+          } else if (state is CreateCostCollectSuccessState ||
+              state is UpdateCostCollectSuccessState) {
             LoadingHelper.hideLoading(context);
             Navigator.pop(context);
             FunctionHelper.showSnackBar(
                 context: context,
-                title: costSpend == null
-                    ? 'Thêm khoản chi thành công !'
-                    : 'Cập nhật khoản chi chi thành công !');
-            BlocProvider.of<CostSpendBloc>(context).add(GetCostSpendsEvent());
-          } else if (state is CreateCostSpendErrorState) {
+                title: costCollect == null
+                    ? 'Thêm khoản thu thành công !'
+                    : 'Cập nhật khoản thu thành công !');
+            BlocProvider.of<CostCollectBloc>(context)
+                .add(GetCostCollectsEvent());
+          } else if (state is CreateCostCollectErrorState) {
             LoadingHelper.hideLoading(context);
             FunctionHelper.showSnackBar(context: context, title: state.error);
-          } else if (state is UpdateCostSpendErrorState) {
+          } else if (state is UpdateCostCollectErrorState) {
             LoadingHelper.hideLoading(context);
             FunctionHelper.showSnackBar(context: context, title: state.error);
           }
@@ -139,14 +141,14 @@ class _AddSpendScreenState extends State<AddSpendScreen> {
                         _showDialog();
                       },
                       child: TextField(
-                        controller: _categorySpendController,
+                        controller: _categoryCollectController,
                         style: AppThemes.commonText,
                         decoration: InputDecoration(
                           prefixIcon: const Icon(
                             Icons.category,
                             size: 30,
                           ),
-                          hintText: 'Chọn loại chi',
+                          hintText: 'Chọn nguồn thu',
                           hintStyle: AppThemes.commonText,
                           enabled: false,
                         ),
@@ -216,7 +218,7 @@ class _AddSpendScreenState extends State<AddSpendScreen> {
                         width: 5,
                       ),
                       Text(
-                        costSpend == null ? "Ghi" : 'Cập nhật',
+                        costCollect == null ? "Ghi" : 'Cập nhật',
                         style:
                             AppThemes.commonText.copyWith(color: Colors.white),
                       ),
@@ -229,28 +231,29 @@ class _AddSpendScreenState extends State<AddSpendScreen> {
                   ),
                   onPressed: () async {
                     if (_moneyController.text.isNotEmpty &&
-                        _categorySpendController.text.isNotEmpty) {
+                        _categoryCollectController.text.isNotEmpty) {
                       var idUser = await SecureStorage()
                           .getString(key: SecureStorage.userId);
-                      var costSpend1 = CostSpend(
+                      var costCollect1 = CostCollect(
                         money: int.parse(_moneyController.text.trim()),
-                        nameCategorySpend: _categorySpendController.text.trim(),
+                        nameCategoryCollect:
+                            _categoryCollectController.text.trim(),
                         note: _noteController.text.trim(),
-                        idCategorySpend: idCategorySpend,
+                        idCategoryCollect: idCategoryCollect,
                         idUser: idUser,
                         dateTime: _dateController.text.isEmpty
                             ? DateTime.now()
                             : FunctionHelper.formatDateText(
                                 _dateController.text.trim()),
                       );
-                      if (costSpend == null) {
-                        BlocProvider.of<CostSpendBloc>(context)
-                            .add(CreateCostSpendEvent(costSpend: costSpend1));
+                      if (costCollect == null) {
+                        BlocProvider.of<CostCollectBloc>(context).add(
+                            CreateCostCollectEvent(costCollect: costCollect1));
                       } else {
-                        costSpend1.id = costSpend?.id;
-                        costSpend1.idUser = costSpend!.idUser;
-                        BlocProvider.of<CostSpendBloc>(context)
-                            .add(UpdateCostSpendEvent(costSpend: costSpend1));
+                        costCollect1.id = costCollect?.id;
+                        costCollect1.idUser = costCollect!.idUser;
+                        BlocProvider.of<CostCollectBloc>(context).add(
+                            UpdateCostCollectEvent(costCollect: costCollect1));
                       }
                     } else {
                       FunctionHelper.showSnackBar(
@@ -273,7 +276,7 @@ class _AddSpendScreenState extends State<AddSpendScreen> {
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20))),
         title: const Center(
-          child: Text('Chọn loại chi'),
+          child: Text('Chọn loại thu'),
         ),
         children: [
           SizedBox(
@@ -283,19 +286,19 @@ class _AddSpendScreenState extends State<AddSpendScreen> {
               physics: const AlwaysScrollableScrollPhysics(),
               child: Column(
                 children: [
-                  categorySpends.isNotEmpty
+                  categoryCollects.isNotEmpty
                       ? ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           primary: false,
-                          itemCount: categorySpends.length,
+                          itemCount: categoryCollects.length,
                           scrollDirection: Axis.vertical,
                           itemBuilder: (context, index) => InkWell(
                             onTap: () {
                               setState(() {
-                                _categorySpendController.text =
-                                    categorySpends[index].name;
-                                idCategorySpend = categorySpends[index].id!;
+                                _categoryCollectController.text =
+                                    categoryCollects[index].name;
+                                idCategoryCollect = categoryCollects[index].id!;
                                 Navigator.pop(context);
                               });
                             },
@@ -303,7 +306,7 @@ class _AddSpendScreenState extends State<AddSpendScreen> {
                               padding: const EdgeInsets.only(top: 5, bottom: 5),
                               child: Center(
                                 child: Text(
-                                  categorySpends[index].name,
+                                  categoryCollects[index].name,
                                   style: AppThemes.commonText,
                                 ),
                               ),
@@ -312,8 +315,10 @@ class _AddSpendScreenState extends State<AddSpendScreen> {
                         )
                       : Center(
                           child: Text(
-                            "Chưa có danh mục chi !",
+                            "Chưa có danh mục thu !",
                             style: AppThemes.commonText,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                 ],
@@ -321,12 +326,13 @@ class _AddSpendScreenState extends State<AddSpendScreen> {
             ),
           ),
           TextButton(
-              onPressed: () async {
-                await Navigator.pushNamed(
-                    context, Constants.addTypeSpendScreen);
-                Navigator.pop(context);
-              },
-              child: const Text('Thêm danh mục chi'))
+            onPressed: () async {
+              await Navigator.pushNamed(
+                  context, Constants.addCategoryCollectScreen);
+              Navigator.pop(context);
+            },
+            child: const Text('Thêm danh mục thu'),
+          )
         ],
       ),
     );

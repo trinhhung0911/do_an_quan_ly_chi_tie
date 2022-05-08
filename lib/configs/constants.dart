@@ -11,6 +11,7 @@ class Constants {
   static const String  collectScreen='/collect_screen';
   static const String addCategoryCollectScreen='/add_category_collect_screen';
   static const String addCostCollectScreen='/add_cost_collect_screen';
+  static const String settingScreen='/setting_screen';
 
 
 }

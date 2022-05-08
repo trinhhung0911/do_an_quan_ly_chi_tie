@@ -18,6 +18,7 @@ class CostSpendCard extends StatefulWidget {
   @override
   _CostSpendCardState createState() => _CostSpendCardState();
 }
+
 class _CostSpendCardState extends State<CostSpendCard> {
   @override
   Widget build(BuildContext context) {
@@ -77,34 +78,36 @@ class _CostSpendCardState extends State<CostSpendCard> {
             }
           },
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Icon(
                 Icons.account_balance_wallet_outlined,
                 size: 40,
               ),
-              const SizedBox(
-                width: 5,
+              Container(
+                margin: const EdgeInsets.only(left: 5,right: 5),
+                width: 120,
+                child: Text(
+                  widget.costSpend.nameCategorySpend,
+                  style: AppThemes.lightText.copyWith(color: Colors.black),
+                  maxLines: 1,
+                  overflow:TextOverflow.ellipsis,
+                ),
               ),
-              Text(
-                widget.costSpend.nameCategorySpend,
-                style: AppThemes.lightText.copyWith(color: Colors.black),
+              Container(
+                width: 90,
+                margin: const EdgeInsets.only(right: 5),
+                child: Text(
+                  widget.costSpend.dateTime.toString().split(' ')[0],
+                  style: AppThemes.lightText.copyWith(color: Colors.black),
+                ),
               ),
-              const SizedBox(
-                width: 5,
-              ),
-              Text(
-                widget.costSpend.dateTime.toString().split(' ')[0],
-                style: AppThemes.lightText.copyWith(color: Colors.black),
-
-              ),
-              const SizedBox(
-                width: 5,
-              ),
-              Text(
-                widget.costSpend.money.toString().split(' ')[0],
-                style: AppThemes.lightText.copyWith(color: Colors.black),
-
+              Expanded(
+                child: Text(
+                  widget.costSpend.money.toString().split(' ')[0],
+                  style: AppThemes.lightText.copyWith(color: Colors.black),
+                  maxLines: 1,
+                  overflow:TextOverflow.ellipsis,
+                ),
               )
             ],
           ),

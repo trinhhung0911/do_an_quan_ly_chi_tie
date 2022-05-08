@@ -65,7 +65,7 @@ class _DrawerItemState extends State<DrawerItem> {
             leading: const Icon(Icons.settings),
             title: const Text("Cài đặt"),
             onTap: () {
-              //Navigator.pushNamed(context, Constants.loginScreen);
+              Navigator.pushNamed(context, Constants.settingScreen);
             },
           ),
           ListTile(

@@ -22,7 +22,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passController = TextEditingController();
   late String _email = '';
   late String _pass = '';
-
   bool validateEmail = true;
   bool passwordVisible = true;
   String errorText = 'Nhập đúng định dạng email !';
@@ -46,16 +45,13 @@ class _LoginScreenState extends State<LoginScreen> {
         child: BlocListener<LoginBloc, LoginState>(
           listener: (context, state) {
             if (state is LoginLoadingState) {
-
               LoadingHelper.showLoading(context);
-              print('Đang load');
             } else if (state is LoginSuccessState) {
               LoadingHelper.hideLoading(context);
               Navigator.pushNamed(context, Constants.homeScreen,
                   arguments: _emailController.text);
-              print('Thành công');
             } else if (state is LoginErrorState) {
-              print('Thất bại');
+
               LoadingHelper.hideLoading(context);
               FunctionHelper.showSnackBar(context: context, title: state.error);
             }

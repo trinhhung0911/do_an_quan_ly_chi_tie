@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quan_ly_chi_tieu/configs/colors.dart';
-import 'package:quan_ly_chi_tieu/ui/Quan_ly_thu/danh_muc_thu/category_collect_screen.dart';
-import 'package:quan_ly_chi_tieu/ui/Quan_ly_thu/quan_ly_thu/manage_collect_screenn.dart';
+import 'package:quan_ly_chi_tieu/ui/manage_collect/category_collect/category_collect_screen.dart';
+import 'package:quan_ly_chi_tieu/ui/manage_collect/manage_collect/manage_collect_screenn.dart';
+
 class CollectScreen extends StatefulWidget {
   const CollectScreen({Key? key}) : super(key: key);
   @override

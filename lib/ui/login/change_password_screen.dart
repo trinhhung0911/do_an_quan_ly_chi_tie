@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quan_ly_chi_tieu/bloc/forgot_bloc/forgot_bloc.dart';
@@ -17,16 +16,16 @@ class ChangePasswordScreen extends StatefulWidget {
   _ChangePasswordScreenState createState() => _ChangePasswordScreenState();
 }
 
-
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final TextEditingController _oldPasswordController = TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
-  final TextEditingController _retypePasswordController = TextEditingController();
+  final TextEditingController _retypePasswordController =
+      TextEditingController();
   bool passwordVisible = true;
   bool newPasswordVisible = true;
   bool retypePasswordVisible = true;
-  bool  validatePassWord=true;
-  String errorPassWordText='';
+  bool validatePassWord = true;
+  String errorPassWordText = '';
   FocusNode newPasswordFocus = FocusNode();
   late Users users;
   @override
@@ -41,19 +40,16 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         listener: (context, state) {
           if (state is UpdatePasswordLoadingState) {
             LoadingHelper.showLoading(context);
-          }
-          else if (state is UpdatePasswordSuccessState) {
-           LoadingHelper.hideLoading(context);
+          } else if (state is UpdatePasswordSuccessState) {
+            LoadingHelper.hideLoading(context);
             FunctionHelper.showSnackBar(
               context: context,
               title: "Đổi mật khẩu thành công",
             );
             _refresh();
-
-          }
-          else if (state is UpdatePasswordErrorState) {
-             LoadingHelper.hideLoading(context);
-             FunctionHelper.showSnackBar(context: context, title: state.error);
+          } else if (state is UpdatePasswordErrorState) {
+            LoadingHelper.hideLoading(context);
+            FunctionHelper.showSnackBar(context: context, title: state.error);
           }
         },
         child: Padding(
@@ -81,20 +77,18 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   suffixIcon: InkWell(
                     onTap: () {
                       setState(
-                            () {
-                              passwordVisible = !passwordVisible;
+                        () {
+                          passwordVisible = !passwordVisible;
                         },
                       );
                     },
-                    child:  Icon(
+                    child: Icon(
                       passwordVisible == true
                           ? Icons.visibility
                           : Icons.visibility_off,
                     ),
                   ),
                 ),
-
-
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 10, bottom: 20),
@@ -102,9 +96,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   focusNode: newPasswordFocus,
                   controller: _newPasswordController,
                   style: const TextStyle(fontSize: 16, color: Colors.black),
-                   obscureText: newPasswordVisible ? true : false,
+                  obscureText: newPasswordVisible ? true : false,
                   decoration: InputDecoration(
-                      errorText: validatePassWord == true ? null : errorPassWordText,
+                    errorText:
+                        validatePassWord == true ? null : errorPassWordText,
                     labelText: "Nhập mật khẩu mới",
                     prefixIcon: const Icon(Icons.lock),
                     border: OutlineInputBorder(
@@ -117,12 +112,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     suffixIcon: InkWell(
                       onTap: () {
                         setState(
-                              () {
-                            newPasswordVisible=!newPasswordVisible;
+                          () {
+                            newPasswordVisible = !newPasswordVisible;
                           },
                         );
                       },
-                      child:Icon(
+                      child: Icon(
                         newPasswordVisible == true
                             ? Icons.visibility
                             : Icons.visibility_off,
@@ -164,8 +159,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     suffixIcon: InkWell(
                       onTap: () {
                         setState(
-                              () {
-                                retypePasswordVisible=! retypePasswordVisible;
+                          () {
+                            retypePasswordVisible = !retypePasswordVisible;
                           },
                         );
                       },
@@ -186,35 +181,41 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     "Đổi mật khẩu ",
                     style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
-                  color:AppColors.appColor,
+                  color: AppColors.appColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
-                  ), onPressed: () {
-                    if(_checkEmptyPassword()==true){
-                      if(_checkNewPassword()==true){
-                        if(validatePassWord==true) {
+                  ),
+                  onPressed: () {
+                    if (_checkEmptyPassword() == true) {
+                      if (_checkNewPassword() == true) {
+                        if (validatePassWord == true) {
                           BlocProvider.of<ForgotBloc>(context).add(
                             UpdatePasswordEvent(
-                              currentPassword: _oldPasswordController.text
-                                  .trim(),
-                              newPassword: _newPasswordController.text
-                                  .trim(),),);
-                        }
-                        else{
-                          FunctionHelper.showSnackBar(context: context, title: 'Password phải trên 6 ký tự !');
+                              currentPassword:
+                                  _oldPasswordController.text.trim(),
+                              newPassword: _newPasswordController.text.trim(),
+                            ),
+                          );
+                        } else {
+                          FunctionHelper.showSnackBar(
+                              context: context,
+                              title: 'Password phải trên 6 ký tự !');
                           FocusScope.of(context).requestFocus(newPasswordFocus);
                         }
-                      }
-                      else{
-                        FunctionHelper.showSnackBar(context: context, title:'Mật khẩu chưa trùng nhau !');
+                      } else {
+                        FunctionHelper.showSnackBar(
+                            context: context,
+                            title: 'Mật khẩu chưa trùng nhau !');
                         _newPasswordController.clear();
                         _retypePasswordController.clear();
                         FocusScope.of(context).requestFocus(newPasswordFocus);
                       }
-                    }else{
-                      FunctionHelper.showSnackBar(context: context, title: 'Bạn cần nhập đầy đủ thông tin !');
+                    } else {
+                      FunctionHelper.showSnackBar(
+                          context: context,
+                          title: 'Bạn cần nhập đầy đủ thông tin !');
                     }
-                },
+                  },
                 ),
               )
             ],
@@ -226,26 +227,27 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       ),
     );
   }
+
   _checkNewPassword() {
-    if(_newPasswordController.text.trim()==_retypePasswordController.text.trim()){
+    if (_newPasswordController.text.trim() ==
+        _retypePasswordController.text.trim()) {
       return true;
     }
     return false;
-
   }
-  _checkEmptyPassword(){
-    if(_newPasswordController.text.trim().isEmpty||
-  _retypePasswordController.text.trim().isEmpty||
-  _oldPasswordController.text.trim().isEmpty){
+
+  _checkEmptyPassword() {
+    if (_newPasswordController.text.trim().isEmpty ||
+        _retypePasswordController.text.trim().isEmpty ||
+        _oldPasswordController.text.trim().isEmpty) {
       return false;
-  }
+    }
     return true;
+  }
 
-}
-void _refresh(){
+  void _refresh() {
     _oldPasswordController.clear();
     _newPasswordController.clear();
     _retypePasswordController.clear();
-
-}
+  }
 }

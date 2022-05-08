@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:quan_ly_chi_tieu/configs/constants.dart';
+import 'package:quan_ly_chi_tieu/models/cost_collect.dart';
 import 'package:quan_ly_chi_tieu/storage/secure_storge.dart';
 
 import '../models/category_Collect.dart';
@@ -31,9 +32,23 @@ class CategoryCollectService{
   }
 
   Future<dynamic> updateCategoryCollect({required CategoryCollect categoryCollect}) async {
+    //update category Collect
     CollectionReference categoryCollectCollection =
     FirebaseFirestore.instance.collection(CollectionName.categoryCollect.name);
-    await categoryCollectCollection.doc(categoryCollect.id).update(categoryCollect.toJson());
+    await categoryCollectCollection.doc(categoryCollect.id).update(categoryCollect.toJson(),);
+
+    //update cost collect
+    var idUser=await SecureStorage().getString(key: SecureStorage.userId);
+    CollectionReference costCollectCollection = FirebaseFirestore.instance.collection(CollectionName.costCollect.name);
+    var data = await costCollectCollection.get();
+    for (var item in data.docs) {
+      var e = CostCollect.formJson(item.data() as Map<String, dynamic>)..id = item.id;
+      if(e.idUser == idUser && e.idCategoryCollect==categoryCollect.id) {
+        await costCollectCollection.doc(e.id).update({'nameCategoryCollect' :categoryCollect.name});
+      }
+    }
+
+
   }
 
   Future<dynamic> deleteCategoryCollect({required CategoryCollect categoryCollect}) async {
