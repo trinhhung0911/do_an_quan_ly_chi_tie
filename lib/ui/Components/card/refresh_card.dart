@@ -21,7 +21,6 @@ class _RefreshWidgetState extends State<RefreshWidget> {
   Widget build(BuildContext context) {
     return Platform.isAndroid ? buidAndroidList() : buidIOSList();
   }
-
   Widget buidAndroidList() {
     return RefreshIndicator(
       onRefresh: widget.onRefresh,

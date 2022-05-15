@@ -36,6 +36,21 @@ class _AddTypeSpendScreenState extends State<AddTypeSpendScreen> {
     super.initState();
   }
   @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+  }
+  @override
+  void didUpdateWidget(covariant AddTypeSpendScreen oldWidget) {
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -46,7 +61,6 @@ class _AddTypeSpendScreenState extends State<AddTypeSpendScreen> {
         listener: (context, state) {
           if (state is CreateCategorySpendLoadingState||
               state is UpdateCategorySpendLoadingState) {
-
             LoadingHelper.showLoading(context);
           }
           else if (state is CreateCategorySpendSuccessState||
@@ -152,8 +166,6 @@ class _AddTypeSpendScreenState extends State<AddTypeSpendScreen> {
                       FunctionHelper.showSnackBar(context: context, title: 'Bạn cần nhập tên danh mục chi !');
                       FocusScope.of(context).requestFocus(nameFocus);
                     }
-
-
                   },
                 ),
               ),

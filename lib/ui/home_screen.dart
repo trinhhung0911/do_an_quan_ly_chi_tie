@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-         Navigator.pushNamed(context, Constants.spendScreen);
+         Navigator.pushNamed(context, Constants.addSpendScreen);
         },
         child: const Icon(
           Icons.add,

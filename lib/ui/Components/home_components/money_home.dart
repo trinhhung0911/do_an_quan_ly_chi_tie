@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quan_ly_chi_tieu/configs/constants.dart';
 import 'package:quan_ly_chi_tieu/storage/secure_storge.dart';
 
 import '../../../configs/colors.dart';
@@ -41,7 +42,7 @@ class _MoneyHomeState extends State<MoneyHome> {
             InkWell(
               onTap: () async {
                 var uId = await SecureStorage().getString(key: SecureStorage.userId);
-                print(uId);
+                Navigator.pushNamed(context, Constants.addCostCollectScreen);
               },
               child: const Icon(
                 Icons.add,

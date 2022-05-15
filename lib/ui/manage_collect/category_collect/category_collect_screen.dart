@@ -70,7 +70,8 @@ class _CategoryCollectScreenState extends State<CategoryCollectScreen> {
                     ),
                   ],
                 ),
-              ) : Center(child: Text('Chưa có danh mục thu !',style: AppThemes.commonText,),
+              ) :
+              Center(child: Text('Chưa có danh mục thu !',style: AppThemes.commonText,),
               );
             }
             return Container();

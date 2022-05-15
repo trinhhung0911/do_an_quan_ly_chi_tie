@@ -12,12 +12,21 @@ class SettingScreen extends StatefulWidget {
 
 class _SettingScreenState extends State<SettingScreen> {
   static List<String> listColor= [
-    'Tất cả',
-    'Tuần này',
-    'Tháng này',
-    'Năm này',
+    'amber',
+    'Pink',
+    'Green',
   ];
-  static String dropDownValue = listColor[0];
+  static String dropDownValueColor = listColor[0];
+  static List<String> listLanguage= [
+    'Vietnamese',
+    'English',
+  ];
+  static String dropDownValueLanguage = listLanguage[0];
+  static List<String> listMoney= [
+    'VND',
+    'Dollars'
+  ];
+  static String dropDownValueMoney = listMoney[0];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +61,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   ),
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton(
-                      value: dropDownValue,
+                      value: dropDownValueColor,
                       icon: const Icon(Icons.keyboard_arrow_down),
                       items: listColor.map((String items) {
                         return DropdownMenuItem(
@@ -63,7 +72,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       onChanged: (String? newValue) {
                         setState(
                               () {
-                           dropDownValue = newValue!;
+                           dropDownValueColor = newValue!;
                           },
                         );
                       },
@@ -72,49 +81,50 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 20,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Thiết lập ngôn ngữ',style:AppThemes.commonText ,),
-                Container(
-                  margin: const EdgeInsets.only(left: 5),
-                  padding: const EdgeInsets.only(
-                    left: 10,
-                  ),
-                  height: 40,
-                  width: 180,
-                  decoration: const BoxDecoration(
-                    color: AppColors.boxColor,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(
-                        30,
+            Padding(
+              padding: const EdgeInsets.only(top: 20,bottom: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Thiết lập ngôn ngữ',style:AppThemes.commonText ,),
+                  Container(
+                    margin: const EdgeInsets.only(left: 5),
+                    padding: const EdgeInsets.only(
+                      left: 10,
+                    ),
+                    height: 40,
+                    width: 180,
+                    decoration: const BoxDecoration(
+                      color: AppColors.boxColor,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(
+                          30,
+                        ),
+                      ),
+                    ),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton(
+                        value: dropDownValueLanguage,
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        items: listLanguage.map((String items) {
+                          return DropdownMenuItem(
+                            value: items,
+                            child: Center(child: Text(items)),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(
+                                () {
+                              dropDownValueLanguage = newValue!;
+                            },
+                          );
+                        },
                       ),
                     ),
                   ),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton(
-                      value: dropDownValue,
-                      icon: const Icon(Icons.keyboard_arrow_down),
-                      items: listColor.map((String items) {
-                        return DropdownMenuItem(
-                          value: items,
-                          child: Center(child: Text(items)),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {
-                        setState(
-                              () {
-                            dropDownValue = newValue!;
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-            SizedBox(height: 20,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -136,9 +146,9 @@ class _SettingScreenState extends State<SettingScreen> {
                   ),
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton(
-                      value: dropDownValue,
+                      value: dropDownValueMoney,
                       icon: const Icon(Icons.keyboard_arrow_down),
-                      items: listColor.map((String items) {
+                      items: listMoney.map((String items) {
                         return DropdownMenuItem(
                           value: items,
                           child: Center(child: Text(items)),
@@ -147,7 +157,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       onChanged: (String? newValue) {
                         setState(
                               () {
-                            dropDownValue = newValue!;
+                            dropDownValueMoney = newValue!;
                           },
                         );
                       },
@@ -156,7 +166,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             SizedBox(
               width: double.infinity,
               height: 50,

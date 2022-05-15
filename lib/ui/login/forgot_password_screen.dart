@@ -41,12 +41,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           listener: (context, state) {
             if (state is ForgotLoadingState) {
              LoadingHelper.showLoading(context);
-            } else if (state is ForgotSuccessState) {
+            }
+            else if (state is ForgotSuccessState) {
               LoadingHelper.hideLoading(context);
               FunctionHelper.showSnackBar(context: context, title: 'Kiểm tra email của bạn để đặt mật khẩu mới');
               _emailController.clear();
              Navigator.pushNamed(context, Constants.loginScreen);
-            } else if (state is ForgotErrorState) {
+            }
+            else if (state is ForgotErrorState) {
               LoadingHelper.hideLoading(context);
               FunctionHelper.showSnackBar(context: context, title: state.error);
             }

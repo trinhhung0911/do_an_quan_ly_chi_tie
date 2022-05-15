@@ -16,7 +16,6 @@ class Users {
       this.sumMoney=0,
       this.startDate,
       });
-
 //gửi lên
   Map<String, dynamic> toJson() => {
     "uId": uid,
