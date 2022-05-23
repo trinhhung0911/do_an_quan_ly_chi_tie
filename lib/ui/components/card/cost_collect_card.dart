@@ -11,8 +11,6 @@ import 'package:quan_ly_chi_tieu/models/cost_collect.dart';
 import 'package:quan_ly_chi_tieu/utils/function_helper.dart';
 import 'package:quan_ly_chi_tieu/utils/loading_helper.dart';
 
-
-
 class CostCollectCard extends StatefulWidget {
   CostCollect costCollect;
   int index;
@@ -28,16 +26,14 @@ class _CostCollectCardState extends State<CostCollectCard> {
       listener: (context, state) {
         if (state is DeleteCostCollectLoadingState) {
           LoadingHelper.showLoading(context);
-        }
-        else if (state is DeleteCostCollectSuccessState) {
+        } else if (state is DeleteCostCollectSuccessState) {
           LoadingHelper.hideLoading(context);
           FunctionHelper.showSnackBar(
             context: context,
             title: "Xóa khoản thu thành công !",
           );
           BlocProvider.of<CostCollectBloc>(context).add(GetCostCollectsEvent());
-        }
-        else if (state is DeleteCostCollectErrorState) {
+        } else if (state is DeleteCostCollectErrorState) {
           LoadingHelper.hideLoading(context);
           FunctionHelper.showSnackBar(context: context, title: state.error);
         }
@@ -49,7 +45,7 @@ class _CostCollectCardState extends State<CostCollectCard> {
           borderRadius: BorderRadius.circular(10),
         ),
         margin: const EdgeInsets.only(bottom: 10),
-        padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8,right: 16),
+        padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8, right: 16),
         child: InkWell(
           onTap: () async {
             var result = await Navigator.pushNamed(
@@ -59,7 +55,7 @@ class _CostCollectCardState extends State<CostCollectCard> {
             );
             if (result != null) {
               setState(
-                    () {
+                () {
                   widget.costCollect = result as CostCollect;
                 },
               );
@@ -72,39 +68,44 @@ class _CostCollectCardState extends State<CostCollectCard> {
                 okLabel: "Đồng ý",
                 cancelLabel: "Hủy",
                 message:
-                'Bạn có muốn xóa khoản thu ${widget.costCollect.nameCategoryCollect} !');
+                    'Bạn có muốn xóa khoản thu ${widget.costCollect.nameCategoryCollect} !');
             if (result == OkCancelResult.ok) {
-                 BlocProvider.of<CostCollectBloc>(context).add(DeleteCostCollectEvent(costCollect: widget.costCollect),);
+              BlocProvider.of<CostCollectBloc>(context).add(
+                DeleteCostCollectEvent(costCollect: widget.costCollect),
+              );
             }
           },
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Icon(
                 Icons.account_balance_wallet_outlined,
                 size: 40,
               ),
-              const SizedBox(
-                width: 5,
+              Container(
+                margin: const EdgeInsets.only(left: 5, right: 5),
+                width: 120,
+                child: Text(
+                  widget.costCollect.nameCategoryCollect,
+                  style: AppThemes.lightText.copyWith(color: Colors.black),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
-              Text(
-                widget.costCollect.nameCategoryCollect,
-                style: AppThemes.lightText.copyWith(color: Colors.black),
+              Container(
+                width: 90,
+                margin: const EdgeInsets.only(right: 5),
+                child: Text(
+                  widget.costCollect.dateTime.toString().split(' ')[0],
+                  style: AppThemes.lightText.copyWith(color: Colors.black),
+                ),
               ),
-              const SizedBox(
-                width: 5,
-              ),
-              Text(
-                widget.costCollect.dateTime.toString().split(' ')[0],
-                style: AppThemes.lightText.copyWith(color: Colors.black),
-
-              ),
-              const SizedBox(
-                width: 5,
-              ),
-              Text(
-                widget.costCollect.money.toString().split(' ')[0],
-                style: AppThemes.lightText.copyWith(color: Colors.black),
+              Expanded(
+                child: Text(
+                  widget.costCollect.money.toString().split(' ')[0],
+                  style: AppThemes.lightText.copyWith(color: Colors.black),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               )
             ],
           ),

@@ -9,7 +9,7 @@ import 'package:quan_ly_chi_tieu/models/cost_spend.dart';
 import 'package:quan_ly_chi_tieu/ui/Components/card/cost_spend_card.dart';
 import 'package:quan_ly_chi_tieu/ui/Components/card/drawer_item_card.dart';
 import 'package:quan_ly_chi_tieu/ui/Components/card/refresh_card.dart';
-import 'package:quan_ly_chi_tieu/ui/Components/input/input_search.dart';
+import 'package:quan_ly_chi_tieu/ui/Components/input/input_search_spend.dart';
 import 'package:quan_ly_chi_tieu/ui/home_screen.dart';
 import 'package:quan_ly_chi_tieu/utils/function_helper.dart';
 import 'package:quan_ly_chi_tieu/utils/loading_helper.dart';
@@ -18,11 +18,15 @@ import '../../../bloc/cost_spend_bloc/cost_spend_state.dart';
 
 class ManageSpendScreen extends StatefulWidget {
   const ManageSpendScreen({Key? key}) : super(key: key);
+  static bool isFetch = false;
+  static int indext = 0;
   @override
   _ManageSpendScreenState createState() => _ManageSpendScreenState();
 }
 
 List<CostSpend> costSpends = [];
+List<CostSpend> empCostSpends = [];
+List<CostSpend> empCostSpendsTmp = [];
 
 final refreshKeyManageSpend = GlobalKey<RefreshIndicatorState>();
 
@@ -30,7 +34,6 @@ class _ManageSpendScreenState extends State<ManageSpendScreen> {
   @override
   void initState() {
     BlocProvider.of<CostSpendBloc>(context).add(GetCostSpendsEvent());
-    // TODO: implement initState
     super.initState();
   }
 
@@ -64,25 +67,49 @@ class _ManageSpendScreenState extends State<ManageSpendScreen> {
                   } else if (state is GetCostSpendLoadedState) {
                     LoadingHelper.hideLoading(context);
                     costSpends = state.costSpend;
-                    return costSpends.isNotEmpty
-                        ? SingleChildScrollView(
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            padding: const EdgeInsets.only(top: 20),
-                            child: Column(
-                              children: [
-                                ListView.builder(
-                                    padding: const EdgeInsets.only(
-                                        left: 24, right: 24),
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    primary: false,
-                                    itemCount: costSpends.length,
-                                    itemBuilder: (context, index) =>
-                                        CostSpendCard(
-                                            costSpends[index], index)),
-                              ],
-                            ),
+                    if (!ManageSpendScreen.isFetch) {
+                      if (ManageSpendScreen.indext == 0) {
+                        empCostSpends = costSpends;
+                        empCostSpendsTmp = empCostSpends;
+                      } else if (ManageSpendScreen.indext == 1) {
+                        final suggestions = costSpends
+                            .where((costSpends) =>
+                                costSpends.dateTime!.day.toString() ==
+                                DateTime.now().day.toString())
+                            .toList();
+                        empCostSpends = suggestions;
+                        empCostSpendsTmp = empCostSpends;
+                      } else if (ManageSpendScreen.indext == 2) {
+                        final suggestions = costSpends
+                            .where((costSpends) => costSpends.dateTime!.month.toString() == DateTime.now().month.toString())
+                            .toList();
+                        empCostSpends = suggestions;
+                        empCostSpendsTmp = empCostSpends;
+                      } else if (ManageSpendScreen.indext == 3) {
+                        final suggestions = costSpends
+                            .where((costSpends) =>
+                                costSpends.dateTime!.year.toString() ==
+                                DateTime.now().year.toString())
+                            .toList();
+                        empCostSpends = suggestions;
+                        empCostSpendsTmp = empCostSpends;
+                      }
+                      ManageSpendScreen.isFetch = true;
+                    }
+                    return empCostSpends.isNotEmpty
+                        ? Column(
+                            children: [
+                              ListView.builder(
+                                padding:
+                                    const EdgeInsets.only(left: 24, right: 24),
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                primary: false,
+                                itemCount: empCostSpends.length,
+                                itemBuilder: (context, index) =>
+                                    CostSpendCard(empCostSpends[index], index),
+                              ),
+                            ],
                           )
                         : Padding(
                             padding: const EdgeInsets.only(top: 250),
@@ -136,8 +163,42 @@ class _ManageSpendScreenState extends State<ManageSpendScreen> {
   Future<void> refresh() async {
     refreshKeyManageSpend.currentState?.show();
     await Future.delayed(const Duration(microseconds: 400));
+    InputSearch.textSearchController.clear();
+    if (InputSearch.dropDownValue.compareTo(InputSearch.items[0]) == 0) {
+      ManageSpendScreen.indext = 0;
+      ManageSpendScreen.isFetch = false;
+    }
+    if (InputSearch.dropDownValue.compareTo(InputSearch.items[1]) == 0) {
+      ManageSpendScreen.indext = 1;
+      ManageSpendScreen.isFetch = false;
+    }
+    if (InputSearch.dropDownValue.compareTo(InputSearch.items[2]) == 0) {
+      ManageSpendScreen.indext = 2;
+      ManageSpendScreen.isFetch = false;
+    }
+    if (InputSearch.dropDownValue.compareTo(InputSearch.items[3]) == 0) {
+      ManageSpendScreen.indext = 3;
+      ManageSpendScreen.isFetch = false;
+    }
     BlocProvider.of<CostSpendBloc>(context).add(GetCostSpendsEvent());
+
+
   }
 
-  searchName(String query) {}
+
+
+  searchName(String query) {
+    final suggestions = empCostSpendsTmp.where((costSpend) {
+      final name = costSpend.nameCategorySpend.toLowerCase();
+      final input = query.toLowerCase();
+      return name.contains(input);
+    }).toList();
+    setState(
+      () {
+        empCostSpends = suggestions;
+      },
+    );
+  }
+
+
 }

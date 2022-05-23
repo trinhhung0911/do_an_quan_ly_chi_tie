@@ -1,25 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quan_ly_chi_tieu/configs/colors.dart';
+import 'package:quan_ly_chi_tieu/ui/manage_collect/manage_collect/manage_collect_screenn.dart';
+import '../../../bloc/cost_collect_bloc/cost_collect_bloc.dart';
+import '../../../bloc/cost_collect_bloc/cost_collect_event.dart';
 
-class InputSearch extends StatefulWidget {
-  _InputSearchState createState() => _InputSearchState();
+
+class InputSearchCollect extends StatefulWidget {
+  @override
+  _InputSearchCollectState createState() => _InputSearchCollectState();
   final Function(String)? onChanged;
-  const InputSearch(this.onChanged);
+  const InputSearchCollect(this.onChanged);
   static TextEditingController textSearchController = TextEditingController();
   static List<String> items = [
     'Tất cả',
-    'Tuần này',
+    'Ngày này',
     'Tháng này',
     'Năm này',
   ];
   static String dropDownValue = items[0];
 }
 
-class _InputSearchState extends State<InputSearch> {
+class _InputSearchCollectState extends State<InputSearchCollect> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(left: 24, top: 28, right: 24),
+      padding: const EdgeInsets.only(left: 24, top: 28, right: 24, bottom: 10),
       width: double.infinity,
       child: Row(
         children: [
@@ -36,7 +42,7 @@ class _InputSearchState extends State<InputSearch> {
               child: Center(
                 child: TextFormField(
                   onChanged: widget.onChanged,
-                  controller: InputSearch.textSearchController,
+                  controller: InputSearchCollect.textSearchController,
                   decoration: InputDecoration(
                     fillColor: Colors.white,
                     alignLabelWithHint: false,
@@ -51,13 +57,13 @@ class _InputSearchState extends State<InputSearch> {
                         minWidth: 0,
                         minHeight: 0,
                       ),
-                      padding: EdgeInsets.only(bottom: 0, right: 10),
+                      padding: const EdgeInsets.only(bottom: 0, right: 10),
                       onPressed: () {},
                       icon: Icon(
                         Icons.search,
-                        color: InputSearch.textSearchController.text
-                                .trim()
-                                .isNotEmpty
+                        color: InputSearchCollect.textSearchController.text
+                            .trim()
+                            .isNotEmpty
                             ? Colors.blue
                             : Colors.black,
                       ),
@@ -84,9 +90,9 @@ class _InputSearchState extends State<InputSearch> {
             ),
             child: DropdownButtonHideUnderline(
               child: DropdownButton(
-                value: InputSearch.dropDownValue,
+                value: InputSearchCollect.dropDownValue,
                 icon: const Icon(Icons.keyboard_arrow_down),
-                items: InputSearch.items.map((String items) {
+                items: InputSearchCollect.items.map((String items) {
                   return DropdownMenuItem(
                     value: items,
                     child: Text(items),
@@ -94,10 +100,33 @@ class _InputSearchState extends State<InputSearch> {
                 }).toList(),
                 onChanged: (String? newValue) {
                   setState(
-                    () {
-                      InputSearch.dropDownValue = newValue!;
+                        () {
+                      InputSearchCollect.dropDownValue = newValue!;
+                      if (InputSearchCollect.dropDownValue.compareTo(InputSearchCollect.items[0]) == 0) {
+                        ManageCollectScreen.indext = 0;
+                        ManageCollectScreen.isFetch = false;
+                        InputSearchCollect.textSearchController.clear();
+                      }
+                      if (InputSearchCollect.dropDownValue.compareTo(InputSearchCollect.items[1]) == 0) {
+                        ManageCollectScreen.indext = 1;
+                        ManageCollectScreen.isFetch = false;
+                        InputSearchCollect.textSearchController.clear();
+
+                      }
+                      if (InputSearchCollect.dropDownValue.compareTo(InputSearchCollect.items[2]) == 0) {
+
+                        ManageCollectScreen.indext = 2;
+                        ManageCollectScreen.isFetch = false;
+                        InputSearchCollect.textSearchController.clear();
+                      }
+                      if (InputSearchCollect.dropDownValue.compareTo(InputSearchCollect.items[3]) == 0) {
+                        ManageCollectScreen.indext = 3;
+                        ManageCollectScreen.isFetch = false;
+                        InputSearchCollect.textSearchController.clear();
+                      }
                     },
                   );
+                  BlocProvider.of<CostCollectBloc>(context).add(GetCostCollectsEvent());
                 },
               ),
             ),

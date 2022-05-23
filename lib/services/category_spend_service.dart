@@ -7,6 +7,7 @@ import 'package:quan_ly_chi_tieu/models/cost_spend.dart';
 import 'package:quan_ly_chi_tieu/storage/secure_storge.dart';
 
 class CategorySpendService{
+  //Tạo danh mục chi
   Future<dynamic> createCategorySpend({required CategorySpend categorySpend,}) async {
     CollectionReference categoryCollection = FirebaseFirestore.instance.collection(CollectionName.categorySpend.name);
     var idUser=await SecureStorage().getString(key: SecureStorage.userId);
@@ -14,6 +15,7 @@ class CategorySpendService{
    await categoryCollection.add(categorySpend.toJson());
   }
 
+//get tất cả danh mục chi
   Future<List<CategorySpend>> getCategorySpends() async {
     var idUser=await SecureStorage().getString(key: SecureStorage.userId);
     List<CategorySpend> categorySpend=[];
@@ -28,12 +30,13 @@ class CategorySpendService{
     return categorySpend;
   }
 
+//Cập nhật danh mục chi
   Future<dynamic> updateCategorySpend({required CategorySpend categorySpend}) async {
-    //update category spend
+    //Cập nhật danh mục chi
     CollectionReference categorySpendCollection = FirebaseFirestore.instance.collection(CollectionName.categorySpend.name);
     await categorySpendCollection.doc(categorySpend.id).update(categorySpend.toJson());
 
-   //update cost spend
+   //Cập nhật khoản chi
     var idUser=await SecureStorage().getString(key: SecureStorage.userId);
     CollectionReference costSpendCollection = FirebaseFirestore.instance.collection(CollectionName.costSpend.name);
     var data = await costSpendCollection.get();
@@ -42,16 +45,15 @@ class CategorySpendService{
       if(e.idUser == idUser && e.idCategorySpend==categorySpend.id) {
         await costSpendCollection.doc(e.id).update({'nameCategorySpend' :categorySpend.name  });
       }
-
     }
-
   }
 
+    //Xóa danh mục chi
   Future<dynamic> deleteCategorySpend({required CategorySpend categorySpend}) async {
-    //delete Category Spend
+    //Xóa danh mục chi
     CollectionReference categorySpendCollection = FirebaseFirestore.instance.collection(CollectionName.categorySpend.name);
     await categorySpendCollection.doc(categorySpend.id).delete();
-    //update cost Spend
+    //Cập nhật danh mục chi
     var idUser=await SecureStorage().getString(key: SecureStorage.userId);
     CollectionReference costSpendCollection = FirebaseFirestore.instance.collection(CollectionName.costSpend.name);
     var data = await costSpendCollection.get();
@@ -60,7 +62,6 @@ class CategorySpendService{
       if(e.idUser == idUser && e.idCategorySpend==categorySpend.id) {
         await costSpendCollection.doc(e.id).update({'nameCategorySpend' :"Null",'idCategorySpend':'Null'});
       }
-
     }
   }
 

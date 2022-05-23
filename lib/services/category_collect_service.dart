@@ -8,14 +8,14 @@ import 'package:quan_ly_chi_tieu/storage/secure_storge.dart';
 import '../models/category_Collect.dart';
 
 class CategoryCollectService{
-
+  //tạo danh mục thu
   Future<dynamic> createCategoryCollect({required CategoryCollect categoryCollect,}) async {
     CollectionReference categoryCollection = FirebaseFirestore.instance.collection(CollectionName.categoryCollect.name);
     var idUser=await SecureStorage().getString(key: SecureStorage.userId);
     categoryCollect.idUser=idUser;
     await categoryCollection.add(categoryCollect.toJson());
   }
-
+ //get danh muc thu
   Future<List<CategoryCollect>> getCategoryCollects() async {
     var idUser=await SecureStorage().getString(key: SecureStorage.userId);
     List<CategoryCollect> categoryCollect=[];
@@ -28,16 +28,14 @@ class CategoryCollectService{
       }
     }
     return categoryCollect;
-
   }
-
+//Cập nhật danh mục thu
   Future<dynamic> updateCategoryCollect({required CategoryCollect categoryCollect}) async {
-    //update category Collect
+    //Cập nhật danh mục thu
     CollectionReference categoryCollectCollection =
     FirebaseFirestore.instance.collection(CollectionName.categoryCollect.name);
     await categoryCollectCollection.doc(categoryCollect.id).update(categoryCollect.toJson(),);
-
-    //update cost collect
+    //Cập nhật khoản thu
     var idUser=await SecureStorage().getString(key: SecureStorage.userId);
     CollectionReference costCollectCollection = FirebaseFirestore.instance.collection(CollectionName.costCollect.name);
     var data = await costCollectCollection.get();
@@ -47,10 +45,8 @@ class CategoryCollectService{
         await costCollectCollection.doc(e.id).update({'nameCategoryCollect' :categoryCollect.name});
       }
     }
-
-
   }
-
+  //Xóa khoản thu
   Future<dynamic> deleteCategoryCollect({required CategoryCollect categoryCollect}) async {
     CollectionReference categoryCollectCollection = FirebaseFirestore.instance.collection(CollectionName.categoryCollect.name);
     await categoryCollectCollection.doc(categoryCollect.id).delete();

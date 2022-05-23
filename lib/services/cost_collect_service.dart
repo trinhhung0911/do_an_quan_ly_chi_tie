@@ -8,10 +8,12 @@ import 'package:quan_ly_chi_tieu/storage/secure_storge.dart';
 
 
 class CostCollectService{
+  //tạo khoản thu
   Future<dynamic> createCostCollect({required CostCollect costCollect,}) async {
     CollectionReference categoryCollection = FirebaseFirestore.instance.collection(CollectionName.costCollect.name);
  await categoryCollection.add(costCollect.toJson());
   }
+  //get tất cả danh mục thu
   Future<List<CategoryCollect>> geCostCategoryCollect() async{
     var idUser=await SecureStorage().getString(key: SecureStorage.userId);
     List<CategoryCollect> categoryCollect=[];
@@ -25,7 +27,7 @@ class CostCollectService{
     }
     return categoryCollect;
   }
-
+//get tất cả nguồn thu
   Future<List<CostCollect>> getCostCollects() async {
     var idUser=await SecureStorage().getString(key: SecureStorage.userId);
     List<CostCollect> costCollect=[];
@@ -39,10 +41,12 @@ class CostCollectService{
     }
     return costCollect;
   }
+  //xóa nguồn thu
   Future<dynamic> deleteCostCollect({required CostCollect costCollect}) async {
     CollectionReference categoryCollectCollection = FirebaseFirestore.instance.collection(CollectionName.costCollect.name);
     await categoryCollectCollection.doc(costCollect.id).delete();
   }
+  //cập nhật nguồn thu
   Future<dynamic> updateCostCollect({required CostCollect costCollect}) async {
     CollectionReference costCollectCollection =
     FirebaseFirestore.instance.collection(CollectionName.costCollect.name);
