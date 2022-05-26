@@ -53,7 +53,7 @@ class CategorySpendService{
     //Xóa danh mục chi
     CollectionReference categorySpendCollection = FirebaseFirestore.instance.collection(CollectionName.categorySpend.name);
     await categorySpendCollection.doc(categorySpend.id).delete();
-    //Cập nhật danh mục chi
+    //Cập nhật khoản chi
     var idUser=await SecureStorage().getString(key: SecureStorage.userId);
     CollectionReference costSpendCollection = FirebaseFirestore.instance.collection(CollectionName.costSpend.name);
     var data = await costSpendCollection.get();

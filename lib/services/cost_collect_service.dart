@@ -56,12 +56,12 @@ class CostCollectService{
     }
     return costCollect;
   }
-  //xóa nguồn thu
+  //xóa nguồn thu ?? tiền trong ví
   Future<dynamic> deleteCostCollect({required CostCollect costCollect}) async {
     CollectionReference categoryCollectCollection = FirebaseFirestore.instance.collection(CollectionName.costCollect.name);
     await categoryCollectCollection.doc(costCollect.id).delete();
   }
-  //cập nhật nguồn thu
+  //cập nhật nguồn thu ?? tiền trong ví
   Future<dynamic> updateCostCollect({required CostCollect costCollect}) async {
     CollectionReference costCollectCollection =
     FirebaseFirestore.instance.collection(CollectionName.costCollect.name);

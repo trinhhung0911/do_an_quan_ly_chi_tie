@@ -17,9 +17,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     }else if(event is GetUserEvent){
       yield* _mapGetUserEventToState(event);
      }
-      // else if(event is GetSumSpendEvent){
-    //   yield* _mapGetSumSpendEventToState(event);
-    // }
+
   }
   Stream<UserState> _mapCreateUserEventToState(CreateUserEvent  event) async*{
     yield CreateUserLoadingState();
@@ -50,13 +48,5 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
 
 
-  // Stream<UserState> _mapGetSumSpendEventToState(GetSumSpendEvent event) async*{
-  //   yield GetSumSpendLoadingState();
-  //   try {
-  //     final int sumSpend = await userRepository.getSumSpendUsers();
-  //     yield GetSumSpendLoadedState(sumSpend: sumSpend);
-  //   }on FirebaseAuthException catch (e) {
-  //     yield const GetSumSpendErrorState(error: 'Lỗi');
-  //   }
-  // }
+
 }

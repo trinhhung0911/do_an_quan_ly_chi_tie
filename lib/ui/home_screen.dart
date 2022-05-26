@@ -6,9 +6,9 @@ import 'package:quan_ly_chi_tieu/bloc/user_bloc/user_state.dart';
 import 'package:quan_ly_chi_tieu/configs/colors.dart';
 import 'package:quan_ly_chi_tieu/configs/constants.dart';
 import 'package:quan_ly_chi_tieu/models/get_user.dart';
-import 'package:quan_ly_chi_tieu/models/users.dart';
 import 'package:quan_ly_chi_tieu/ui/Components/home_components/chart_collection.dart';
 import 'package:quan_ly_chi_tieu/ui/components/card/refresh_card.dart';
+import 'package:quan_ly_chi_tieu/ui/components/home_components/chart_collection.dart';
 import 'package:quan_ly_chi_tieu/ui/components/home_components/money_home.dart';
 import 'package:quan_ly_chi_tieu/ui/components/home_components/status_collection.dart';
 import 'package:quan_ly_chi_tieu/utils/function_helper.dart';
@@ -60,10 +60,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   return  Column(
                     children:  <Widget>[
                       MoneyHome(sumMoney:getUser.first.user!.sumMoney!),
-                      const SizedBox(height: 5,),
-                      StatusCollection(sumSpend: getUser.first.sumAllSpend!),
-                      const SizedBox(height: 10,),
-                      const ChartCollection(),
+                       const SizedBox(height: 5,),
+                      StatusCollection(getUser: getUser.first,),
+                       const SizedBox(height: 10,),
+                  //    ChartCollection()
+
+
+
+
+
+
                     ],
                   );
                 }
@@ -71,20 +77,19 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             listener: (context, state) {
               if (state is GetUserErrorState) {
-                print('Lỗi');
+                print('Xảy ra lỗi');
                 LoadingHelper.hideLoading(context);
                 FunctionHelper.showSnackBar(
                     context: context, title: state.error);
               }
             },
           ),
-
-
         ),
       ),
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          print(getUser.first.sumDayCollect);
          Navigator.pushNamed(context, Constants.addSpendScreen);
         },
         child: const Icon(

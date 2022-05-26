@@ -4,7 +4,7 @@ import 'package:quan_ly_chi_tieu/configs/constants.dart';
 import 'package:quan_ly_chi_tieu/configs/themes.dart';
 
 class MoneyHome extends StatelessWidget {
-  int sumMoney;
+   int sumMoney;
    MoneyHome({Key? key,required this.sumMoney}) : super(key: key);
 
   @override

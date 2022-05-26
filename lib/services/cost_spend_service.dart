@@ -54,12 +54,12 @@ class CostSpendService{
     }
     return costSpend;
   }
-  //xóa khoản chi
+  //xóa khoản chi ?? tiền trong ví
   Future<dynamic> deleteCostSpend({required CostSpend costSpend}) async {
     CollectionReference categorySpendCollection = FirebaseFirestore.instance.collection(CollectionName.costSpend.name);
     await categorySpendCollection.doc(costSpend.id).delete();
   }
-  //cập nhật khoản chi
+  //cập nhật khoản chi ?? tiền trong ví
   Future<dynamic> updateCostSpend({required CostSpend costSpend}) async {
     CollectionReference costSpendCollection =
     FirebaseFirestore.instance.collection(CollectionName.costSpend.name);

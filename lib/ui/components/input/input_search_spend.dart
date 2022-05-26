@@ -114,7 +114,6 @@ class _InputSearchState extends State<InputSearch> {
 
                       }
                       if (InputSearch.dropDownValue.compareTo(InputSearch.items[2]) == 0) {
-
                         ManageSpendScreen.indext = 2;
                         ManageSpendScreen.isFetch = false;
                         InputSearch.textSearchController.clear();

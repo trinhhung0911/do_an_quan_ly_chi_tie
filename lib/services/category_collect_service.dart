@@ -50,6 +50,17 @@ class CategoryCollectService{
   Future<dynamic> deleteCategoryCollect({required CategoryCollect categoryCollect}) async {
     CollectionReference categoryCollectCollection = FirebaseFirestore.instance.collection(CollectionName.categoryCollect.name);
     await categoryCollectCollection.doc(categoryCollect.id).delete();
+
+    //Cập nhật khoản thu
+    var idUser=await SecureStorage().getString(key: SecureStorage.userId);
+    CollectionReference costCollectCollection = FirebaseFirestore.instance.collection(CollectionName.costCollect.name);
+    var data = await costCollectCollection.get();
+    for (var item in data.docs) {
+      var e = CostCollect.formJson(item.data() as Map<String, dynamic>)..id = item.id;
+      if(e.idUser == idUser && e.idCategoryCollect==categoryCollect.id) {
+        await costCollectCollection.doc(e.id).update({'nameCategoryCollect' :"Null",'idCategorySpend':'Null'});
+      }
+    }
   }
 
 

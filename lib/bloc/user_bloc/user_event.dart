@@ -12,9 +12,7 @@ class CreateUserEvent extends UserEvent {
   final Users users;
   const CreateUserEvent({required this.users});
 }
+
 //Get Users event
 class GetUserEvent extends UserEvent{}
-// //Get tổng danh muc chi
-// class GetSumSpendEvent extends UserEvent{}
-// //Get tổng danh mục thu
-// class GetSumCollectEvent extends UserEvent{}
+

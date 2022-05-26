@@ -10,8 +10,6 @@ class UserRepository{
   Future<List<GetUser>> getUsers() async {
      return await UserService().getUsers();
   }
-  Future<int> getSumSpendUsers() async {
-    return await UserService().getSumSpendUsers();
-  }
+
 
 }

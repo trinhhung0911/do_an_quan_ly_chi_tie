@@ -1,18 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:quan_ly_chi_tieu/configs/themes.dart';
+import 'package:quan_ly_chi_tieu/models/get_user.dart';
 
 class StatusCollection extends StatefulWidget {
-  int sumSpend;
-   StatusCollection({Key? key,required this.sumSpend}) : super(key: key);
+  GetUser getUser;
+  StatusCollection({Key? key, required this.getUser}) : super(key: key);
   @override
   _StatusCollectionState createState() => _StatusCollectionState();
 }
 
 class _StatusCollectionState extends State<StatusCollection> {
-  static List<String> items = [
-  "Tất cả" ,"Ngày này", "Tháng này", "Năm nay"
-  ];
-  static String dropDownValue = items[0];
+  static List<String> items = ["Tất cả", "Ngày này", "Tháng này", "Năm nay"];
+  late String dropDownValue;
+  late int sumSpend;
+  late int sumCollect;
+  @override
+  void initState() {
+    dropDownValue = items[0];
+    sumSpend = widget.getUser.sumAllSpend ?? 0;
+    sumCollect = widget.getUser.sumAllCollect ?? 0;
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -43,7 +53,7 @@ class _StatusCollectionState extends State<StatusCollection> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                  Text(
+                    Text(
                       'Tình hình thu chi',
                       style: AppThemes.commonText,
                     ),
@@ -72,7 +82,7 @@ class _StatusCollectionState extends State<StatusCollection> {
             ),
           ),
           Expanded(
-           flex: 60,
+            flex: 60,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
@@ -91,13 +101,29 @@ class _StatusCollectionState extends State<StatusCollection> {
                       setState(
                         () {
                           dropDownValue = newValue!;
+                          if (dropDownValue.compareTo(items[0]) == 0) {
+                            sumSpend = widget.getUser.sumAllSpend ?? 0;
+                            sumCollect = widget.getUser.sumAllCollect ?? 0;
+                          }
+                          if (dropDownValue.compareTo(items[1]) == 0) {
+                            sumSpend = widget.getUser.sumDaySpend ?? 0;
+                            sumCollect = widget.getUser.sumDayCollect ?? 0;
+                          }
+                          if (dropDownValue.compareTo(items[2]) == 0) {
+                            sumSpend = widget.getUser.sumMothSpend ?? 0;
+                            sumCollect = widget.getUser.sumMothCollect ?? 0;
+                          }
+                          if (dropDownValue.compareTo(items[3]) == 0) {
+                            sumSpend = widget.getUser.sumYearSpend ?? 0;
+                            sumCollect = widget.getUser.sumYearCollect ?? 0;
+                          }
                         },
                       );
                     },
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 50,top: 40),
+                  padding: const EdgeInsets.only(left: 50, top: 40),
                   child: Column(
                     children: <Widget>[
                       Row(
@@ -116,11 +142,15 @@ class _StatusCollectionState extends State<StatusCollection> {
                             ],
                           ),
                           Text(
-                           widget.sumSpend.toString(),
-                            style: AppThemes.commonText.copyWith(color: Colors.green),),
+                            sumCollect.toString(),
+                            style: AppThemes.commonText
+                                .copyWith(color: Colors.green),
+                          ),
                         ],
                       ),
-                      const SizedBox(height: 45,),
+                      const SizedBox(
+                        height: 45,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
@@ -137,8 +167,10 @@ class _StatusCollectionState extends State<StatusCollection> {
                             ],
                           ),
                           Text(
-                            '1.234.567',
-                            style: AppThemes.commonText.copyWith(color: Colors.red),),
+                            sumSpend.toString(),
+                            style: AppThemes.commonText
+                                .copyWith(color: Colors.red),
+                          ),
                         ],
                       ),
                     ],

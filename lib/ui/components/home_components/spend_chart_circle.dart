@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:quan_ly_chi_tieu/configs/app_data.dart';
+import 'package:quan_ly_chi_tieu/models/group_by_spend.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class SpendChartCircle extends StatefulWidget {
-  const SpendChartCircle({Key? key}) : super(key: key);
+  List<GroupBySpend>? groupSpend;
+  SpendChartCircle({this.groupSpend});
   @override
   _SpendChartCircleState createState() => _SpendChartCircleState();
 }
@@ -25,12 +26,12 @@ class _SpendChartCircleState extends State<SpendChartCircle> {
           SfCircularChart(
               legend: Legend(isVisible: true),
               tooltipBehavior: _tooltipBehavior,
-              series: <CircularSeries<SalesData, String>>[
+              series: <CircularSeries<GroupBySpend, String>>[
                 // Initialize line series
-                PieSeries<SalesData, String>(
-                  dataSource: AppData.danhmucchi,
-                  xValueMapper: (SalesData sales, _) => sales.name,
-                  yValueMapper: (SalesData sales, _) => sales.money,
+                PieSeries<GroupBySpend, String>(
+                  dataSource: widget.groupSpend,
+                  xValueMapper: (GroupBySpend sales, _) => sales.name,
+                  yValueMapper: (GroupBySpend sales, _) => sales.money,
                   name: 'Số tiền',
                   dataLabelSettings: const DataLabelSettings(isVisible: true),
                 )
