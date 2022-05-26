@@ -41,7 +41,6 @@ class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
     }
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

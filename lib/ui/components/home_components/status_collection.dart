@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:quan_ly_chi_tieu/configs/themes.dart';
 
 class StatusCollection extends StatefulWidget {
-  const StatusCollection({Key? key}) : super(key: key);
+  int sumSpend;
+   StatusCollection({Key? key,required this.sumSpend}) : super(key: key);
   @override
   _StatusCollectionState createState() => _StatusCollectionState();
 }
 
 class _StatusCollectionState extends State<StatusCollection> {
   static List<String> items = [
-  "Tất cả" ,"Tháng này", "Tuần này", "Năm nay"
+  "Tất cả" ,"Ngày này", "Tháng này", "Năm nay"
   ];
   static String dropDownValue = items[0];
   @override
@@ -115,7 +116,7 @@ class _StatusCollectionState extends State<StatusCollection> {
                             ],
                           ),
                           Text(
-                            '2.000.000',
+                           widget.sumSpend.toString(),
                             style: AppThemes.commonText.copyWith(color: Colors.green),),
                         ],
                       ),

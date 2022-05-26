@@ -159,7 +159,6 @@ class _ManageSpendScreenState extends State<ManageSpendScreen> {
       ),
     );
   }
-
   Future<void> refresh() async {
     refreshKeyManageSpend.currentState?.show();
     await Future.delayed(const Duration(microseconds: 400));
@@ -184,8 +183,6 @@ class _ManageSpendScreenState extends State<ManageSpendScreen> {
 
 
   }
-
-
 
   searchName(String query) {
     final suggestions = empCostSpendsTmp.where((costSpend) {

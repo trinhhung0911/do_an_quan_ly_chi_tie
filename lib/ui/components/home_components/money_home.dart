@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:quan_ly_chi_tieu/configs/colors.dart';
 import 'package:quan_ly_chi_tieu/configs/constants.dart';
-import 'package:quan_ly_chi_tieu/storage/secure_storge.dart';
+import 'package:quan_ly_chi_tieu/configs/themes.dart';
 
-import '../../../configs/colors.dart';
-import '../../../configs/themes.dart';
-class MoneyHome extends StatefulWidget {
-  const MoneyHome({Key? key}) : super(key: key);
+class MoneyHome extends StatelessWidget {
+  int sumMoney;
+   MoneyHome({Key? key,required this.sumMoney}) : super(key: key);
 
-  @override
-  _MoneyHomeState createState() => _MoneyHomeState();
-}
-
-class _MoneyHomeState extends State<MoneyHome> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,11 +32,11 @@ class _MoneyHomeState extends State<MoneyHome> {
               ),
             ),
             Text(
-              '10.000.000',
+              sumMoney.toString(),
               style: AppThemes.moneyText,),
             InkWell(
               onTap: () async {
-                var uId = await SecureStorage().getString(key: SecureStorage.userId);
+
                 Navigator.pushNamed(context, Constants.addCostCollectScreen);
               },
               child: const Icon(

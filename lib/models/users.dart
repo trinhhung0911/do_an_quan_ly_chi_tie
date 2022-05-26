@@ -22,9 +22,21 @@ class Users {
     "name": name,
     "email": email,
     "password": password,
-    "sumMoney": sumMoney,
+    "sumMoney": sumMoney as int,
     "startDate": startDate!.toIso8601String(),
   };
+
+  //lấy về
+  factory Users.formJson(Map<String,dynamic> json){
+    return Users(
+        uid: json['uId'] ?? '',
+        name: json['name'] ?? '',
+        email: json['email'],
+        password: json['password'],
+        sumMoney: json['sumMoney'] as int,
+        startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
+    );
+  }
 
 
 
