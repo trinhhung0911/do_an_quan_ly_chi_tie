@@ -139,6 +139,7 @@ class UserService {
     List<GroupBySpend> groupByDaySpend = [];
     List<GroupBySpend> groupByMothSpend = [];
     List<GroupBySpend> groupByYearSpend = [];
+    List<GroupBySpend> groupByNullSpend = [];
     var dataGroupSpendCategory = await categorySpendCollectionReference.get();
     var dataGroupSendCost = await sumSpendAllCollection.get();
     //GroupBy All Spend
@@ -164,12 +165,110 @@ class UserService {
       }
       if (kt == true) {
         if (sumMoney != 0) {
-          GroupBySpend groupBySpend =
-              GroupBySpend(name: category.name, money: sumMoney);
-          groupByAllSpend.add(groupBySpend);
+          GroupBySpend groupBySpend = GroupBySpend(name: category.name, money: sumMoney);
+               groupByAllSpend.add(groupBySpend);
         }
       }
     }
+    //Group By Day Spend
+    int sumDayMoney = 0;
+    bool ktDay = false;
+    for (var categorySpend in dataGroupSpendCategory.docs) {
+      var category =
+      CategorySpend.fromJson(categorySpend.data() as Map<String, dynamic>)
+        ..id = categorySpend.id;
+      if (ktDay == true) {
+        bool ktDay = false;
+        sumDayMoney = 0;
+      }
+      for (var costSpend in dataGroupSendCost.docs) {
+        var spend = CostSpend.formJson(costSpend.data() as Map<String, dynamic>)
+          ..id = costSpend.id;
+        if (category.idUser == idUser && spend.idUser == idUser &&
+            category.id.toString() == spend.idCategorySpend.toString()&&
+            spend.dateTime!.day.toString()==DateTime.now().day.toString()
+        ) {
+          sumDayMoney = sumDayMoney + spend.money;
+          ktDay = true;
+        }
+      }
+      if (ktDay == true) {
+        if (sumDayMoney != 0) {
+          GroupBySpend groupBySpend = GroupBySpend(name: category.name, money: sumDayMoney);
+          groupByDaySpend.add(groupBySpend);
+        }
+      }
+    }
+    //Group By Moth Spend
+    int sumMothMoney = 0;
+    bool ktMoth = false;
+    for (var categorySpend in dataGroupSpendCategory.docs) {
+      var category =
+      CategorySpend.fromJson(categorySpend.data() as Map<String, dynamic>)
+        ..id = categorySpend.id;
+      if (ktMoth == true) {
+        bool ktMoth = false;
+        sumMothMoney = 0;
+      }
+      for (var costSpend in dataGroupSendCost.docs) {
+        var spend = CostSpend.formJson(costSpend.data() as Map<String, dynamic>)
+          ..id = costSpend.id;
+        if (category.idUser == idUser && spend.idUser == idUser &&
+            category.id.toString() == spend.idCategorySpend.toString()&&
+            spend.dateTime!.month.toString()==DateTime.now().month.toString()
+        ) {
+          sumMothMoney = sumMothMoney + spend.money;
+          ktMoth = true;
+        }
+      }
+      if (ktMoth == true) {
+        if (sumMothMoney != 0) {
+          GroupBySpend groupBySpend = GroupBySpend(name: category.name, money: sumMothMoney);
+          groupByMothSpend.add(groupBySpend);
+        }
+      }
+    }
+    //Group By Year Spend
+    int sumYearMoney = 0;
+    bool ktYear = false;
+    for (var categorySpend in dataGroupSpendCategory.docs) {
+      var category =
+      CategorySpend.fromJson(categorySpend.data() as Map<String, dynamic>)..id = categorySpend.id;
+      if (ktYear == true) {
+        bool ktYear = false;
+        sumYearMoney = 0;
+      }
+      for (var costSpend in dataGroupSendCost.docs) {
+        var spend = CostSpend.formJson(costSpend.data() as Map<String, dynamic>)
+          ..id = costSpend.id;
+        if (category.idUser == idUser && spend.idUser == idUser &&
+            category.id.toString() == spend.idCategorySpend.toString()&&
+            spend.dateTime!.year.toString()==DateTime.now().year.toString()
+        ) {
+          sumYearMoney = sumYearMoney + spend.money;
+          ktYear = true;
+        }
+      }
+      if (ktYear == true) {
+        if (sumYearMoney != 0) {
+          GroupBySpend groupBySpend = GroupBySpend(name: category.name, money: sumYearMoney);
+          groupByYearSpend.add(groupBySpend);
+        }
+      }
+    }
+    //Group By Null
+    for (var categorySpend in dataGroupSpendCategory.docs) {
+      var category = CategorySpend.fromJson(categorySpend.data() as Map<String, dynamic>)..id = categorySpend.id;
+        if (category.idUser == idUser) {
+          GroupBySpend groupBySpend = GroupBySpend(name: category.name, money: 0);
+          groupByNullSpend.add(groupBySpend);
+        }
+      }
+
+
+
+
+
 
     GetUser value = GetUser(
         user: users,
@@ -181,7 +280,13 @@ class UserService {
         sumDayCollect: sumDayCollect,
         sumMothCollect: sumMothCollect,
         sumYearCollect: sumYearCollect,
-        groupBySpendAll: groupByAllSpend);
+
+        groupBySpendAll: groupByAllSpend,
+        groupBySpendDay: groupByDaySpend,
+        groupBySpendMoth: groupByMothSpend,
+        groupBySpendYear: groupByYearSpend,
+        groupBySpendNull: groupByNullSpend
+    );
     getUsers.add(value);
     return getUsers;
   }

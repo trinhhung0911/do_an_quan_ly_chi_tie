@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:quan_ly_chi_tieu/configs/colors.dart';
 import 'package:quan_ly_chi_tieu/configs/constants.dart';
 import 'package:quan_ly_chi_tieu/configs/themes.dart';
-
 class MoneyHome extends StatelessWidget {
    int sumMoney;
    MoneyHome({Key? key,required this.sumMoney}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,7 +30,7 @@ class MoneyHome extends StatelessWidget {
               ),
             ),
             Text(
-              sumMoney.toString(),
+             sumMoney!=null? sumMoney.toString():'0',
               style: AppThemes.moneyText,),
             InkWell(
               onTap: () async {

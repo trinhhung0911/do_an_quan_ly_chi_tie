@@ -61,6 +61,8 @@ class _DrawerItemState extends State<DrawerItem> {
              Navigator.pushNamed(context, Constants.changePasswordScreen);
             },
           ),
+          Divider(height: 5,), //here is a divider
+
           ListTile(
             leading: const Icon(Icons.settings),
             title: const Text("Cài đặt"),

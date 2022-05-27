@@ -18,6 +18,7 @@ class GetUser {
   List<GroupBySpend>? groupBySpendDay;
   List<GroupBySpend>? groupBySpendMoth;
   List<GroupBySpend>? groupBySpendYear;
+  List<GroupBySpend>? groupBySpendNull;
 
   GetUser(
       {this.user,
@@ -32,5 +33,6 @@ class GetUser {
       this.groupBySpendAll,
       this.groupBySpendDay,
       this.groupBySpendMoth,
-      this.groupBySpendYear});
+      this.groupBySpendYear,
+      this.groupBySpendNull});
 }

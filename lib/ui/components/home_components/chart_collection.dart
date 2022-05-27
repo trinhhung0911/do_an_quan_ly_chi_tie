@@ -1,34 +1,55 @@
-
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:quan_ly_chi_tieu/configs/themes.dart';
 import 'package:quan_ly_chi_tieu/models/group_by_spend.dart';
-import 'package:quan_ly_chi_tieu/ui/components/home_components/spend_chart_circle.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+import '../../../configs/themes.dart';
 
 class ChartCollection extends StatefulWidget {
-  List<GroupBySpend>? groupSpend;
-  ChartCollection({Key? key, this.groupSpend}) : super(key: key) ;
+  List<GroupBySpend>? groupBySpendAll = [];
+  List<GroupBySpend>? groupBySpendDay = [];
+  List<GroupBySpend>? groupBySpendMoth = [];
+  List<GroupBySpend>? groupBySpendYear = [];
+  List<GroupBySpend>? groupBySpendNull = [];
+
+  ChartCollection(
+      {this.groupBySpendAll,
+      this.groupBySpendDay,
+      this.groupBySpendMoth,
+      this.groupBySpendYear,
+      this.groupBySpendNull});
+
   @override
   _ChartCollectionState createState() => _ChartCollectionState();
 }
 
 class _ChartCollectionState extends State<ChartCollection> {
-  static List<String> items = ["Tất cả", "Ngày", "Tháng này", "Năm này"];
-  static String dropDownValue = items[0];
+  static List<String> items = ["Tất cả", "Ngày nay", "Tháng này", "Năm nay"];
+  late String dropDownValue;
+  List<GroupBySpend>? groupBySpend = [];
+  late TooltipBehavior _tooltipBehavior;
+  @override
+  void initState() {
+    _tooltipBehavior = TooltipBehavior(enable: true);
+    dropDownValue = items[0];
+    widget.groupBySpendAll == null
+        ? groupBySpend = widget.groupBySpendNull
+        : groupBySpend = widget.groupBySpendAll;
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.only(top: 10, bottom: 10),
       margin: const EdgeInsets.only(top: 10),
-      decoration:  BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10)
-      ),
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(10)),
       child: Column(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(bottom: 10,right: 24,left: 24),
+            padding: const EdgeInsets.only(bottom: 10, right: 24, left: 24),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -46,8 +67,35 @@ class _ChartCollectionState extends State<ChartCollection> {
                     }).toList(),
                     onChanged: (String? newValue) {
                       setState(
-                            () {
+                        () {
                           dropDownValue = newValue!;
+                          if (dropDownValue.compareTo(items[0]) == 0) {
+                            if (widget.groupBySpendAll != null) {
+                              groupBySpend = widget.groupBySpendAll;
+                            } else {
+                              groupBySpend = [];
+                            }
+                          }
+                          if (dropDownValue.compareTo(items[1]) == 0) {
+                            if (widget.groupBySpendDay != null) {
+                              groupBySpend = widget.groupBySpendDay;
+                            }
+                            groupBySpend = [];
+                          }
+                          if (dropDownValue.compareTo(items[2]) == 0) {
+                            if (widget.groupBySpendMoth != null) {
+                              groupBySpend = widget.groupBySpendMoth;
+                            } else {
+                              groupBySpend = [];
+                            }
+                          }
+                          if (dropDownValue.compareTo(items[3]) == 0) {
+                            if (widget.groupBySpendYear != null) {
+                              groupBySpend = widget.groupBySpendYear;
+                            } else {
+                              groupBySpend = [];
+                            }
+                          }
                         },
                       );
                     },
@@ -56,15 +104,45 @@ class _ChartCollectionState extends State<ChartCollection> {
               ],
             ),
           ),
-           SizedBox(
+          SizedBox(
             height: 260,
             width: double.infinity,
-            child: SpendChartCircle(groupSpend: widget.groupSpend,),
+            child: widget.groupBySpendNull == null || groupBySpend!.length == 0
+                ? const Center(
+                    child: Text(
+                      'Hãy bắt đầu chi tiêu !',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  )
+                : SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SfCircularChart(
+                            legend: Legend(isVisible: true),
+                            tooltipBehavior: _tooltipBehavior,
+                            series: <CircularSeries<GroupBySpend, String>>[
+                              // Initialize line series
+                              PieSeries<GroupBySpend, String>(
+                                dataSource: groupBySpend,
+                                xValueMapper: (GroupBySpend sales, _) =>
+                                    sales.name,
+                                yValueMapper: (GroupBySpend sales, _) =>
+                                    sales.money,
+                                name: 'Số tiền',
+                                dataLabelSettings:
+                                    const DataLabelSettings(isVisible: true),
+                              )
+                            ]),
+                      ],
+                    ),
+                  ),
           ),
-          Text('Đơn vị: nghìn',style: AppThemes.commonText,),
+          Text(
+            'Đơn vị: nghìn',
+            style: AppThemes.commonText,
+          ),
         ],
       ),
     );
   }
 }
-

@@ -56,14 +56,51 @@ class CostSpendService{
   }
   //xóa khoản chi ?? tiền trong ví
   Future<dynamic> deleteCostSpend({required CostSpend costSpend}) async {
+
     CollectionReference categorySpendCollection = FirebaseFirestore.instance.collection(CollectionName.costSpend.name);
     await categorySpendCollection.doc(costSpend.id).delete();
+    //cộng tiền vào ví
+
+    var idUser = await SecureStorage().getString(key: SecureStorage.userId);
+    CollectionReference userCollection = FirebaseFirestore.instance.collection(
+        CollectionName.users.name);
+    var data = await userCollection.get();
+    for (var item in data.docs) {
+      var e = Users.formJson(item.data() as Map<String, dynamic>)..id = item.id;
+      if (e.uid == idUser) {
+        await userCollection.doc(e.id).update(
+            {'sumMoney': e.sumMoney! + costSpend.money});
+      }
+    }
+
   }
   //cập nhật khoản chi ?? tiền trong ví
   Future<dynamic> updateCostSpend({required CostSpend costSpend}) async {
-    CollectionReference costSpendCollection =
-    FirebaseFirestore.instance.collection(CollectionName.costSpend.name);
+    //Lấy ra tiền cũ
+    int money=0;
+    var idUser = await SecureStorage().getString(key: SecureStorage.userId);
+    CollectionReference userCollection = FirebaseFirestore.instance.collection(CollectionName.users.name);
+    CollectionReference costSpendCollection = FirebaseFirestore.instance.collection(CollectionName.costSpend.name);
+    var data = await costSpendCollection.get();
+    for (var item in data.docs) {
+      var e = CostSpend.formJson(item.data() as Map<String, dynamic>)..id = item.id;
+      if (e.idUser== idUser&&e.id==costSpend.id) {
+        money=costSpend.money;
+      }
+    }
+    //Cập nhật trong bảng User
+    var dataUser = await userCollection.get();
+    for (var item in dataUser.docs) {
+      var e = Users.formJson(item.data() as Map<String, dynamic>)..id = item.id;
+      if (e.uid == idUser) {
+        await userCollection.doc(e.id).update(
+            {'sumMoney': e.sumMoney! + costSpend.money>money?(money-costSpend.money):(costSpend.money-money)});
+      }
+    }
+
     await costSpendCollection.doc(costSpend.id).update(costSpend.toJson());
+
+
   }
 
 }
