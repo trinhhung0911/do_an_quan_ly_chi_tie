@@ -39,8 +39,11 @@ class _StatisticalScreenState extends State<StatisticalScreen> {
                         Text('Năm này',style: AppThemes.commonText,),
                         Text('Tùy chọn',style: AppThemes.commonText,)
                       ],
+                      indicatorWeight: 1,
+                        indicatorColor:AppColors.appColor,
+                      labelColor: Colors.white,
                       isScrollable: true,
-                        indicatorColor:Colors.black
+
                     ),
                      const Expanded(
                       child: TabBarView(children: [

@@ -16,39 +16,39 @@ class ForgotPasswordScreen extends StatefulWidget {
   @override
   _ForgotPasswordScreenState createState() => _ForgotPasswordScreenState();
 }
+
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final TextEditingController _emailController = TextEditingController();
   bool validateEmail = true;
   bool passwordVisible = true;
-  String errorText='Nhập đúng định dạng email !';
+  String errorText = 'Nhập đúng định dạng email !';
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Quên mật khẩu'),
         backgroundColor: AppColors.appColor,
         titleSpacing: 24,
         automaticallyImplyLeading: false,
-
       ),
       body: Container(
         padding: const EdgeInsets.only(
           left: 24,
           right: 24,
         ),
-        child:  BlocListener<ForgotBloc, ForgotState>(
+        child: BlocListener<ForgotBloc, ForgotState>(
           listener: (context, state) {
             if (state is ForgotLoadingState) {
-             LoadingHelper.showLoading(context);
-            }
-            else if (state is ForgotSuccessState) {
+              LoadingHelper.showLoading(context);
+            } else if (state is ForgotSuccessState) {
               LoadingHelper.hideLoading(context);
-              FunctionHelper.showSnackBar(context: context, title: 'Kiểm tra email của bạn để đặt mật khẩu mới');
+              FunctionHelper.showSnackBar(
+                  context: context,
+                  title: 'Kiểm tra email của bạn để đặt mật khẩu mới');
               _emailController.clear();
-             Navigator.pushNamed(context, Constants.loginScreen);
-            }
-            else if (state is ForgotErrorState) {
+              Navigator.pushNamed(context, Constants.loginScreen);
+            } else if (state is ForgotErrorState) {
               LoadingHelper.hideLoading(context);
               FunctionHelper.showSnackBar(context: context, title: state.error);
             }
@@ -61,12 +61,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   child: Image.asset('image2.png'),
                 ),
                 Container(
-                  padding: const EdgeInsets.only(right: 16,left: 16),
+                  padding: const EdgeInsets.only(right: 16, left: 16),
                   height: 220,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: AppColors.forgotColor
-                  ),
+                      borderRadius: BorderRadius.circular(20),
+                      color: AppColors.forgotColor),
                   child: Column(
                     children: [
                       const Padding(
@@ -84,7 +83,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       ),
                       TextField(
                         controller: _emailController,
-                        style: const TextStyle(fontSize: 16, color: Colors.black),
+                        style:
+                            const TextStyle(fontSize: 16, color: Colors.black),
                         decoration: InputDecoration(
                           labelText: "Nhập email",
                           prefixIcon: const SizedBox(
@@ -92,26 +92,28 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             child: Icon(Icons.email),
                           ),
                           border: OutlineInputBorder(
-                            borderSide: const BorderSide(color: Color(0xffCED0D2), width: 0),
+                            borderSide: const BorderSide(
+                                color: Color(0xffCED0D2), width: 0),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          errorText: validateEmail==true?null:errorText,
+                          errorText: validateEmail == true ? null : errorText,
                         ),
-                        onChanged: (value){
-                          setState(() {
-                            if(Validate.isEmail(value)==false){
-                              validateEmail=false;
-                            }else{
-                              validateEmail=true;
-                            }
-                            if(value.isEmpty){
-                              errorText='Nhập email';
-                            }else{
-                              errorText='Nhập đúng định dạng email';
-                            }
-                          });
+                        onChanged: (value) {
+                          setState(
+                            () {
+                              if (Validate.isEmail(value) == false) {
+                                validateEmail = false;
+                              } else {
+                                validateEmail = true;
+                              }
+                              if (value.isEmpty) {
+                                errorText = 'Nhập email';
+                              } else {
+                                errorText = 'Nhập đúng định dạng email';
+                              }
+                            },
+                          );
                         },
-
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 20),
@@ -121,7 +123,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           child: FlatButton(
                             child: const Text(
                               "Gửi",
-                              style: TextStyle(color: Colors.white, fontSize: 18),
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 18),
                             ),
                             color: AppColors.appColor,
                             shape: const RoundedRectangleBorder(
@@ -130,8 +133,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                               ),
                             ),
                             onPressed: () {
-                              if(validateEmail == true && _emailController.text.isNotEmpty){
-                                BlocProvider.of<ForgotBloc>(context).add(ForgotPasswordEvent(email: _emailController.text.trim()));
+                              if (validateEmail == true &&
+                                  _emailController.text.isNotEmpty) {
+                                BlocProvider.of<ForgotBloc>(context).add(
+                                    ForgotPasswordEvent(
+                                        email: _emailController.text.trim()));
                               }
                             },
                           ),
@@ -148,7 +154,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       TextSpan(
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Navigator.pushNamed(context, Constants.loginScreen,);
+                            Navigator.pushNamed(
+                              context,
+                              Constants.loginScreen,
+                            );
                           },
                         text: "Đăng nhập ?",
                         style: AppThemes.lightText,

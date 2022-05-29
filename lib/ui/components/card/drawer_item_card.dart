@@ -1,3 +1,4 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:quan_ly_chi_tieu/configs/constants.dart';
 import 'package:quan_ly_chi_tieu/ui/home_screen.dart';
@@ -72,8 +73,19 @@ class _DrawerItemState extends State<DrawerItem> {
           ListTile(
             leading: const Icon(Icons.arrow_back),
             title: const Text("Đăng xuất"),
-            onTap: () {
-             Navigator.pushNamed(context, Constants.loginScreen);
+            onTap: () async {
+
+              var result = await showOkCancelAlertDialog(
+                  context: context,
+                  title: "Thông báo ",
+                  okLabel: "Đồng ý",
+                  cancelLabel: "Hủy",
+                  message:
+                  'Bạn có muốn đăng xuất !');
+              if (result == OkCancelResult.ok) {
+                Navigator.pushNamed(context, Constants.loginScreen);
+
+              }
             },
           ),
         ],

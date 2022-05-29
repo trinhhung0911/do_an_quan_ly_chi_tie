@@ -65,7 +65,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 style: const TextStyle(fontSize: 16, color: Colors.black),
                 obscureText: passwordVisible ? true : false,
                 decoration: InputDecoration(
-                  labelText: "Mật khẩu cũ ",
+                  labelText: "Nhập mật khẩu cũ ",
                   prefixIcon: const Icon(Icons.lock),
                   border: OutlineInputBorder(
                     borderSide: const BorderSide(
@@ -147,7 +147,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   style: const TextStyle(fontSize: 16, color: Colors.black),
                   obscureText: retypePasswordVisible ? true : false,
                   decoration: InputDecoration(
-                    labelText: "Xác mật khẩu mới",
+                    labelText: "Xác nhận mật khẩu mới",
                     prefixIcon: const Icon(Icons.lock),
                     border: OutlineInputBorder(
                       borderSide: const BorderSide(

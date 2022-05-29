@@ -46,10 +46,9 @@ class _TypeSpendCardState extends State<TypeSpendCard> {
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: AppColors.spendCardColor,
+          color:  const Color(0xFFFAF5F5),
           borderRadius: BorderRadius.circular(10),
         ),
-        margin: const EdgeInsets.only(bottom: 10),
         padding: const EdgeInsets.only(left: 16, top: 10, bottom: 10),
         child: InkWell(
           onTap: () async {
@@ -89,8 +88,7 @@ class _TypeSpendCardState extends State<TypeSpendCard> {
               const SizedBox(
                 width: 20,
               ),
-              SizedBox(
-                width:280,
+              Expanded(
                 child: Text(
                   widget.categorySpend.name,
                   style: AppThemes.commonText,

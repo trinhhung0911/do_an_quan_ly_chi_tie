@@ -95,20 +95,22 @@ class _CostSpendCardState extends State<CostSpendCard> {
               ),
               Container(
                 width: 90,
-                margin: const EdgeInsets.only(right: 5),
-                child: Text(
-                  widget.costSpend.dateTime.toString().split(' ')[0],
-                  style: AppThemes.lightText.copyWith(color: Colors.black),
-                ),
-              ),
-              Expanded(
                 child: Text(
                   widget.costSpend.money.toString().split(' ')[0],
                   style: AppThemes.lightText.copyWith(color: Colors.black),
                   maxLines: 1,
                   overflow:TextOverflow.ellipsis,
                 ),
-              )
+              ),
+              Expanded(
+                child: Text(
+                  widget.costSpend.dateTime.toString().split(' ')[0],
+                  style: AppThemes.lightText.copyWith(color: Colors.black,),
+                  maxLines: 1,
+                  overflow:TextOverflow.ellipsis,
+                ),
+              ),
+
             ],
           ),
         ),

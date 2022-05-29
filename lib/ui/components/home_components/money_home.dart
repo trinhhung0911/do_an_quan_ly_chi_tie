@@ -30,7 +30,8 @@ class MoneyHome extends StatelessWidget {
               ),
             ),
             Text(
-             sumMoney!=null? sumMoney.toString():'0',
+              '1.568.868',
+            // sumMoney!=null? sumMoney.toString():'0',
               style: AppThemes.moneyText,),
             InkWell(
               onTap: () async {

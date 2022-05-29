@@ -104,7 +104,7 @@ class _ChartCollectionState extends State<ChartCollection> {
             ),
           ),
           SizedBox(
-            height: 260,
+           height: 320,
             width: double.infinity,
             child: widget.groupBySpendNull == null || groupBySpend!.length == 0
                 ? const Center(

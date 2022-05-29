@@ -11,8 +11,12 @@ static List<GroupBy> sumCollectSpend=[
 static List<GroupBy> groupSpend=[
   GroupBy(name: 'Quần áo',money: 1101),
   GroupBy(name: 'Sức khỏe',money: 115),
+  GroupBy(name: 'Quần áo',money: 1101),
+  GroupBy(name: 'Sức khỏe',money: 115),
+  GroupBy(name: 'Quần áo',money: 1101),
+  GroupBy(name: 'Sức khỏe',money: 115),
 ];
-static List<GroupBy> groupColect=[
+static List<GroupBy> groupCollect=[
   GroupBy(name: 'Quần áo',money: 1101),
   GroupBy(name: 'Sức khỏe',money: 115),
   GroupBy(name: 'Di chuyển',money: 111),

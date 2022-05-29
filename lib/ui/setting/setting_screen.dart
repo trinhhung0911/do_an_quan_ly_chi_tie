@@ -12,13 +12,13 @@ class SettingScreen extends StatefulWidget {
 
 class _SettingScreenState extends State<SettingScreen> {
   static List<String> listColor= [
-    'amber',
+    'Amber',
     'Pink',
     'Green',
   ];
   static String dropDownValueColor = listColor[0];
   static List<String> listLanguage= [
-    'Vietnamese',
+    'Việt Nam',
     'English',
   ];
   static String dropDownValueLanguage = listLanguage[0];
@@ -42,7 +42,7 @@ class _SettingScreenState extends State<SettingScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Thiết lập màu sắc',style:AppThemes.commonText ,),
+                Expanded(child: Text('Thiết lập màu sắc',style:AppThemes.commonText ,)),
                 Container(
                   margin: const EdgeInsets.only(left: 5),
                   padding: const EdgeInsets.only(
@@ -50,7 +50,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     right: 20
                   ),
                   height: 40,
-                  width: 180,
+                  width: 150,
                   decoration: const BoxDecoration(
                     color: AppColors.boxColor,
                     borderRadius: BorderRadius.all(
@@ -86,14 +86,14 @@ class _SettingScreenState extends State<SettingScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Thiết lập ngôn ngữ',style:AppThemes.commonText ,),
+                  Expanded(child: Text('Thiết lập ngôn ngữ',style:AppThemes.commonText ,)),
                   Container(
                     margin: const EdgeInsets.only(left: 5),
                     padding: const EdgeInsets.only(
                       left: 10,
                     ),
                     height: 40,
-                    width: 180,
+                    width: 150,
                     decoration: const BoxDecoration(
                       color: AppColors.boxColor,
                       borderRadius: BorderRadius.all(
@@ -128,14 +128,14 @@ class _SettingScreenState extends State<SettingScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Đơn vị tiền tệ ',style:AppThemes.commonText ,),
+                Expanded(child: Text('Đơn vị tiền tệ ',style:AppThemes.commonText ,)),
                 Container(
                   margin: const EdgeInsets.only(left: 5),
                   padding: const EdgeInsets.only(
                     left: 10,
                   ),
                   height: 40,
-                  width: 180,
+                  width: 150,
                   decoration: const BoxDecoration(
                     color: AppColors.boxColor,
                     borderRadius: BorderRadius.all(
@@ -151,7 +151,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       items: listMoney.map((String items) {
                         return DropdownMenuItem(
                           value: items,
-                          child: Center(child: Text(items)),
+                          child: Text(items),
                         );
                       }).toList(),
                       onChanged: (String? newValue) {
