@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:quan_ly_chi_tieu/models/group_by_spend.dart';
+import 'package:quan_ly_chi_tieu/models/group_by.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../configs/themes.dart';
 
 class ChartCollection extends StatefulWidget {
-  List<GroupBySpend>? groupBySpendAll = [];
-  List<GroupBySpend>? groupBySpendDay = [];
-  List<GroupBySpend>? groupBySpendMoth = [];
-  List<GroupBySpend>? groupBySpendYear = [];
-  List<GroupBySpend>? groupBySpendNull = [];
+  List<GroupBy>? groupBySpendAll = [];
+  List<GroupBy>? groupBySpendDay = [];
+  List<GroupBy>? groupBySpendMoth = [];
+  List<GroupBy>? groupBySpendYear = [];
+  List<GroupBy>? groupBySpendNull = [];
 
   ChartCollection(
       {this.groupBySpendAll,
@@ -17,7 +17,6 @@ class ChartCollection extends StatefulWidget {
       this.groupBySpendMoth,
       this.groupBySpendYear,
       this.groupBySpendNull});
-
   @override
   _ChartCollectionState createState() => _ChartCollectionState();
 }
@@ -25,7 +24,7 @@ class ChartCollection extends StatefulWidget {
 class _ChartCollectionState extends State<ChartCollection> {
   static List<String> items = ["Tất cả", "Ngày nay", "Tháng này", "Năm nay"];
   late String dropDownValue;
-  List<GroupBySpend>? groupBySpend = [];
+  List<GroupBy>? groupBySpend = [];
   late TooltipBehavior _tooltipBehavior;
   @override
   void initState() {
@@ -120,13 +119,13 @@ class _ChartCollectionState extends State<ChartCollection> {
                         SfCircularChart(
                             legend: Legend(isVisible: true),
                             tooltipBehavior: _tooltipBehavior,
-                            series: <CircularSeries<GroupBySpend, String>>[
+                            series: <CircularSeries<GroupBy, String>>[
                               // Initialize line series
-                              PieSeries<GroupBySpend, String>(
+                              PieSeries<GroupBy, String>(
                                 dataSource: groupBySpend,
-                                xValueMapper: (GroupBySpend sales, _) =>
+                                xValueMapper: (GroupBy sales, _) =>
                                     sales.name,
-                                yValueMapper: (GroupBySpend sales, _) =>
+                                yValueMapper: (GroupBy sales, _) =>
                                     sales.money,
                                 name: 'Số tiền',
                                 dataLabelSettings:

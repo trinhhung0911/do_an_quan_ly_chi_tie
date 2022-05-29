@@ -9,6 +9,7 @@ import 'package:quan_ly_chi_tieu/ui/manage_collect/collect_screen.dart';
 import 'package:quan_ly_chi_tieu/ui/manage_collect/manage_collect/add_cost_collect_screen.dart';
 import 'package:quan_ly_chi_tieu/ui/manage_spend/spend_screen.dart';
 import 'package:quan_ly_chi_tieu/ui/setting/setting_screen.dart';
+import 'package:quan_ly_chi_tieu/ui/statistical/statistical_screen.dart';
 import 'ui/manage_collect/category_collect/add_category_collect_screen.dart';
 import 'ui/manage_spend/category_spend/add_category_spend_screen.dart';
 import 'ui/manage_spend/manage_spend/add_cost_spend_screen.dart';
@@ -41,6 +42,8 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       return generateRouter(screen:  AddCostCollectScreen(arg: args,));
     case Constants.settingScreen:
       return generateRouter(screen: const SettingScreen());
+    case Constants.statisticalScreen:
+      return generateRouter(screen: const StatisticalScreen());
     default:
       throw ('This route name does not exit');
   }

@@ -13,6 +13,8 @@ class Constants {
   static const String addCostCollectScreen='/add_cost_collect_screen';
   static const String settingScreen='/setting_screen';
 
+  static const String statisticalScreen='/statistical_screen';
+
 
 }
 enum CollectionName {users, categoryCollect,categorySpend,costCollect,costSpend }

@@ -5,7 +5,7 @@ import 'package:quan_ly_chi_tieu/models/category_spend.dart';
 import 'package:quan_ly_chi_tieu/models/cost_collect.dart';
 import 'package:quan_ly_chi_tieu/models/cost_spend.dart';
 import 'package:quan_ly_chi_tieu/models/get_user.dart';
-import 'package:quan_ly_chi_tieu/models/group_by_spend.dart';
+import 'package:quan_ly_chi_tieu/models/group_by.dart';
 import 'package:quan_ly_chi_tieu/models/users.dart';
 import 'package:quan_ly_chi_tieu/storage/secure_storge.dart';
 
@@ -135,11 +135,11 @@ class UserService {
     }
 
     //GroupBy Spend
-    List<GroupBySpend> groupByAllSpend = [];
-    List<GroupBySpend> groupByDaySpend = [];
-    List<GroupBySpend> groupByMothSpend = [];
-    List<GroupBySpend> groupByYearSpend = [];
-    List<GroupBySpend> groupByNullSpend = [];
+    List<GroupBy> groupByAllSpend = [];
+    List<GroupBy> groupByDaySpend = [];
+    List<GroupBy> groupByMothSpend = [];
+    List<GroupBy> groupByYearSpend = [];
+    List<GroupBy> groupByNullSpend = [];
     var dataGroupSpendCategory = await categorySpendCollectionReference.get();
     var dataGroupSendCost = await sumSpendAllCollection.get();
     //GroupBy All Spend
@@ -165,7 +165,7 @@ class UserService {
       }
       if (kt == true) {
         if (sumMoney != 0) {
-          GroupBySpend groupBySpend = GroupBySpend(name: category.name, money: sumMoney);
+          GroupBy groupBySpend = GroupBy(name: category.name, money: sumMoney);
                groupByAllSpend.add(groupBySpend);
         }
       }
@@ -194,7 +194,7 @@ class UserService {
       }
       if (ktDay == true) {
         if (sumDayMoney != 0) {
-          GroupBySpend groupBySpend = GroupBySpend(name: category.name, money: sumDayMoney);
+          GroupBy groupBySpend = GroupBy(name: category.name, money: sumDayMoney);
           groupByDaySpend.add(groupBySpend);
         }
       }
@@ -223,7 +223,7 @@ class UserService {
       }
       if (ktMoth == true) {
         if (sumMothMoney != 0) {
-          GroupBySpend groupBySpend = GroupBySpend(name: category.name, money: sumMothMoney);
+          GroupBy groupBySpend = GroupBy(name: category.name, money: sumMothMoney);
           groupByMothSpend.add(groupBySpend);
         }
       }
@@ -251,7 +251,7 @@ class UserService {
       }
       if (ktYear == true) {
         if (sumYearMoney != 0) {
-          GroupBySpend groupBySpend = GroupBySpend(name: category.name, money: sumYearMoney);
+          GroupBy groupBySpend = GroupBy(name: category.name, money: sumYearMoney);
           groupByYearSpend.add(groupBySpend);
         }
       }
@@ -260,7 +260,7 @@ class UserService {
     for (var categorySpend in dataGroupSpendCategory.docs) {
       var category = CategorySpend.fromJson(categorySpend.data() as Map<String, dynamic>)..id = categorySpend.id;
         if (category.idUser == idUser) {
-          GroupBySpend groupBySpend = GroupBySpend(name: category.name, money: 0);
+          GroupBy groupBySpend = GroupBy(name: category.name, money: 0);
           groupByNullSpend.add(groupBySpend);
         }
       }

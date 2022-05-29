@@ -51,7 +51,7 @@ class _DrawerItemState extends State<DrawerItem> {
             leading: const Icon(Icons.contacts),
             title: const Text("Thống kê"),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.pushNamed(context, Constants.statisticalScreen);
             },
           ),
           ListTile(
@@ -61,8 +61,7 @@ class _DrawerItemState extends State<DrawerItem> {
              Navigator.pushNamed(context, Constants.changePasswordScreen);
             },
           ),
-          Divider(height: 5,), //here is a divider
-
+          const Divider(height: 5,), //here is a divider
           ListTile(
             leading: const Icon(Icons.settings),
             title: const Text("Cài đặt"),

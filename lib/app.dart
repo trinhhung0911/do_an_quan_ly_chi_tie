@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
             home: AnimatedSplashScreen(
               duration: 2000,
                 splash:const Text('Quản lý chi tiêu',style:  TextStyle(fontSize: 20,color: AppColors.appColor),),
-              nextScreen: const LoginScreen(),
+               nextScreen: const LoginScreen(),
               splashTransition: SplashTransition.rotationTransition,
             ),
             onGenerateRoute: onGenerateRoute,
