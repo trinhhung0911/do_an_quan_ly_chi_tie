@@ -1,7 +1,6 @@
 
 
 import 'package:quan_ly_chi_tieu/models/group_by.dart';
-import 'package:quan_ly_chi_tieu/models/sum_collect_spend.dart';
 
 class AppData {
 static List<GroupBy> sumCollectSpend=[

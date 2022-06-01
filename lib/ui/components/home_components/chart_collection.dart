@@ -78,8 +78,9 @@ class _ChartCollectionState extends State<ChartCollection> {
                           if (dropDownValue.compareTo(items[1]) == 0) {
                             if (widget.groupBySpendDay != null) {
                               groupBySpend = widget.groupBySpendDay;
+                            } else {
+                              groupBySpend = [];
                             }
-                            groupBySpend = [];
                           }
                           if (dropDownValue.compareTo(items[2]) == 0) {
                             if (widget.groupBySpendMoth != null) {
@@ -104,7 +105,7 @@ class _ChartCollectionState extends State<ChartCollection> {
             ),
           ),
           SizedBox(
-           height: 320,
+            height: 320,
             width: double.infinity,
             child: widget.groupBySpendNull == null || groupBySpend!.length == 0
                 ? const Center(
@@ -123,10 +124,8 @@ class _ChartCollectionState extends State<ChartCollection> {
                               // Initialize line series
                               PieSeries<GroupBy, String>(
                                 dataSource: groupBySpend,
-                                xValueMapper: (GroupBy sales, _) =>
-                                    sales.name,
-                                yValueMapper: (GroupBy sales, _) =>
-                                    sales.money,
+                                xValueMapper: (GroupBy sales, _) => sales.name,
+                                yValueMapper: (GroupBy sales, _) => sales.money,
                                 name: 'Số tiền',
                                 dataLabelSettings:
                                     const DataLabelSettings(isVisible: true),

@@ -23,10 +23,6 @@ class CostCollectService{
         await userCollection.doc(e.id).update({'sumMoney' :e.sumMoney! + costCollect.money});
       }
     }
-
-
-
-
   }
   //get tất cả danh mục thu
   Future<List<CategoryCollect>> geCostCategoryCollect() async{
@@ -56,6 +52,7 @@ class CostCollectService{
     }
     return costCollect;
   }
+
   //xóa nguồn thu ?? tiền trong ví
   Future<dynamic> deleteCostCollect({required CostCollect costCollect}) async {
     CollectionReference categoryCollectCollection = FirebaseFirestore.instance.collection(CollectionName.costCollect.name);
@@ -66,18 +63,19 @@ class CostCollectService{
         CollectionName.users.name);
     var data = await userCollection.get();
     for (var item in data.docs) {
-      var e = Users.formJson(item.data() as Map<String, dynamic>)
-        ..id = item.id;
+      var e = Users.formJson(item.data() as Map<String, dynamic>)..id = item.id;
       if (e.uid == idUser) {
         await userCollection.doc(e.id).update(
-            {'sumMoney': e.sumMoney! + costCollect.money});
+            {'sumMoney': e.sumMoney! - costCollect.money});
       }
     }
   }
   //cập nhật nguồn thu ?? tiền trong ví
   Future<dynamic> updateCostCollect({required CostCollect costCollect}) async {
+
     CollectionReference costCollectCollection = FirebaseFirestore.instance.collection(CollectionName.costCollect.name);
     CollectionReference userCollection = FirebaseFirestore.instance.collection(CollectionName.users.name);
+
     //Lấy ra tiền cũ
     int money=0;
     var idUser = await SecureStorage().getString(key: SecureStorage.userId);
@@ -85,16 +83,18 @@ class CostCollectService{
     for (var item in data.docs) {
       var e = CostCollect.formJson(item.data() as Map<String, dynamic>)..id = item.id;
       if (e.idUser== idUser&&e.id==costCollect.id) {
-        money=costCollect.money;
+        money=e.money;
       }
     }
+    print('Tiền cũ'+money.toString());
+    print('Tiền mới'+costCollect.money.toString());
     //Cập nhật trong bảng User
     var dataUser = await userCollection.get();
     for (var item in dataUser.docs) {
       var e = Users.formJson(item.data() as Map<String, dynamic>)..id = item.id;
       if (e.uid == idUser) {
         await userCollection.doc(e.id).update(
-            {'sumMoney': e.sumMoney! + costCollect.money>money? (costCollect.money-money):(money-costCollect.money)});
+            {'sumMoney': e.sumMoney! + (costCollect.money)-money});
       }
     }
     await costCollectCollection.doc(costCollect.id).update(costCollect.toJson());

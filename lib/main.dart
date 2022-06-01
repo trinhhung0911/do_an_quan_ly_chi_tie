@@ -17,7 +17,6 @@ import 'package:quan_ly_chi_tieu/repositories/user_repository.dart';
 import 'bloc/category_collect_bloc/category_collect_bloc.dart';
 import 'bloc/category_spend_bloc/category_spend_bloc.dart';
 import 'bloc/login_bloc/login_bloc.dart';
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(

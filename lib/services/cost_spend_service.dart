@@ -40,6 +40,7 @@ class CostSpendService{
     }
     return categorySpend;
   }
+
 //get tất cả khoản chi
   Future<List<CostSpend>> getCostSpends() async {
     var idUser=await SecureStorage().getString(key: SecureStorage.userId);
@@ -54,16 +55,14 @@ class CostSpendService{
     }
     return costSpend;
   }
+
   //xóa khoản chi ?? tiền trong ví
   Future<dynamic> deleteCostSpend({required CostSpend costSpend}) async {
-
-    CollectionReference categorySpendCollection = FirebaseFirestore.instance.collection(CollectionName.costSpend.name);
-    await categorySpendCollection.doc(costSpend.id).delete();
+    CollectionReference costSpendCollection = FirebaseFirestore.instance.collection(CollectionName.costSpend.name);
+    await costSpendCollection.doc(costSpend.id).delete();
     //cộng tiền vào ví
-
     var idUser = await SecureStorage().getString(key: SecureStorage.userId);
-    CollectionReference userCollection = FirebaseFirestore.instance.collection(
-        CollectionName.users.name);
+    CollectionReference userCollection = FirebaseFirestore.instance.collection(CollectionName.users.name);
     var data = await userCollection.get();
     for (var item in data.docs) {
       var e = Users.formJson(item.data() as Map<String, dynamic>)..id = item.id;
@@ -74,33 +73,38 @@ class CostSpendService{
     }
 
   }
+
   //cập nhật khoản chi ?? tiền trong ví
   Future<dynamic> updateCostSpend({required CostSpend costSpend}) async {
     //Lấy ra tiền cũ
-    int money=0;
+    int money=0;//tiền chi cũ
+    //id User
     var idUser = await SecureStorage().getString(key: SecureStorage.userId);
+    //bảng user
     CollectionReference userCollection = FirebaseFirestore.instance.collection(CollectionName.users.name);
+    // bảng khoản chi
     CollectionReference costSpendCollection = FirebaseFirestore.instance.collection(CollectionName.costSpend.name);
+
     var data = await costSpendCollection.get();
     for (var item in data.docs) {
       var e = CostSpend.formJson(item.data() as Map<String, dynamic>)..id = item.id;
       if (e.idUser== idUser&&e.id==costSpend.id) {
-        money=costSpend.money;
+           money=e.money;
       }
     }
+
     //Cập nhật trong bảng User
     var dataUser = await userCollection.get();
     for (var item in dataUser.docs) {
       var e = Users.formJson(item.data() as Map<String, dynamic>)..id = item.id;
       if (e.uid == idUser) {
         await userCollection.doc(e.id).update(
-            {'sumMoney': e.sumMoney! + costSpend.money>money?(money-costSpend.money):(costSpend.money-money)});
+            {'sumMoney': e.sumMoney! +(money-costSpend.money)});
+        print('Tổng tiền');
+        print(e.sumMoney!);
       }
     }
-
     await costSpendCollection.doc(costSpend.id).update(costSpend.toJson());
-
-
   }
 
 }

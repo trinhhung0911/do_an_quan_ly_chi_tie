@@ -45,7 +45,8 @@ class UserService {
         users = e;
       }
     }
-    // tổng tiền thu
+
+    // tổng tiền thu all
     int sumCollectdAll = 0;
     var dataSumCollectAll = await sumCollectAllCollection.get();
     for (var item in dataSumCollectAll.docs) {
@@ -174,13 +175,8 @@ class UserService {
     int sumDayMoney = 0;
     bool ktDay = false;
     for (var categorySpend in dataGroupSpendCategory.docs) {
-      var category =
-      CategorySpend.fromJson(categorySpend.data() as Map<String, dynamic>)
-        ..id = categorySpend.id;
-      if (ktDay == true) {
-        bool ktDay = false;
-        sumDayMoney = 0;
-      }
+      var category = CategorySpend.fromJson(categorySpend.data() as Map<String, dynamic>)..id = categorySpend.id;
+      if (ktDay == true) {bool ktDay = false;sumDayMoney = 0;}
       for (var costSpend in dataGroupSendCost.docs) {
         var spend = CostSpend.formJson(costSpend.data() as Map<String, dynamic>)
           ..id = costSpend.id;
@@ -199,6 +195,8 @@ class UserService {
         }
       }
     }
+
+
     //Group By Moth Spend
     int sumMothMoney = 0;
     bool ktMoth = false;
@@ -264,19 +262,16 @@ class UserService {
           groupByNullSpend.add(groupBySpend);
         }
       }
-
-
-
-
-
-
     GetUser value = GetUser(
         user: users,
+
         sumAllSpend: sumSpendAll,
         sumAllCollect: sumCollectdAll,
+
         sumDaySpend: sumDaySpend,
         sumMothSpend: sumMothSpend,
         sumYearSpend: sumYearSpend,
+
         sumDayCollect: sumDayCollect,
         sumMothCollect: sumMothCollect,
         sumYearCollect: sumYearCollect,

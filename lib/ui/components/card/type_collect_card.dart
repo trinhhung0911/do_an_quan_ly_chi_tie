@@ -46,10 +46,11 @@ class _TypeCollectCardState extends State<TypeCollectCard> {
         child: Container(
           width: double.infinity,
           decoration: BoxDecoration(
-            color:  Color(0xFFFAF5F5),
+            color:  const Color(0xFFFAF5F5),
             borderRadius: BorderRadius.circular(10),
           ),
           padding: const EdgeInsets.only(left: 16, top: 10, bottom: 10),
+
           child: InkWell(
             onTap: () async {
               var result = await Navigator.pushNamed(
@@ -72,7 +73,7 @@ class _TypeCollectCardState extends State<TypeCollectCard> {
                   okLabel: "Đồng ý",
                   cancelLabel: "Hủy",
                   message:
-                      'Bạn có muốn xóa danh mục chi ${widget.categoryCollect.name} !');
+                      'Bạn có muốn xóa danh mục thu ${widget.categoryCollect.name} !');
               if (result == OkCancelResult.ok) {
                 BlocProvider.of<CategoryCollectBloc>(context).add(
                   DeleteCategoryCollectEvent(

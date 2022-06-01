@@ -50,6 +50,7 @@ class _TypeSpendCardState extends State<TypeSpendCard> {
           borderRadius: BorderRadius.circular(10),
         ),
         padding: const EdgeInsets.only(left: 16, top: 10, bottom: 10),
+        margin: EdgeInsets.only(top: 10),
         child: InkWell(
           onTap: () async {
             var result = await Navigator.pushNamed(

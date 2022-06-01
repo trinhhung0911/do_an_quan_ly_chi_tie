@@ -1,11 +1,7 @@
 import 'package:quan_ly_chi_tieu/models/group_by.dart';
-import 'package:quan_ly_chi_tieu/models/users.dart';
 
-class GetUser {
 
-  Users? user;
-  int? sumAllCollect;
-  int? sumAllSpend;
+class GetStatistical{
 
   int? sumDaySpend;
   int? sumMothSpend;
@@ -15,25 +11,24 @@ class GetUser {
   int? sumMothCollect;
   int? sumYearCollect;
 
-  List<GroupBy>? groupBySpendAll;
   List<GroupBy>? groupBySpendDay;
+  List<GroupBy>? groupByCollectDay;
   List<GroupBy>? groupBySpendMoth;
+  List<GroupBy>? groupByCollectMoth;
   List<GroupBy>? groupBySpendYear;
-  List<GroupBy>? groupBySpendNull;
+  List<GroupBy>? groupByCollectYear;
 
-  GetUser(
-      {this.user,
-      this.sumAllCollect,
-      this.sumAllSpend,
-      this.sumDaySpend,
+  GetStatistical(
+  {this.sumDaySpend,
       this.sumMothSpend,
       this.sumYearSpend,
       this.sumDayCollect,
       this.sumMothCollect,
       this.sumYearCollect,
-      this.groupBySpendAll,
       this.groupBySpendDay,
+      this.groupByCollectDay,
       this.groupBySpendMoth,
+      this.groupByCollectMoth,
       this.groupBySpendYear,
-      this.groupBySpendNull});
+      this.groupByCollectYear});
 }

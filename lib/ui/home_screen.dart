@@ -13,55 +13,66 @@ import 'package:quan_ly_chi_tieu/ui/components/home_components/status_collection
 import 'package:quan_ly_chi_tieu/utils/function_helper.dart';
 import 'package:quan_ly_chi_tieu/utils/loading_helper.dart';
 import 'Components/card/drawer_item_card.dart';
+
 class HomeScreen extends StatefulWidget {
   final dynamic arg;
-  static String email='';
+  static String email = '';
   const HomeScreen({Key? key, this.arg}) : super(key: key);
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
+
 class _HomeScreenState extends State<HomeScreen> {
   final refreshKeyUsers = GlobalKey<RefreshIndicatorState>();
   late List<GetUser> getUser;
   @override
   void initState() {
-    HomeScreen.email=widget.arg;
+    HomeScreen.email = widget.arg;
     BlocProvider.of<UserBloc>(context).add(GetUserEvent());
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.appColor,
-        title: const Center(child: Text('Trang chủ'),),
-        centerTitle: true,
+        title: const Center(
+          child: Text('Trang chủ'),
+        ),
+        //centerTitle: true,
       ),
-      body:RefreshWidget(
+      body: RefreshWidget(
         onRefresh: refresh,
         keyRefresh: refreshKeyUsers,
-        child:  SingleChildScrollView(
+        child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
-          child: BlocConsumer<UserBloc,UserState>(
+          child: BlocConsumer<UserBloc, UserState>(
             buildWhen: (context, state) {
               return state is GetUserLoadingState ||
                   state is GetUserLoadedState ||
                   state is GetUserErrorState;
             },
-            builder: (context,state){
+            builder: (context, state) {
               if (state is GetUserLoadingState) {
                 LoadingHelper.showLoading(context);
                 print('Đang load');
-              }else if (state is GetUserLoadedState ){
+              } else if (state is GetUserLoadedState) {
                 print('Thành công');
                 LoadingHelper.hideLoading(context);
-                getUser=state.getUser;
-                return  Column(
-                  children:  <Widget>[
-                    MoneyHome(sumMoney:getUser.first.user!.sumMoney!),
-                    const SizedBox(height: 5,),
-                    StatusCollection(getUser: getUser.first,),
-                    const SizedBox(height: 10,),
+                getUser = state.getUser;
+                return Column(
+                  children: <Widget>[
+                    MoneyHome(sumMoney: getUser.first.user!.sumMoney!),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    StatusCollection(
+                      getUser: getUser.first,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     ChartCollection(
                       groupBySpendAll: getUser.first.groupBySpendAll,
                       groupBySpendDay: getUser.first.groupBySpendDay,
@@ -85,23 +96,28 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-
       floatingActionButton: FloatingActionButton(
           onPressed: () {
-            print(getUser.first.sumDayCollect);
             Navigator.pushNamed(context, Constants.addSpendScreen);
           },
           child: const Icon(
             Icons.add,
             color: Colors.white,
           ),
-          backgroundColor:AppColors.appColor),
-      drawer:  DrawerItem(email: widget.arg,),
+          backgroundColor: AppColors.appColor),
+      drawer: DrawerItem(
+        email: widget.arg,
+      ),
     );
   }
+
   Future<void> refresh() async {
     refreshKeyUsers.currentState?.show();
-    await Future.delayed(const Duration(microseconds: 400));
-    BlocProvider.of<UserBloc>(context).add(GetUserEvent());
+    await Future.delayed(
+      const Duration(microseconds: 400),
+    );
+    BlocProvider.of<UserBloc>(context).add(
+      GetUserEvent(),
+    );
   }
 }

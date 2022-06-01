@@ -65,7 +65,7 @@ class _AddSpendScreenState extends State<AddSpendScreen> {
                 context: context,
                 title: costSpend == null
                     ? 'Thêm khoản chi thành công !'
-                    : 'Cập nhật khoản chi chi thành công !');
+                    : 'Cập nhật khoản chi thành công !');
             BlocProvider.of<CostSpendBloc>(context).add(GetCostSpendsEvent());
           } else if (state is CreateCostSpendErrorState) {
             LoadingHelper.hideLoading(context);

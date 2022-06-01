@@ -11,14 +11,18 @@ class StatisticalDayScreen extends StatefulWidget {
   _StatisticalDayScreenState createState() => _StatisticalDayScreenState();
 }
 class _StatisticalDayScreenState extends State<StatisticalDayScreen> {
+
   static List<String> items = ['Biểu đồ tròn', 'Biểu đồ cột'];
   late String dropDownValueOverview;
   late String dropDownValueSpend;
   late String dropDownValueCollect;
+
   late TooltipBehavior _tooltipBehavior;
+  
   bool overview = true;
   bool spend = true;
   bool collect = true;
+
   @override
   void initState() {
     _tooltipBehavior = TooltipBehavior(enable: true);
@@ -28,7 +32,6 @@ class _StatisticalDayScreenState extends State<StatisticalDayScreen> {
     // TODO: implement initState
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     return Container(
