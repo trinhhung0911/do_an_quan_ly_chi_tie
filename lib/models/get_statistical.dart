@@ -1,30 +1,27 @@
 import 'package:quan_ly_chi_tieu/models/group_by.dart';
 
-
 class GetStatistical{
 
-  int? sumDaySpend;
-  int? sumMothSpend;
-  int? sumYearSpend;
-
-  int? sumDayCollect;
-  int? sumMothCollect;
-  int? sumYearCollect;
-
+   List<GroupBy>? groupSumSpendCollectDay;
+   List<GroupBy>? groupSumSpendCollectMoth;
+   List<GroupBy>? groupSumSpendCollectYear;
+  //tổng chi theo ngày
   List<GroupBy>? groupBySpendDay;
+  //thổng thu theo ngày
   List<GroupBy>? groupByCollectDay;
+  //tổng chi theo tháng
   List<GroupBy>? groupBySpendMoth;
+  //tổng thu theo tháng
   List<GroupBy>? groupByCollectMoth;
+  //tổng chi theo năm
   List<GroupBy>? groupBySpendYear;
+  //tổng thu theo năm
   List<GroupBy>? groupByCollectYear;
 
   GetStatistical(
-  {this.sumDaySpend,
-      this.sumMothSpend,
-      this.sumYearSpend,
-      this.sumDayCollect,
-      this.sumMothCollect,
-      this.sumYearCollect,
+     {this.groupSumSpendCollectDay,
+      this.groupSumSpendCollectMoth,
+      this.groupSumSpendCollectYear,
       this.groupBySpendDay,
       this.groupByCollectDay,
       this.groupBySpendMoth,

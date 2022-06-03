@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:quan_ly_chi_tieu/configs/app_data.dart';
 import 'package:quan_ly_chi_tieu/configs/colors.dart';
 import 'package:quan_ly_chi_tieu/configs/themes.dart';
+import 'package:quan_ly_chi_tieu/models/get_statistical.dart';
 import 'package:quan_ly_chi_tieu/models/group_by.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class StatisticalYearScreen extends StatefulWidget {
-  const StatisticalYearScreen({Key? key}) : super(key: key);
+  GetStatistical ?getStatistical;
+   StatisticalYearScreen({this.getStatistical});
   @override
   _StatisticalYearScreenState createState() => _StatisticalYearScreenState();
 }
@@ -16,13 +18,17 @@ class _StatisticalYearScreenState extends State<StatisticalYearScreen> {
   late String dropDownValueOverview;
   late String dropDownValueSpend;
   late String dropDownValueCollect;
-  late TooltipBehavior _tooltipBehavior;
+  late TooltipBehavior _tooltipBehavior1;
+  late TooltipBehavior _tooltipBehavior2;
+  late TooltipBehavior _tooltipBehavior3;
   bool overview = true;
   bool spend = true;
   bool collect = true;
   @override
   void initState() {
-    _tooltipBehavior = TooltipBehavior(enable: true);
+    _tooltipBehavior1 = TooltipBehavior(enable: true);
+    _tooltipBehavior2 = TooltipBehavior(enable: true);
+    _tooltipBehavior3 = TooltipBehavior(enable: true);
     dropDownValueOverview = items[0];
     dropDownValueSpend = items[0];
     dropDownValueCollect = items[0];
@@ -32,6 +38,7 @@ class _StatisticalYearScreenState extends State<StatisticalYearScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.only(top: 10, bottom: 10),
@@ -86,11 +93,11 @@ class _StatisticalYearScreenState extends State<StatisticalYearScreen> {
                     overflowMode: LegendItemOverflowMode.wrap,
                     textStyle: TextStyle(fontSize: 18),
                   ),
-                  tooltipBehavior: _tooltipBehavior,
+                  tooltipBehavior: _tooltipBehavior1,
                   series: <CircularSeries<GroupBy, String>>[
                     // Initialize line series
                     PieSeries<GroupBy, String>(
-                      dataSource: AppData.sumCollectSpend,
+                      dataSource:widget.getStatistical!.groupSumSpendCollectYear,
                       xValueMapper: (GroupBy sales, _) => sales.name,
                       yValueMapper: (GroupBy sales, _) => sales.money,
                       name: 'Số tiền',
@@ -102,7 +109,7 @@ class _StatisticalYearScreenState extends State<StatisticalYearScreen> {
                 primaryXAxis: CategoryAxis(),
                 primaryYAxis:
                 NumericAxis(minimum: 0, maximum: double.parse(AppData.groupSpend.first.money.toString()), interval: 10),
-                tooltipBehavior: _tooltipBehavior,
+                tooltipBehavior: _tooltipBehavior1,
                 series: <ChartSeries<GroupBy, String>>[
                   ColumnSeries<GroupBy, String>(
                     dataSource: AppData.sumCollectSpend,
@@ -165,7 +172,7 @@ class _StatisticalYearScreenState extends State<StatisticalYearScreen> {
                           position: LegendPosition.bottom,
                           overflowMode: LegendItemOverflowMode.scroll,
                         ),
-                        tooltipBehavior: _tooltipBehavior,
+                        tooltipBehavior: _tooltipBehavior2,
                         series: <CircularSeries<GroupBy, String>>[
                           // Initialize line series
                           PieSeries<GroupBy, String>(
@@ -183,7 +190,7 @@ class _StatisticalYearScreenState extends State<StatisticalYearScreen> {
                       primaryXAxis: CategoryAxis(),
                       primaryYAxis: NumericAxis(
                           minimum: 0, maximum: 40, interval: 10),
-                      tooltipBehavior: _tooltipBehavior,
+                      tooltipBehavior: _tooltipBehavior2,
                       series: <ChartSeries<GroupBy, String>>[
                         ColumnSeries<GroupBy, String>(
                           dataSource: AppData.groupSpend,
@@ -214,7 +221,7 @@ class _StatisticalYearScreenState extends State<StatisticalYearScreen> {
                           position: LegendPosition.bottom,
                           overflowMode: LegendItemOverflowMode.scroll,
                         ),
-                        tooltipBehavior: _tooltipBehavior,
+                        tooltipBehavior: _tooltipBehavior3,
                         series: <CircularSeries<GroupBy, String>>[
                           PieSeries<GroupBy, String>(
                             dataSource: AppData.groupCollect,
@@ -231,7 +238,7 @@ class _StatisticalYearScreenState extends State<StatisticalYearScreen> {
                       primaryXAxis: CategoryAxis(),
                       primaryYAxis: NumericAxis(
                           minimum: 0, maximum: 40, interval: 10),
-                      tooltipBehavior: _tooltipBehavior,
+                      tooltipBehavior: _tooltipBehavior3,
                       series: <ChartSeries<GroupBy, String>>[
                         ColumnSeries<GroupBy, String>(
                           dataSource: AppData.groupCollect,

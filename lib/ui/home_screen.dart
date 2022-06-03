@@ -23,6 +23,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   final refreshKeyUsers = GlobalKey<RefreshIndicatorState>();
   late List<GetUser> getUser;
   @override
@@ -56,9 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
             builder: (context, state) {
               if (state is GetUserLoadingState) {
                 LoadingHelper.showLoading(context);
-                print('Đang load');
               } else if (state is GetUserLoadedState) {
-                print('Thành công');
                 LoadingHelper.hideLoading(context);
                 getUser = state.getUser;
                 return Column(

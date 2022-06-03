@@ -264,18 +264,14 @@ class UserService {
       }
     GetUser value = GetUser(
         user: users,
-
         sumAllSpend: sumSpendAll,
         sumAllCollect: sumCollectdAll,
-
         sumDaySpend: sumDaySpend,
         sumMothSpend: sumMothSpend,
         sumYearSpend: sumYearSpend,
-
         sumDayCollect: sumDayCollect,
         sumMothCollect: sumMothCollect,
         sumYearCollect: sumYearCollect,
-
         groupBySpendAll: groupByAllSpend,
         groupBySpendDay: groupByDaySpend,
         groupBySpendMoth: groupByMothSpend,

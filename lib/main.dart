@@ -6,6 +6,7 @@ import 'package:quan_ly_chi_tieu/app.dart';
 import 'package:quan_ly_chi_tieu/bloc/cost_collect_bloc/cost_collect_bloc.dart';
 import 'package:quan_ly_chi_tieu/bloc/cost_spend_bloc/cost_spend_bloc.dart';
 import 'package:quan_ly_chi_tieu/bloc/forgot_bloc/forgot_bloc.dart';
+import 'package:quan_ly_chi_tieu/bloc/statistical_bloc/statistical_bloc.dart';
 import 'package:quan_ly_chi_tieu/bloc/user_bloc/user_bloc.dart';
 import 'package:quan_ly_chi_tieu/repositories/category_collect_repository.dart';
 import 'package:quan_ly_chi_tieu/repositories/category_spend_repository.dart';
@@ -13,6 +14,7 @@ import 'package:quan_ly_chi_tieu/repositories/cost_collect_repository.dart';
 import 'package:quan_ly_chi_tieu/repositories/cost_spend_repository.dart';
 import 'package:quan_ly_chi_tieu/repositories/forgot_repository.dart';
 import 'package:quan_ly_chi_tieu/repositories/login_repository.dart';
+import 'package:quan_ly_chi_tieu/repositories/statistical_repository.dart';
 import 'package:quan_ly_chi_tieu/repositories/user_repository.dart';
 import 'bloc/category_collect_bloc/category_collect_bloc.dart';
 import 'bloc/category_spend_bloc/category_spend_bloc.dart';
@@ -59,6 +61,11 @@ Future<void> main() async {
         BlocProvider(
           create: (context) =>CostCollectBloc(
             costCollectRepository: CostCollectRepository()
+          ),
+        ),
+        BlocProvider(
+          create: (context) =>StatisticalBloc(
+          statisticalRepository: StatisticalRepository()
           ),
         ),
       ],

@@ -2,34 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:quan_ly_chi_tieu/configs/app_data.dart';
 import 'package:quan_ly_chi_tieu/configs/colors.dart';
 import 'package:quan_ly_chi_tieu/configs/themes.dart';
+import 'package:quan_ly_chi_tieu/models/get_statistical.dart';
 import 'package:quan_ly_chi_tieu/models/group_by.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class StatisticalMothScreen extends StatefulWidget {
-  const StatisticalMothScreen({Key? key}) : super(key: key);
+  GetStatistical? getStatistical;
+   StatisticalMothScreen({this.getStatistical}) ;
   @override
   _StatisticalMothScreenState createState() => _StatisticalMothScreenState();
 }
+
 
 class _StatisticalMothScreenState extends State<StatisticalMothScreen>  {
   static List<String> items = ['Biểu đồ tròn', 'Biểu đồ cột'];
   late String dropDownValueOverview;
   late String dropDownValueSpend;
   late String dropDownValueCollect;
-  late TooltipBehavior _tooltipBehavior;
+  late TooltipBehavior _tooltipBehavior1;
+  late TooltipBehavior _tooltipBehavior2;
+  late TooltipBehavior _tooltipBehavior3;
   bool overview = true;
   bool spend = true;
   bool collect = true;
   @override
   void initState() {
-    _tooltipBehavior = TooltipBehavior(enable: true);
+    _tooltipBehavior1 = TooltipBehavior(enable: true);
+    _tooltipBehavior2 = TooltipBehavior(enable: true);
+    _tooltipBehavior3 = TooltipBehavior(enable: true);
     dropDownValueOverview = items[0];
     dropDownValueSpend = items[0];
     dropDownValueCollect = items[0];
     // TODO: implement initState
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -84,13 +90,13 @@ class _StatisticalMothScreenState extends State<StatisticalMothScreen>  {
                   legend: Legend(
                     isVisible: true,
                     overflowMode: LegendItemOverflowMode.wrap,
-                    textStyle: TextStyle(fontSize: 18),
+                    textStyle: const TextStyle(fontSize: 18),
                   ),
-                  tooltipBehavior: _tooltipBehavior,
+                  tooltipBehavior: _tooltipBehavior1,
                   series: <CircularSeries<GroupBy, String>>[
                     // Initialize line series
                     PieSeries<GroupBy, String>(
-                      dataSource: AppData.sumCollectSpend,
+                      dataSource: widget.getStatistical!.groupSumSpendCollectMoth,
                       xValueMapper: (GroupBy sales, _) => sales.name,
                       yValueMapper: (GroupBy sales, _) => sales.money,
                       name: 'Số tiền',
@@ -102,7 +108,7 @@ class _StatisticalMothScreenState extends State<StatisticalMothScreen>  {
                 primaryXAxis: CategoryAxis(),
                 primaryYAxis:
                 NumericAxis(minimum: 0, maximum: double.parse(AppData.groupSpend.first.money.toString()), interval: 10),
-                tooltipBehavior: _tooltipBehavior,
+                tooltipBehavior: _tooltipBehavior1,
                 series: <ChartSeries<GroupBy, String>>[
                   ColumnSeries<GroupBy, String>(
                     dataSource: AppData.sumCollectSpend,
@@ -165,7 +171,7 @@ class _StatisticalMothScreenState extends State<StatisticalMothScreen>  {
                           position: LegendPosition.bottom,
                           overflowMode: LegendItemOverflowMode.scroll,
                         ),
-                        tooltipBehavior: _tooltipBehavior,
+                        tooltipBehavior: _tooltipBehavior2,
                         series: <CircularSeries<GroupBy, String>>[
                           // Initialize line series
                           PieSeries<GroupBy, String>(
@@ -183,7 +189,7 @@ class _StatisticalMothScreenState extends State<StatisticalMothScreen>  {
                       primaryXAxis: CategoryAxis(),
                       primaryYAxis: NumericAxis(
                           minimum: 0, maximum: 40, interval: 10),
-                      tooltipBehavior: _tooltipBehavior,
+                      tooltipBehavior: _tooltipBehavior2,
                       series: <ChartSeries<GroupBy, String>>[
                         ColumnSeries<GroupBy, String>(
                           dataSource: AppData.groupSpend,
@@ -214,7 +220,7 @@ class _StatisticalMothScreenState extends State<StatisticalMothScreen>  {
                           position: LegendPosition.bottom,
                           overflowMode: LegendItemOverflowMode.scroll,
                         ),
-                        tooltipBehavior: _tooltipBehavior,
+                        tooltipBehavior: _tooltipBehavior3,
                         series: <CircularSeries<GroupBy, String>>[
                           PieSeries<GroupBy, String>(
                             dataSource: AppData.groupCollect,
@@ -231,7 +237,7 @@ class _StatisticalMothScreenState extends State<StatisticalMothScreen>  {
                       primaryXAxis: CategoryAxis(),
                       primaryYAxis: NumericAxis(
                           minimum: 0, maximum: 40, interval: 10),
-                      tooltipBehavior: _tooltipBehavior,
+                      tooltipBehavior: _tooltipBehavior3,
                       series: <ChartSeries<GroupBy, String>>[
                         ColumnSeries<GroupBy, String>(
                           dataSource: AppData.groupCollect,
