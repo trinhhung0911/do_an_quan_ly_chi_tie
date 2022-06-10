@@ -254,7 +254,7 @@ class _StatisticalYearScreenState extends State<StatisticalYearScreen> {
                     ),
                   )
                 ],
-              )
+              ),
             ],
           ),
         ),
