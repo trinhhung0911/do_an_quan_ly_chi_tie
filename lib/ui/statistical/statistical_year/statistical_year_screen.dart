@@ -24,6 +24,7 @@ class _StatisticalYearScreenState extends State<StatisticalYearScreen> {
   bool overview = true;
   bool spend = true;
   bool collect = true;
+
   @override
   void initState() {
     _tooltipBehavior1 = TooltipBehavior(enable: true);
@@ -108,11 +109,15 @@ class _StatisticalYearScreenState extends State<StatisticalYearScreen> {
                   : SfCartesianChart(
                 primaryXAxis: CategoryAxis(),
                 primaryYAxis:
-                NumericAxis(minimum: 0, maximum: double.parse(AppData.groupSpend.first.money.toString()), interval: 10),
+                NumericAxis(
+                    minimum: 0,
+                    maximum:double.parse(widget.getStatistical!.groupSumSpendCollectYear![0].money.toString())+
+                        double.parse(widget.getStatistical!.groupSumSpendCollectYear![1].money.toString()),
+                    interval: 10),
                 tooltipBehavior: _tooltipBehavior1,
                 series: <ChartSeries<GroupBy, String>>[
                   ColumnSeries<GroupBy, String>(
-                    dataSource: AppData.sumCollectSpend,
+                    dataSource: widget.getStatistical!.groupSumSpendCollectYear??AppData.sumCollectSpend,
                     xValueMapper: (GroupBy sales, _) => sales.name,
                     yValueMapper: (GroupBy sales, _) => sales.money,
                     name: 'Số tiền',
@@ -176,7 +181,7 @@ class _StatisticalYearScreenState extends State<StatisticalYearScreen> {
                         series: <CircularSeries<GroupBy, String>>[
                           // Initialize line series
                           PieSeries<GroupBy, String>(
-                            dataSource: AppData.groupSpend,
+                            dataSource: widget.getStatistical!.groupBySpendYear,
                             xValueMapper: (GroupBy sales, _) =>
                             sales.name,
                             yValueMapper: (GroupBy sales, _) =>
@@ -189,11 +194,11 @@ class _StatisticalYearScreenState extends State<StatisticalYearScreen> {
                         : SfCartesianChart(
                       primaryXAxis: CategoryAxis(),
                       primaryYAxis: NumericAxis(
-                          minimum: 0, maximum: 40, interval: 10),
+                          minimum: 0, maximum: double.parse(widget.getStatistical!.groupSumSpendCollectYear![1].money.toString()), interval: 10),
                       tooltipBehavior: _tooltipBehavior2,
                       series: <ChartSeries<GroupBy, String>>[
                         ColumnSeries<GroupBy, String>(
-                          dataSource: AppData.groupSpend,
+                          dataSource: widget.getStatistical!.groupBySpendYear??AppData.sumCollectSpend,
                           xValueMapper: (GroupBy sales, _) => sales.name,
                           yValueMapper: (GroupBy sales, _) => sales.money,
                           name: 'Số tiền',
@@ -205,6 +210,8 @@ class _StatisticalYearScreenState extends State<StatisticalYearScreen> {
                       ],
                     ),
                   ),
+
+
                   Expanded(
                     flex: 5,
                     child: spend == true
@@ -224,7 +231,7 @@ class _StatisticalYearScreenState extends State<StatisticalYearScreen> {
                         tooltipBehavior: _tooltipBehavior3,
                         series: <CircularSeries<GroupBy, String>>[
                           PieSeries<GroupBy, String>(
-                            dataSource: AppData.groupCollect,
+                            dataSource: widget.getStatistical!.groupByCollectYear,
                             xValueMapper: (GroupBy sales, _) =>
                             sales.name,
                             yValueMapper: (GroupBy sales, _) =>
@@ -237,11 +244,11 @@ class _StatisticalYearScreenState extends State<StatisticalYearScreen> {
                         : SfCartesianChart(
                       primaryXAxis: CategoryAxis(),
                       primaryYAxis: NumericAxis(
-                          minimum: 0, maximum: 40, interval: 10),
+                          minimum: 0, maximum: double.parse(widget.getStatistical!.groupSumSpendCollectYear![0].money.toString()), interval: 10),
                       tooltipBehavior: _tooltipBehavior3,
                       series: <ChartSeries<GroupBy, String>>[
                         ColumnSeries<GroupBy, String>(
-                          dataSource: AppData.groupCollect,
+                          dataSource: widget.getStatistical!.groupByCollectYear??AppData.sumCollectSpend,
                           xValueMapper: (GroupBy sales, _) => sales.name,
                           yValueMapper: (GroupBy sales, _) => sales.money,
                           name: 'Số tiền',

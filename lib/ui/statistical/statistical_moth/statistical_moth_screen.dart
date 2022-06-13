@@ -107,11 +107,15 @@ class _StatisticalMothScreenState extends State<StatisticalMothScreen>  {
                   : SfCartesianChart(
                 primaryXAxis: CategoryAxis(),
                 primaryYAxis:
-                NumericAxis(minimum: 0, maximum: double.parse(AppData.groupSpend.first.money.toString()), interval: 10),
+                NumericAxis(
+                    minimum: 0,
+                    maximum: double.parse(widget.getStatistical!.groupSumSpendCollectMoth![0].money.toString())+
+                        double.parse(widget.getStatistical!.groupSumSpendCollectMoth![1].money.toString()),
+                    interval: 10),
                 tooltipBehavior: _tooltipBehavior1,
                 series: <ChartSeries<GroupBy, String>>[
                   ColumnSeries<GroupBy, String>(
-                    dataSource: AppData.sumCollectSpend,
+                    dataSource: widget.getStatistical?.groupSumSpendCollectMoth??AppData.sumCollectSpend,
                     xValueMapper: (GroupBy sales, _) => sales.name,
                     yValueMapper: (GroupBy sales, _) => sales.money,
                     name: 'Số tiền',
@@ -165,8 +169,7 @@ class _StatisticalMothScreenState extends State<StatisticalMothScreen>  {
                             text: 'Tình hình chi',
                             textStyle: const TextStyle(
                                 fontSize: 14,
-
-                                fontWeight: FontWeight.w900),),
+                                fontWeight: FontWeight.w900,),),
                           isVisible: true,
                           position: LegendPosition.bottom,
                           overflowMode: LegendItemOverflowMode.scroll,
@@ -175,7 +178,7 @@ class _StatisticalMothScreenState extends State<StatisticalMothScreen>  {
                         series: <CircularSeries<GroupBy, String>>[
                           // Initialize line series
                           PieSeries<GroupBy, String>(
-                            dataSource: AppData.groupSpend,
+                            dataSource: widget.getStatistical!.groupBySpendMoth,
                             xValueMapper: (GroupBy sales, _) =>
                             sales.name,
                             yValueMapper: (GroupBy sales, _) =>
@@ -188,11 +191,11 @@ class _StatisticalMothScreenState extends State<StatisticalMothScreen>  {
                         : SfCartesianChart(
                       primaryXAxis: CategoryAxis(),
                       primaryYAxis: NumericAxis(
-                          minimum: 0, maximum: 40, interval: 10),
+                          minimum: 0, maximum: double.parse(widget.getStatistical!.groupSumSpendCollectMoth![1].money.toString()), interval: 10),
                       tooltipBehavior: _tooltipBehavior2,
                       series: <ChartSeries<GroupBy, String>>[
                         ColumnSeries<GroupBy, String>(
-                          dataSource: AppData.groupSpend,
+                          dataSource: widget.getStatistical!.groupBySpendMoth??AppData.sumCollectSpend,
                           xValueMapper: (GroupBy sales, _) => sales.name,
                           yValueMapper: (GroupBy sales, _) => sales.money,
                           name: 'Số tiền',
@@ -213,7 +216,7 @@ class _StatisticalMothScreenState extends State<StatisticalMothScreen>  {
                               text:'Tình hinhg thu',
                               textStyle: const TextStyle(
                                   fontSize: 14,
-                                  fontWeight: FontWeight.w900
+                                  fontWeight: FontWeight.w900,
                               )
                           ),
                           isVisible: true,
@@ -223,7 +226,7 @@ class _StatisticalMothScreenState extends State<StatisticalMothScreen>  {
                         tooltipBehavior: _tooltipBehavior3,
                         series: <CircularSeries<GroupBy, String>>[
                           PieSeries<GroupBy, String>(
-                            dataSource: AppData.groupCollect,
+                            dataSource: widget.getStatistical!.groupByCollectMoth,
                             xValueMapper: (GroupBy sales, _) =>
                             sales.name,
                             yValueMapper: (GroupBy sales, _) =>
@@ -236,11 +239,14 @@ class _StatisticalMothScreenState extends State<StatisticalMothScreen>  {
                         : SfCartesianChart(
                       primaryXAxis: CategoryAxis(),
                       primaryYAxis: NumericAxis(
-                          minimum: 0, maximum: 40, interval: 10),
+                          minimum: 0,
+                          maximum: double.parse(widget.getStatistical!.groupSumSpendCollectMoth![1].money.toString()),
+                          interval: 10,
+                      ),
                       tooltipBehavior: _tooltipBehavior3,
                       series: <ChartSeries<GroupBy, String>>[
                         ColumnSeries<GroupBy, String>(
-                          dataSource: AppData.groupCollect,
+                          dataSource:  widget.getStatistical!.groupByCollectMoth??AppData.sumCollectSpend,
                           xValueMapper: (GroupBy sales, _) => sales.name,
                           yValueMapper: (GroupBy sales, _) => sales.money,
                           name: 'Số tiền',

@@ -73,8 +73,7 @@ class UserService {
     for (var item in dataSumMothCollectAll.docs) {
       var e = CostCollect.formJson(item.data() as Map<String, dynamic>)
         ..id = item.id;
-      if (e.idUser == idUser &&
-          e.dateTime!.month.toString() == DateTime.now().month.toString()) {
+      if (e.idUser == idUser && e.dateTime!.month.toString() == DateTime.now().month.toString()) {
         sumMothCollect = sumMothCollect + e.money;
       }
     }
@@ -171,12 +170,15 @@ class UserService {
         }
       }
     }
+
     //Group By Day Spend
     int sumDayMoney = 0;
     bool ktDay = false;
     for (var categorySpend in dataGroupSpendCategory.docs) {
       var category = CategorySpend.fromJson(categorySpend.data() as Map<String, dynamic>)..id = categorySpend.id;
-      if (ktDay == true) {bool ktDay = false;sumDayMoney = 0;}
+      if (ktDay == true) {
+        bool ktDay = false;sumDayMoney = 0;
+      }
       for (var costSpend in dataGroupSendCost.docs) {
         var spend = CostSpend.formJson(costSpend.data() as Map<String, dynamic>)
           ..id = costSpend.id;

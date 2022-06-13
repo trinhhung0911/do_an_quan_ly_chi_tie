@@ -109,7 +109,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
   Future<void> refresh() async {
     refreshKeyUsers.currentState?.show();
     await Future.delayed(
@@ -119,4 +118,5 @@ class _HomeScreenState extends State<HomeScreen> {
       GetUserEvent(),
     );
   }
+
 }

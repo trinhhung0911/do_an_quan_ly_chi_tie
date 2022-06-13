@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:quan_ly_chi_tieu/configs/constants.dart';
+import 'package:quan_ly_chi_tieu/models/category_collect.dart';
+import 'package:quan_ly_chi_tieu/models/category_spend.dart';
 import 'package:quan_ly_chi_tieu/models/cost_collect.dart';
 import 'package:quan_ly_chi_tieu/models/cost_spend.dart';
 import 'package:quan_ly_chi_tieu/models/get_statistical.dart';
@@ -34,12 +36,11 @@ class StatisticalServices{
       }
     }
     List<GroupBy> groupSumSpendCollectDay=[];
-    GroupBy   groupSumCollectDay=new GroupBy(name: 'Tổng thu ',money: sumDayCollect);
-    GroupBy   groupSumSpendDay=new GroupBy(name: 'Tổng chi ',money: sumDaySpend);
+    GroupBy   groupSumCollectDay= GroupBy(name: 'Tổng thu ',money: sumDayCollect);
+    GroupBy   groupSumSpendDay= GroupBy(name: 'Tổng chi ',money: sumDaySpend);
     groupSumSpendCollectDay.add(groupSumSpendDay);
     groupSumSpendCollectDay.add(groupSumCollectDay);
-    print("-----------------");
-    print(groupSumSpendCollectDay);
+
 
 
 
@@ -62,8 +63,8 @@ class StatisticalServices{
       }
     }
     List<GroupBy> groupSumSpendCollectMoth=[];
-    GroupBy   groupSumCollectMoth=new GroupBy(name: 'Tổng thu ',money: sumMonthCollect);
-    GroupBy   groupSumSpendMoth=new GroupBy(name: 'Tổng chi ',money: sumMothSpend);
+    GroupBy   groupSumCollectMoth= GroupBy(name: 'Tổng thu ',money: sumMonthCollect);
+    GroupBy   groupSumSpendMoth=GroupBy(name: 'Tổng chi ',money: sumMothSpend);
     groupSumSpendCollectMoth.add(groupSumCollectMoth);
     groupSumSpendCollectMoth.add(groupSumSpendMoth);
 
@@ -86,21 +87,198 @@ class StatisticalServices{
       }
     }
     List<GroupBy> groupSumSpendCollectYear=[];
-    GroupBy   groupSumCollectYear=new GroupBy(name: 'Tổng thu ',money: sumYearCollect);
-    GroupBy   groupSumSpendYear=new GroupBy(name: 'Tổng chi ',money: sumYearSpend);
+    GroupBy   groupSumCollectYear= GroupBy(name: 'Tổng thu ',money: sumYearCollect);
+    GroupBy   groupSumSpendYear= GroupBy(name: 'Tổng chi ',money: sumYearSpend);
     groupSumSpendCollectYear.add(groupSumCollectYear);
     groupSumSpendCollectYear.add(groupSumSpendYear);
-    print("-----------------");
-    print(sumYearCollect);
-    print(sumYearSpend);
-    print(groupSumSpendCollectYear.length);
+
+    //group by
+    List<GroupBy> groupByDaySpend = [];
+    List<GroupBy> groupByMothSpend = [];
+    List<GroupBy> groupByYearSpend = [];
+    List<GroupBy> groupByDayCollect = [];
+    List<GroupBy> groupByMothCollect = [];
+    List<GroupBy> groupByYearCollect = [];
+    var dataGroupSpendCategory = await categorySpendCollection.get();
+    var dataGroupSendCost = await costSpendCollection.get();
+    var dataGroupCollectCategory = await categoryCollectCollection.get();
+    var dataGroupCollectCost = await costCollectCollection.get();
+
+    //Group by tiền chi theo ngày
+    int sumDaySpendMoney = 0;
+    bool ktDay = false;
+    for (var categorySpend in dataGroupSpendCategory.docs) {
+      var category = CategorySpend.fromJson(categorySpend.data() as Map<String, dynamic>)..id = categorySpend.id;
+      if (ktDay == true) {
+        bool ktDay = false;sumDaySpendMoney = 0;
+      }
+      for (var costSpend in dataGroupSendCost.docs) {
+        var spend = CostSpend.formJson(costSpend.data() as Map<String, dynamic>)
+          ..id = costSpend.id;
+        if (category.idUser == idUser && spend.idUser == idUser &&
+            category.id.toString() == spend.idCategorySpend.toString()&&
+            spend.dateTime!.day.toString()==DateTime.now().day.toString()
+        ) {
+          sumDaySpendMoney = sumDaySpendMoney + spend.money;
+          ktDay = true;
+        }
+      }
+      if (ktDay == true) {
+        if (sumDaySpendMoney != 0) {
+          GroupBy groupBySpend = GroupBy(name: category.name, money: sumDaySpendMoney);
+          groupByDaySpend.add(groupBySpend);
+        }
+      }
+    }
+    //group by tiền chi theo tháng
+    int sumMothMoney = 0;
+    bool ktMoth = false;
+    for (var categorySpend in dataGroupSpendCategory.docs) {
+      var category = CategorySpend.fromJson(categorySpend.data() as Map<String, dynamic>)..id = categorySpend.id;
+      if (ktMoth == true) {
+        bool ktMoth = false;
+        sumMothMoney = 0;
+      }
+      for (var costSpend in dataGroupSendCost.docs) {
+        var spend = CostSpend.formJson(costSpend.data() as Map<String, dynamic>)
+          ..id = costSpend.id;
+        if (category.idUser == idUser && spend.idUser == idUser &&
+            category.id.toString() == spend.idCategorySpend.toString()&&
+            spend.dateTime!.month.toString()==DateTime.now().month.toString()
+        ) {
+          sumMothMoney = sumMothMoney + spend.money;
+          ktMoth = true;
+        }
+      }
+      if (ktMoth == true) {
+        if (sumMothMoney != 0) {
+          GroupBy groupBySpend = GroupBy(name: category.name, money: sumMothMoney);
+          groupByMothSpend.add(groupBySpend);
+        }
+      }
+    }
+    //Group by tiền chi theo năm
+    int sumYearMoney = 0;
+    bool ktYear = false;
+    for (var categorySpend in dataGroupSpendCategory.docs) {
+      var category =
+      CategorySpend.fromJson(categorySpend.data() as Map<String, dynamic>)..id = categorySpend.id;
+      if (ktYear == true) {
+        bool ktYear = false;
+        sumYearMoney = 0;
+      }
+      for (var costSpend in dataGroupSendCost.docs) {
+        var spend = CostSpend.formJson(costSpend.data() as Map<String, dynamic>)
+          ..id = costSpend.id;
+        if (category.idUser == idUser && spend.idUser == idUser &&
+            category.id.toString() == spend.idCategorySpend.toString()&&
+            spend.dateTime!.year.toString()==DateTime.now().year.toString()
+        ) {
+          sumYearMoney = sumYearMoney + spend.money;
+          ktYear = true;
+        }
+      }
+      if (ktYear == true) {
+        if (sumYearMoney != 0) {
+          GroupBy groupBySpend = GroupBy(name: category.name, money: sumYearMoney);
+          groupByYearSpend.add(groupBySpend);
+        }
+      }
+    }
+    //Group by tiền thu theo ngày
+    int sumDayCollectMoney = 0;
+    bool ktDayCollect = false;
+    for (var categoryCollect in dataGroupCollectCategory.docs) {
+      var category = CategoryCollect.fromJson(categoryCollect.data() as Map<String, dynamic>)..id = categoryCollect.id;
+      if (ktDayCollect == true) {
+        bool ktDayCollect = false;sumDayCollectMoney = 0;
+      }
+      for (var costCollect in dataGroupCollectCost.docs) {
+        var collect = CostCollect.formJson(costCollect.data() as Map<String, dynamic>)
+          ..id = costCollect.id;
+        if (category.idUser == idUser && collect.idUser == idUser &&
+            category.id.toString() == collect.idCategoryCollect.toString()&&
+            collect.dateTime!.day.toString()==DateTime.now().day.toString()
+        ) {
+          sumDayCollectMoney = sumDayCollectMoney + collect.money;
+          ktDayCollect = true;
+        }
+      }
+      if (ktDayCollect == true) {
+        if (sumDayCollectMoney != 0) {
+          GroupBy groupByCollect = GroupBy(name: category.name, money: sumDayCollectMoney);
+          groupByDayCollect.add(groupByCollect);
+        }
+      }
+    }
+    //Group tiền thu theo tháng
+    int sumMothCollectMoney = 0;
+    bool ktMothCollect = false;
+    for (var categoryCollect in dataGroupCollectCategory.docs) {
+      var category = CategoryCollect.fromJson(categoryCollect.data() as Map<String, dynamic>)..id = categoryCollect.id;
+      if (ktMothCollect == true) {
+        bool ktMothCollect = false;sumMothCollectMoney = 0;
+      }
+      for (var costCollect in dataGroupCollectCost.docs) {
+        var collect = CostCollect.formJson(costCollect.data() as Map<String, dynamic>)
+          ..id = costCollect.id;
+        if (category.idUser == idUser && collect.idUser == idUser &&
+            category.id.toString() == collect.idCategoryCollect.toString()&&
+            collect.dateTime!.month.toString()==DateTime.now().month.toString()
+        ) {
+          sumMothCollectMoney = sumMothCollectMoney + collect.money;
+          ktMothCollect = true;
+        }
+      }
+      if (ktMothCollect == true) {
+        if (sumMothCollectMoney != 0) {
+          GroupBy groupByCollect = GroupBy(name: category.name, money: sumMothCollectMoney);
+          groupByMothCollect.add(groupByCollect);
+        }
+      }
+    }
+    //Group by tiền thu theo năm
+    int sumYearCollectMoney = 0;
+    bool ktYearCollect = false;
+    for (var categoryCollect in dataGroupCollectCategory.docs) {
+      var category = CategoryCollect.fromJson(categoryCollect.data() as Map<String, dynamic>)..id = categoryCollect.id;
+      if (ktYearCollect == true) {
+        bool ktYearCollect = false;sumYearCollectMoney = 0;
+      }
+      for (var costCollect in dataGroupCollectCost.docs) {
+        var collect = CostCollect.formJson(costCollect.data() as Map<String, dynamic>)
+          ..id = costCollect.id;
+        if (category.idUser == idUser && collect.idUser == idUser &&
+            category.id.toString() == collect.idCategoryCollect.toString()&&
+            collect.dateTime!.year.toString()==DateTime.now().year.toString()
+        ) {
+          sumYearCollectMoney = sumYearCollectMoney + collect.money;
+          ktYearCollect = true;
+        }
+      }
+      if (ktMothCollect == true) {
+        if (sumYearCollectMoney != 0) {
+          GroupBy groupByCollect = GroupBy(name: category.name, money: sumYearCollectMoney);
+          groupByYearCollect.add(groupByCollect);
+        }
+      }
+    }
+
+
+
 
 
     GetStatistical value =
     GetStatistical(
         groupSumSpendCollectDay:groupSumSpendCollectDay,
         groupSumSpendCollectMoth: groupSumSpendCollectMoth,
-        groupSumSpendCollectYear: groupSumSpendCollectYear
+        groupSumSpendCollectYear: groupSumSpendCollectYear,
+        groupBySpendDay: groupByDaySpend,
+        groupBySpendMoth: groupByMothSpend,
+        groupBySpendYear: groupByYearSpend,
+        groupByCollectDay: groupByDayCollect,
+      groupByCollectMoth: groupByMothCollect,
+      groupByCollectYear: groupByYearCollect,
     );
     return value;
 

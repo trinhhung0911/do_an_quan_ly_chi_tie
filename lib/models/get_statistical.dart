@@ -5,6 +5,7 @@ class GetStatistical{
    List<GroupBy>? groupSumSpendCollectDay;
    List<GroupBy>? groupSumSpendCollectMoth;
    List<GroupBy>? groupSumSpendCollectYear;
+
   //tổng chi theo ngày
   List<GroupBy>? groupBySpendDay;
   //thổng thu theo ngày
@@ -17,7 +18,6 @@ class GetStatistical{
   List<GroupBy>? groupBySpendYear;
   //tổng thu theo năm
   List<GroupBy>? groupByCollectYear;
-
   GetStatistical(
      {this.groupSumSpendCollectDay,
       this.groupSumSpendCollectMoth,
