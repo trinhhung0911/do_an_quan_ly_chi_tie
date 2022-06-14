@@ -98,7 +98,6 @@ class _ManageCollectScreenState extends State<ManageCollectScreen> {
                       }
                       ManageCollectScreen.isFetch = true;
                     }
-
                     return empCostCollects.isNotEmpty
                         ? Column(
                             children: [

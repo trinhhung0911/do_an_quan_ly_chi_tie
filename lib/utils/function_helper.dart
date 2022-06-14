@@ -14,6 +14,10 @@ class FunctionHelper {
   static String formatDateYearMonthDay(DateTime dateTime){
     return DateFormat('yyyy-MM-dd - kk:mm').format(dateTime);
   }
+  static const _locale = 'vi';
+  static String formatNumber(String s){
+    return NumberFormat.decimalPattern(_locale).format(int.parse(s));
+  }
 
   static Future<dynamic> showSnackBar({
     required BuildContext context,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quan_ly_chi_tieu/bloc/category_spend_bloc/category_spend_bloc.dart';
+import 'package:quan_ly_chi_tieu/bloc/category_spend_bloc/category_spend_event.dart';
 import 'package:quan_ly_chi_tieu/bloc/cost_spend_bloc/cost_spend_bloc.dart';
 import 'package:quan_ly_chi_tieu/bloc/cost_spend_bloc/cost_spend_event.dart';
 import 'package:quan_ly_chi_tieu/bloc/cost_spend_bloc/cost_spend_state.dart';
@@ -137,7 +139,8 @@ class _AddSpendScreenState extends State<AddSpendScreen> {
                 child: Column(
                   children: <Widget>[
                     InkWell(
-                      onTap: () {
+                      onTap: () async {
+                        await refresh();
                         _showDialog();
                       },
                       child: TextField(
@@ -331,5 +334,10 @@ class _AddSpendScreenState extends State<AddSpendScreen> {
         ],
       ),
     );
+  }
+  Future<void> refresh() async {
+    refreshKeyCategory.currentState?.show();
+    await Future.delayed(const Duration(microseconds: 400));
+    BlocProvider.of<CategorySpendBloc>(context).add(GetCategorySpendsEvent());
   }
 }

@@ -5,11 +5,14 @@ import 'package:quan_ly_chi_tieu/bloc/user_bloc/user_event.dart';
 import 'package:quan_ly_chi_tieu/bloc/user_bloc/user_state.dart';
 import 'package:quan_ly_chi_tieu/configs/colors.dart';
 import 'package:quan_ly_chi_tieu/configs/constants.dart';
+import 'package:quan_ly_chi_tieu/models/category_Collect.dart';
 import 'package:quan_ly_chi_tieu/models/get_user.dart';
 import 'package:quan_ly_chi_tieu/ui/components/card/refresh_card.dart';
 import 'package:quan_ly_chi_tieu/ui/components/home_components/chart_collection.dart';
 import 'package:quan_ly_chi_tieu/ui/components/home_components/money_home.dart';
 import 'package:quan_ly_chi_tieu/ui/components/home_components/status_collection.dart';
+import 'package:quan_ly_chi_tieu/ui/manage_collect/category_collect/category_collect_screen.dart';
+import 'package:quan_ly_chi_tieu/ui/manage_spend/category_spend/category_spend_screen.dart';
 import 'package:quan_ly_chi_tieu/utils/function_helper.dart';
 import 'package:quan_ly_chi_tieu/utils/loading_helper.dart';
 import 'Components/card/drawer_item_card.dart';
@@ -38,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.appColor,
+        centerTitle: true,
         title: const Center(
           child: Text('Trang chủ'),
         ),
@@ -60,6 +64,8 @@ class _HomeScreenState extends State<HomeScreen> {
               } else if (state is GetUserLoadedState) {
                 LoadingHelper.hideLoading(context);
                 getUser = state.getUser;
+                categorySpends=state.getUser.first.categorySpends!;
+                categoryCollects=state.getUser.first.categoryCollects!;
                 return Column(
                   children: <Widget>[
                     MoneyHome(sumMoney: getUser.first.user!.sumMoney!),

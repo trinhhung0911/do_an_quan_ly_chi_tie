@@ -1,3 +1,6 @@
+
+import 'package:quan_ly_chi_tieu/models/category_Collect.dart';
+import 'package:quan_ly_chi_tieu/models/category_spend.dart';
 import 'package:quan_ly_chi_tieu/models/group_by.dart';
 import 'package:quan_ly_chi_tieu/models/users.dart';
 
@@ -20,6 +23,8 @@ class GetUser {
   List<GroupBy>? groupBySpendMoth;
   List<GroupBy>? groupBySpendYear;
   List<GroupBy>? groupBySpendNull;
+  List<CategoryCollect>? categoryCollects;
+  List<CategorySpend>? categorySpends ;
 
   GetUser(
       {this.user,
@@ -35,5 +40,8 @@ class GetUser {
       this.groupBySpendDay,
       this.groupBySpendMoth,
       this.groupBySpendYear,
-      this.groupBySpendNull});
+      this.groupBySpendNull,
+        this.categoryCollects,
+        this.categorySpends
+      });
 }

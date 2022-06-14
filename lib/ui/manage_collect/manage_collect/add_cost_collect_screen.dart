@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quan_ly_chi_tieu/bloc/category_collect_bloc/category_collect_bloc.dart';
+import 'package:quan_ly_chi_tieu/bloc/category_collect_bloc/category_collect_event.dart';
 import 'package:quan_ly_chi_tieu/bloc/cost_collect_bloc/cost_collect_bloc.dart';
 import 'package:quan_ly_chi_tieu/bloc/cost_collect_bloc/cost_collect_event.dart';
 import 'package:quan_ly_chi_tieu/bloc/cost_collect_bloc/cost_collect_state.dart';
@@ -8,9 +10,10 @@ import 'package:quan_ly_chi_tieu/configs/constants.dart';
 import 'package:quan_ly_chi_tieu/configs/themes.dart';
 import 'package:quan_ly_chi_tieu/models/cost_collect.dart';
 import 'package:quan_ly_chi_tieu/storage/secure_storge.dart';
+import 'package:quan_ly_chi_tieu/ui/Components/card/refresh_card.dart';
+import 'package:quan_ly_chi_tieu/ui/components/card/refresh_card.dart';
 import 'package:quan_ly_chi_tieu/utils/function_helper.dart';
 import 'package:quan_ly_chi_tieu/utils/loading_helper.dart';
-
 import '../category_collect/category_collect_screen.dart';
 
 class AddCostCollectScreen extends StatefulWidget {
@@ -19,18 +22,21 @@ class AddCostCollectScreen extends StatefulWidget {
   @override
   _AddCostCollectScreenState createState() => _AddCostCollectScreenState();
 }
-
+final refreshKeyCategory = GlobalKey<RefreshIndicatorState>();
 class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
+
   final TextEditingController _moneyController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
   final TextEditingController _categoryCollectController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _dateController = TextEditingController();
   final refreshKeyCategory = GlobalKey<RefreshIndicatorState>();
   CostCollect? costCollect;
   late String idCategoryCollect;
+
   @override
   void initState() {
+    BlocProvider.of<CategoryCollectBloc>(context).add(GetCategoryCollectsEvent());
     if (widget.arg is CostCollect) {
       costCollect = widget.arg as CostCollect?;
       _moneyController.text = costCollect!.money.toString();
@@ -54,7 +60,8 @@ class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
       body: BlocListener<CostCollectBloc, CostCollectState>(
         listener: (context, state) {
           if (state is CreateCostCollectLoadingState ||
-              state is UpdateCostCollectLoadingState) {
+              state is UpdateCostCollectLoadingState
+          ) {
             LoadingHelper.showLoading(context);
           } else if (state is CreateCostCollectSuccessState ||
               state is UpdateCostCollectSuccessState) {
@@ -104,6 +111,16 @@ class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
                       textAlign: TextAlign.end,
                       keyboardType: TextInputType.number,
                       style: AppThemes.commonText,
+                      // onChanged: (value){
+                      //   value = '${FunctionHelper.formatNumber(value.replaceAll('.', ''))}';
+                      //   print(value);
+                      //   _moneyController.value = TextEditingValue(
+                      //     text: value,
+                      //     selection: TextSelection.collapsed(offset: value.length),
+                      //   );
+                      //   print(_moneyController.text);
+                      // },
+
                       decoration: InputDecoration(
                           prefixIcon: const Icon(
                             Icons.monetization_on,
@@ -136,7 +153,8 @@ class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
                 child: Column(
                   children: <Widget>[
                     InkWell(
-                      onTap: () {
+                      onTap: () async {
+                        await refresh();
                         _showDialog();
                       },
                       child: TextField(
@@ -219,7 +237,7 @@ class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
                       Text(
                         costCollect == null ? "Ghi" : 'Cập nhật',
                         style:
-                            AppThemes.commonText.copyWith(color: Colors.white),
+                        AppThemes.commonText.copyWith(color: Colors.white),
                       ),
                     ],
                   ),
@@ -236,14 +254,14 @@ class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
                       var costCollect1 = CostCollect(
                         money: int.parse(_moneyController.text.trim()),
                         nameCategoryCollect:
-                            _categoryCollectController.text.trim(),
+                        _categoryCollectController.text.trim(),
                         note: _noteController.text.trim(),
                         idCategoryCollect: idCategoryCollect,
                         idUser: idUser,
                         dateTime: _dateController.text.isEmpty
                             ? DateTime.now()
                             : FunctionHelper.formatDateText(
-                                _dateController.text.trim()),
+                            _dateController.text.trim()),
                       );
                       if (costCollect == null) {
                         BlocProvider.of<CostCollectBloc>(context).add(
@@ -273,7 +291,7 @@ class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
       context: context,
       builder: (context) => SimpleDialog(
         shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20))),
+          borderRadius: BorderRadius.all(Radius.circular(20),),),
         title: const Center(
           child: Text('Chọn loại thu'),
         ),
@@ -283,47 +301,49 @@ class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
             width: 200,
             child: SingleChildScrollView(
               physics: const AlwaysScrollableScrollPhysics(),
+
               child: Column(
                 children: [
                   categoryCollects.isNotEmpty
                       ? ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          primary: false,
-                          itemCount: categoryCollects.length,
-                          scrollDirection: Axis.vertical,
-                          itemBuilder: (context, index) => InkWell(
-                            onTap: () {
-                              setState(() {
-                                _categoryCollectController.text =
-                                    categoryCollects[index].name;
-                                idCategoryCollect = categoryCollects[index].id!;
-                                Navigator.pop(context);
-                              });
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 5, bottom: 5),
-                              child: Center(
-                                child: Text(
-                                  categoryCollects[index].name,
-                                  style: AppThemes.commonText,
-                                ),
-                              ),
-                            ),
-                          ),
-                        )
-                      : Center(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    primary: false,
+                    itemCount: categoryCollects.length,
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (context, index) => InkWell(
+                      onTap: () {
+                        setState(() {
+                          _categoryCollectController.text =
+                              categoryCollects[index].name;
+                          idCategoryCollect = categoryCollects[index].id!;
+                          Navigator.pop(context);
+                        });
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 5, bottom: 5),
+                        child: Center(
                           child: Text(
-                            "Chưa có danh mục thu !",
+                            categoryCollects[index].name,
                             style: AppThemes.commonText,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
+                      ),
+                    ),
+                  )
+                      : Center(
+                    child: Text(
+                      "Chưa có danh mục thu !",
+                      style: AppThemes.commonText,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
+
           TextButton(
             onPressed: () async {
               await Navigator.pushNamed(
@@ -335,5 +355,10 @@ class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
         ],
       ),
     );
+  }
+  Future<void> refresh() async {
+    refreshKeyCategory.currentState?.show();
+    await Future.delayed(const Duration(microseconds: 400));
+    BlocProvider.of<CategoryCollectBloc>(context).add(GetCategoryCollectsEvent());
   }
 }

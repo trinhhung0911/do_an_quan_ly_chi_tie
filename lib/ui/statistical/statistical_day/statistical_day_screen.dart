@@ -87,7 +87,7 @@ class _StatisticalDayScreenState extends State<StatisticalDayScreen> {
                   ),
                 ],
               ),
-              overview == true
+              (overview == true
                   ? SfCircularChart(
                       legend: Legend(
                         isVisible: true,
@@ -107,6 +107,7 @@ class _StatisticalDayScreenState extends State<StatisticalDayScreen> {
                           )
                         ])
                   : SfCartesianChart(
+                backgroundColor: Colors.white,
                       primaryXAxis: CategoryAxis(),
                       primaryYAxis: NumericAxis(
                           minimum: 0,
@@ -132,7 +133,7 @@ class _StatisticalDayScreenState extends State<StatisticalDayScreen> {
                           color: AppColors.appColor,
                         )
                       ],
-                    ),
+                    )),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -169,7 +170,8 @@ class _StatisticalDayScreenState extends State<StatisticalDayScreen> {
                 children: [
                   Expanded(
                     flex: 5,
-                    child: spend == true
+                    child:
+                        ( spend == true
                         ? SfCircularChart(
                             legend: Legend(
                               title: LegendTitle(
@@ -218,7 +220,7 @@ class _StatisticalDayScreenState extends State<StatisticalDayScreen> {
                                 color: AppColors.appColor,
                               )
                             ],
-                          ),
+                          )),
                   ),
                   Expanded(
                     flex: 5,

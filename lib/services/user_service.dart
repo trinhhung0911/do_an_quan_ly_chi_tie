@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:quan_ly_chi_tieu/configs/constants.dart';
+import 'package:quan_ly_chi_tieu/models/category_Collect.dart';
 import 'package:quan_ly_chi_tieu/models/category_spend.dart';
 import 'package:quan_ly_chi_tieu/models/cost_collect.dart';
 import 'package:quan_ly_chi_tieu/models/cost_spend.dart';
@@ -45,7 +46,6 @@ class UserService {
         users = e;
       }
     }
-
     // tổng tiền thu all
     int sumCollectdAll = 0;
     var dataSumCollectAll = await sumCollectAllCollection.get();
@@ -140,6 +140,8 @@ class UserService {
     List<GroupBy> groupByMothSpend = [];
     List<GroupBy> groupByYearSpend = [];
     List<GroupBy> groupByNullSpend = [];
+    List<CategoryCollect> categoryCollects=[];
+    List<CategorySpend> categorySpends = [];
     var dataGroupSpendCategory = await categorySpendCollectionReference.get();
     var dataGroupSendCost = await sumSpendAllCollection.get();
     //GroupBy All Spend
@@ -264,6 +266,27 @@ class UserService {
           groupByNullSpend.add(groupBySpend);
         }
       }
+    //get Category Collect
+
+
+    CollectionReference categoryCollectCollection = FirebaseFirestore.instance.collection(CollectionName.categoryCollect.name);
+    var dataCategory = await categoryCollectCollection.get();
+    for (var item in dataCategory.docs) {
+      var e = CategoryCollect.fromJson(item.data() as Map<String, dynamic>)..id = item.id;
+      if(e.idUser == idUser) {
+        categoryCollects.add(e);
+      }
+    }
+    //Get Category Spend
+    CollectionReference categorySpendCollection = FirebaseFirestore.instance.collection(CollectionName.categorySpend.name);
+    var dataCategorySpend = await categorySpendCollection.get();
+    for (var item in dataCategorySpend.docs) {
+      var e = CategorySpend.fromJson(item.data() as Map<String, dynamic>)..id = item.id;
+      if(e.idUser == idUser) {
+        categorySpends.add(e,);
+      }
+    }
+
     GetUser value = GetUser(
         user: users,
         sumAllSpend: sumSpendAll,
@@ -278,7 +301,9 @@ class UserService {
         groupBySpendDay: groupByDaySpend,
         groupBySpendMoth: groupByMothSpend,
         groupBySpendYear: groupByYearSpend,
-        groupBySpendNull: groupByNullSpend
+        groupBySpendNull: groupByNullSpend,
+      categoryCollects: categoryCollects,
+      categorySpends: categorySpends
     );
     getUsers.add(value);
     return getUsers;

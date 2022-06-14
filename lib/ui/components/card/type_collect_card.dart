@@ -1,5 +1,3 @@
-
-
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -60,7 +58,7 @@ class _TypeCollectCardState extends State<TypeCollectCard> {
               );
               if (result != null) {
                 setState(
-                  () {
+                      () {
                     widget.categoryCollect = result as CategoryCollect;
                   },
                 );
@@ -73,7 +71,7 @@ class _TypeCollectCardState extends State<TypeCollectCard> {
                   okLabel: "Đồng ý",
                   cancelLabel: "Hủy",
                   message:
-                      'Bạn có muốn xóa danh mục thu ${widget.categoryCollect.name} !');
+                  'Bạn có muốn xóa danh mục thu ${widget.categoryCollect.name} !');
               if (result == OkCancelResult.ok) {
                 BlocProvider.of<CategoryCollectBloc>(context).add(
                   DeleteCategoryCollectEvent(
@@ -91,15 +89,15 @@ class _TypeCollectCardState extends State<TypeCollectCard> {
                 const SizedBox(
                   width: 20,
                 ),
-                 Expanded(
-                   child: Text(
-                      widget.categoryCollect.name,
-                      style: AppThemes.commonText,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                 ),
-               
+                Expanded(
+                  child: Text(
+                    widget.categoryCollect.name,
+                    style: AppThemes.commonText,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+
               ],
             ),
           ),

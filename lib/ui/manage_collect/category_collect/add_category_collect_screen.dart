@@ -58,8 +58,7 @@ class _AddCategoryCollectScreenState extends State<AddCategoryCollectScreen> {
                 title: collectCollect == null
                     ? 'Thêm danh mục thu thành công !'
                     : 'Cập nhật danh mục thu thành công !');
-            BlocProvider.of<CategoryCollectBloc>(context)
-                .add(GetCategoryCollectsEvent());
+            BlocProvider.of<CategoryCollectBloc>(context).add(GetCategoryCollectsEvent());
           } else if (state is CreateCategoryCollectErrorState) {
             LoadingHelper.hideLoading(context);
             FunctionHelper.showSnackBar(context: context, title: state.error);
@@ -165,4 +164,5 @@ class _AddCategoryCollectScreenState extends State<AddCategoryCollectScreen> {
       ),
     );
   }
+
 }

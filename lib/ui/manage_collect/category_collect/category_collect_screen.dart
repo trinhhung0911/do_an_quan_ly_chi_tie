@@ -24,22 +24,24 @@ final refreshKeyCategory = GlobalKey<RefreshIndicatorState>();
 List<CategoryCollect> categoryCollects=[];
 
 class _CategoryCollectScreenState extends State<CategoryCollectScreen> {
+
   @override
   void initState() {
     BlocProvider.of<CategoryCollectBloc>(context).add(GetCategoryCollectsEvent());
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
+      appBar: AppBar(
         backgroundColor: AppColors.appColor,
         title: const Center(
-        child: Text('Danh mục thu'),
-    ),
-    centerTitle: true,
-    ),
+          child: Text('Danh mục thu'),
+        ),
+        centerTitle: true,
+      ),
       body: RefreshWidget(
         onRefresh: refresh,
         keyRefresh: refreshKeyCategory,
