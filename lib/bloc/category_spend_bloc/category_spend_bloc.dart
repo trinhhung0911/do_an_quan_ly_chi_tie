@@ -28,7 +28,7 @@ class CategorySpendBloc extends Bloc<CategorySpendEvent, CategorySpendState> {
     try {
       await categorySpendRepository.createCategorySpend(
           categorySpend: event.categorySpend);
-      yield CreateCategorySpendSuccessState();
+        yield CreateCategorySpendSuccessState();
     } on FirebaseAuthException catch (e) {
       yield const CreateCategorySpendErrorState(
           error: 'Thêm danh mục chi thất bại !');
@@ -39,8 +39,7 @@ class CategorySpendBloc extends Bloc<CategorySpendEvent, CategorySpendState> {
       GetCategorySpendsEvent event) async* {
     yield GetCategorySpendLoadingState();
     try {
-      final List<CategorySpend> categorySpend =
-          await categorySpendRepository.getCategorySpends();
+      final List<CategorySpend> categorySpend = await categorySpendRepository.getCategorySpends();
       yield GetCategorySpendLoadedState(categorySpend: categorySpend);
     } on FirebaseAuthException catch (e) {
       yield const GetCategorySpendErrorState(error: 'Lỗi');

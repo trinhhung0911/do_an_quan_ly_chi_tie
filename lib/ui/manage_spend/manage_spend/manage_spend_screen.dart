@@ -40,6 +40,7 @@ class _ManageSpendScreenState extends State<ManageSpendScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: AppColors.appColor,
         title: const Center(
@@ -81,7 +82,9 @@ class _ManageSpendScreenState extends State<ManageSpendScreen> {
                         empCostSpendsTmp = empCostSpends;
                       } else if (ManageSpendScreen.indext == 2) {
                         final suggestions = costSpends
-                            .where((costSpends) => costSpends.dateTime!.month.toString() == DateTime.now().month.toString())
+                            .where((costSpends) =>
+                                costSpends.dateTime!.month.toString() ==
+                                DateTime.now().month.toString())
                             .toList();
                         empCostSpends = suggestions;
                         empCostSpendsTmp = empCostSpends;
@@ -100,8 +103,8 @@ class _ManageSpendScreenState extends State<ManageSpendScreen> {
                         ? Column(
                             children: [
                               ListView.builder(
-                                padding:
-                                    const EdgeInsets.only(left: 24, right: 24),
+                                padding: const EdgeInsets.only(
+                                    left: 16, right: 16, top: 16),
                                 physics: const NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
                                 primary: false,
@@ -159,6 +162,7 @@ class _ManageSpendScreenState extends State<ManageSpendScreen> {
       ),
     );
   }
+
   Future<void> refresh() async {
     refreshKeyManageSpend.currentState?.show();
     await Future.delayed(const Duration(microseconds: 400));
@@ -180,8 +184,6 @@ class _ManageSpendScreenState extends State<ManageSpendScreen> {
       ManageSpendScreen.isFetch = false;
     }
     BlocProvider.of<CostSpendBloc>(context).add(GetCostSpendsEvent());
-
-
   }
 
   searchName(String query) {
@@ -196,6 +198,4 @@ class _ManageSpendScreenState extends State<ManageSpendScreen> {
       },
     );
   }
-
-
 }

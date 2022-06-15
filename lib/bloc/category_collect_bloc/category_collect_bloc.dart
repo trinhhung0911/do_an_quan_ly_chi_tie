@@ -29,9 +29,9 @@ class CategoryCollectBloc extends Bloc<CategoryCollectEvent, CategoryCollectStat
       CreateCategoryCollectEvent event) async* {
     yield CreateCategoryCollectLoadingState();
     try {
-      await categoryCollectRepository.createCategoryCollect(
+    await categoryCollectRepository.createCategoryCollect(
           categoryCollect: event.categoryCollect);
-      yield CreateCategoryCollectSuccessState();
+     yield CreateCategoryCollectSuccessState();
     } on FirebaseAuthException catch (e) {
       yield const CreateCategoryCollectErrorState(
           error: 'Thêm danh mục thu thất bại !');

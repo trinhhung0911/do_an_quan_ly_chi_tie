@@ -120,7 +120,6 @@ class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
                       //   );
                       //   print(_moneyController.text);
                       // },
-
                       decoration: InputDecoration(
                           prefixIcon: const Icon(
                             Icons.monetization_on,

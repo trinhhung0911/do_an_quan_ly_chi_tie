@@ -29,77 +29,74 @@ class _TypeCollectCardState extends State<TypeCollectCard> {
           LoadingHelper.showLoading(context);
         } else if (state is DeleteCategoryCollectSuccessState) {
           LoadingHelper.hideLoading(context);
+          BlocProvider.of<CategoryCollectBloc>(context)
+              .add(GetCategoryCollectsEvent());
           FunctionHelper.showSnackBar(
             context: context,
             title: "Xóa danh muc thu ${widget.categoryCollect.name} thành công !",
           );
-          BlocProvider.of<CategoryCollectBloc>(context)
-              .add(GetCategoryCollectsEvent());
         } else if (state is DeleteCategoryCollectErrorState) {
           LoadingHelper.hideLoading(context);
           FunctionHelper.showSnackBar(context: context, title: state.error);
         }
       },
-      child: Card(
-        child: Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color:  const Color(0xFFFAF5F5),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          padding: const EdgeInsets.only(left: 16, top: 10, bottom: 10),
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color:  const Color(0xFFFAF5F5),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        padding: const EdgeInsets.only(left: 16, top: 16, bottom: 16,right: 16),
+        margin: EdgeInsets.only(top: 10),
 
-          child: InkWell(
-            onTap: () async {
-              var result = await Navigator.pushNamed(
-                context,
-                Constants.addCategoryCollectScreen,
-                arguments: widget.categoryCollect,
+        child: InkWell(
+          onTap: () async {
+            var result = await Navigator.pushNamed(
+              context,
+              Constants.addCategoryCollectScreen,
+              arguments: widget.categoryCollect,
+            );
+            if (result != null) {
+              setState(
+                    () {
+                  widget.categoryCollect = result as CategoryCollect;
+                },
               );
-              if (result != null) {
-                setState(
-                      () {
-                    widget.categoryCollect = result as CategoryCollect;
-                  },
-                );
-              }
-            },
-            onLongPress: () async {
-              var result = await showOkCancelAlertDialog(
-                  context: context,
-                  title: "Thông báo ",
-                  okLabel: "Đồng ý",
-                  cancelLabel: "Hủy",
-                  message:
-                  'Bạn có muốn xóa danh mục thu ${widget.categoryCollect.name} !');
-              if (result == OkCancelResult.ok) {
-                BlocProvider.of<CategoryCollectBloc>(context).add(
-                  DeleteCategoryCollectEvent(
-                      categoryCollect: widget.categoryCollect),
-                );
-              }
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const Icon(
-                  Icons.archive_outlined,
-                  size: 40,
+            }
+          },
+          onLongPress: () async {
+            var result = await showOkCancelAlertDialog(
+                context: context,
+                title: "Thông báo ",
+                okLabel: "Đồng ý",
+                cancelLabel: "Hủy",
+                message:
+                'Bạn có muốn xóa danh mục thu ${widget.categoryCollect.name} !');
+            if (result == OkCancelResult.ok) {
+              BlocProvider.of<CategoryCollectBloc>(context).add(
+                DeleteCategoryCollectEvent(categoryCollect: widget.categoryCollect),);
+            }
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const Icon(
+                Icons.archive_outlined,
+                size: 40,
+              ),
+              const SizedBox(
+                width: 20,
+              ),
+              Expanded(
+                child: Text(
+                  widget.categoryCollect.name,
+                  style: AppThemes.commonText,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                const SizedBox(
-                  width: 20,
-                ),
-                Expanded(
-                  child: Text(
-                    widget.categoryCollect.name,
-                    style: AppThemes.commonText,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
+              ),
 
-              ],
-            ),
+            ],
           ),
         ),
       ),

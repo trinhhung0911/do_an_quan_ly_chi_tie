@@ -35,6 +35,7 @@ class _CategoryCollectScreenState extends State<CategoryCollectScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: AppColors.appColor,
         title: const Center(
@@ -60,11 +61,11 @@ class _CategoryCollectScreenState extends State<CategoryCollectScreen> {
               return categoryCollects.isNotEmpty
                   ? SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
-                padding: const EdgeInsets.only(top: 20),
                 child: Column(
                   children: [
                     ListView.builder(
-                      padding: const EdgeInsets.only(left: 24, right: 24),
+                      padding: const EdgeInsets.only(
+                          left: 16, right: 16,top: 16),
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: categoryCollects.length,

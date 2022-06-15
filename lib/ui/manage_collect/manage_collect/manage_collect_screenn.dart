@@ -40,6 +40,7 @@ class _ManageCollectScreenState extends State<ManageCollectScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: AppColors.appColor,
         title: const Center(
@@ -103,7 +104,7 @@ class _ManageCollectScreenState extends State<ManageCollectScreen> {
                             children: [
                               ListView.builder(
                                   padding: const EdgeInsets.only(
-                                      left: 24, right: 24),
+                                      left: 16, right: 16,top: 16),
                                   physics: const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
                                   primary: false,

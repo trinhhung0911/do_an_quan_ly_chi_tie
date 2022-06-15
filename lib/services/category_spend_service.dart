@@ -8,11 +8,21 @@ import 'package:quan_ly_chi_tieu/storage/secure_storge.dart';
 
 class CategorySpendService{
   //Tạo danh mục chi
-  Future<dynamic> createCategorySpend({required CategorySpend categorySpend,}) async {
-    CollectionReference categoryCollection = FirebaseFirestore.instance.collection(CollectionName.categorySpend.name);
+   Future<dynamic> createCategorySpend({required CategorySpend categorySpend,}) async {
+    bool kt=true;
     var idUser=await SecureStorage().getString(key: SecureStorage.userId);
+    CollectionReference categoryCollection = FirebaseFirestore.instance.collection(CollectionName.categorySpend.name);
+    var nameCategorySpend = await categoryCollection.get();
+    for (var category in nameCategorySpend.docs) {
+      var categoryName = CategorySpend.fromJson(category.data() as Map<String, dynamic>)..id = category.id;
+      if(categoryName.name==categorySpend.name&&categoryName.idUser == idUser){
+        kt==false;
+      }
+    }
     categorySpend.idUser=idUser;
-   await categoryCollection.add(categorySpend.toJson());
+    await categoryCollection.add(categorySpend.toJson());
+
+
   }
 
 //get tất cả danh mục chi

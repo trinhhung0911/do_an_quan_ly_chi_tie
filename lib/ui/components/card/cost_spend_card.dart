@@ -47,7 +47,7 @@ class _CostSpendCardState extends State<CostSpendCard> {
           borderRadius: BorderRadius.circular(10),
         ),
         margin: const EdgeInsets.only(bottom: 10),
-        padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8,right: 16),
+        padding: const EdgeInsets.only(left: 16, top: 16, bottom: 16, right: 16),
         child: InkWell(
           onTap: () async {
             var result = await Navigator.pushNamed(

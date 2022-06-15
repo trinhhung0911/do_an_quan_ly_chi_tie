@@ -49,7 +49,7 @@ class _TypeSpendCardState extends State<TypeSpendCard> {
           color:  const Color(0xFFFAF5F5),
           borderRadius: BorderRadius.circular(10),
         ),
-        padding: const EdgeInsets.only(left: 16, top: 10, bottom: 10),
+        padding: const EdgeInsets.only(left: 16, top: 16, bottom: 16,right: 16),
         margin: EdgeInsets.only(top: 10),
         child: InkWell(
           onTap: () async {

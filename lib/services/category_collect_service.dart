@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:quan_ly_chi_tieu/configs/constants.dart';
+import 'package:quan_ly_chi_tieu/models/category_spend.dart';
 import 'package:quan_ly_chi_tieu/models/cost_collect.dart';
 import 'package:quan_ly_chi_tieu/storage/secure_storge.dart';
 
@@ -10,11 +11,32 @@ import '../models/category_Collect.dart';
 class CategoryCollectService{
   //tạo danh mục thu
   Future<dynamic> createCategoryCollect({required CategoryCollect categoryCollect,}) async {
-    CollectionReference categoryCollection = FirebaseFirestore.instance.collection(CollectionName.categoryCollect.name);
+
+
     var idUser=await SecureStorage().getString(key: SecureStorage.userId);
+    CollectionReference categoryCollection = FirebaseFirestore.instance.collection(CollectionName.categoryCollect.name);
+    var nameCategoryCollect = await categoryCollection.get();
+    for (var category in nameCategoryCollect.docs) {
+      var categoryName = CategoryCollect.fromJson(category.data() as Map<String, dynamic>)..id = category.id;
+      if(categoryName.name==categoryCollect.name&&categoryName.idUser == idUser){
+
+        print('Trùng111');
+        throw Exception("Bạn đã xin nghỉ ở buổi này !");
+
+      }
+    }
+
     categoryCollect.idUser=idUser;
     await categoryCollection.add(categoryCollect.toJson());
+
   }
+
+
+
+
+
+
+
  //get danh muc thu
   Future<List<CategoryCollect>> getCategoryCollects() async {
     var idUser=await SecureStorage().getString(key: SecureStorage.userId);

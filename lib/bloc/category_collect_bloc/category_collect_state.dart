@@ -12,7 +12,11 @@ class CollectInitialState extends CategoryCollectState {}
 // CreateCategoryCollect
 
 class CreateCategoryCollectLoadingState extends CategoryCollectState {}
-class CreateCategoryCollectSuccessState extends CategoryCollectState {}
+class CreateCategoryCollectSuccessState extends CategoryCollectState {
+   // bool? isNameCategory;
+   //
+   // CreateCategoryCollectSuccessState(this.isNameCategory);
+}
 class CreateCategoryCollectErrorState extends CategoryCollectState {
   final String error;
   const CreateCategoryCollectErrorState({required this.error});
