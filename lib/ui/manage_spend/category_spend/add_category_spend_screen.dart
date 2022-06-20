@@ -67,11 +67,12 @@ class _AddTypeSpendScreenState extends State<AddTypeSpendScreen> {
               state is UpdateCategorySpendSuccessState) {
 
             LoadingHelper.hideLoading(context);
-            Navigator.pop(context);
+
             FunctionHelper.showSnackBar(
                 context: context,
                 title:categorySpend==null?
                 'Thêm danh mục chi thành công !': 'Cập nhật danh mục chi thành công !');
+            Navigator.pop(context);
             BlocProvider.of<CategorySpendBloc>(context).add(GetCategorySpendsEvent());
 
           }

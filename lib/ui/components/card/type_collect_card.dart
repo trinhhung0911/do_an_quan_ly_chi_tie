@@ -31,10 +31,10 @@ class _TypeCollectCardState extends State<TypeCollectCard> {
           LoadingHelper.hideLoading(context);
           BlocProvider.of<CategoryCollectBloc>(context)
               .add(GetCategoryCollectsEvent());
-          FunctionHelper.showSnackBar(
-            context: context,
-            title: "Xóa danh muc thu ${widget.categoryCollect.name} thành công !",
-          );
+          // FunctionHelper.showSnackBar(
+          //   context: context,
+          //   title: "Xóa danh muc thu ${widget.categoryCollect.name} thành công !",
+          // );
         } else if (state is DeleteCategoryCollectErrorState) {
           LoadingHelper.hideLoading(context);
           FunctionHelper.showSnackBar(context: context, title: state.error);

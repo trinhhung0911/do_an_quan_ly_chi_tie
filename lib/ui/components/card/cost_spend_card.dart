@@ -29,10 +29,10 @@ class _CostSpendCardState extends State<CostSpendCard> {
         }
         else if (state is DeleteCostSpendSuccessState) {
           LoadingHelper.hideLoading(context);
-          FunctionHelper.showSnackBar(
-            context: context,
-            title: "Xóa khoản chi thành công !",
-          );
+          // FunctionHelper.showSnackBar(
+          //   context: context,
+          //   title: "Xóa khoản chi thành công !",
+          // );
           BlocProvider.of<CostSpendBloc>(context).add(GetCostSpendsEvent());
         }
         else if (state is DeleteCostSpendErrorState) {

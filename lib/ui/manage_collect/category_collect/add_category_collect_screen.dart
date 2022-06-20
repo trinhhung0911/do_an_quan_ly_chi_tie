@@ -52,12 +52,12 @@ class _AddCategoryCollectScreenState extends State<AddCategoryCollectScreen> {
           } else if (state is CreateCategoryCollectSuccessState ||
               state is UpdateCategoryCollectSuccessState) {
             LoadingHelper.hideLoading(context);
-            Navigator.pop(context);
             FunctionHelper.showSnackBar(
                 context: context,
                 title: collectCollect == null
                     ? 'Thêm danh mục thu thành công !'
                     : 'Cập nhật danh mục thu thành công !');
+            Navigator.pop(context);
             BlocProvider.of<CategoryCollectBloc>(context).add(GetCategoryCollectsEvent());
           }
           else if (state is CreateCategoryCollectErrorState) {

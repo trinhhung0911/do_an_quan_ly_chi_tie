@@ -28,10 +28,10 @@ class _CostCollectCardState extends State<CostCollectCard> {
           LoadingHelper.showLoading(context);
         } else if (state is DeleteCostCollectSuccessState) {
           LoadingHelper.hideLoading(context);
-          FunctionHelper.showSnackBar(
-            context: context,
-            title: "Xóa khoản thu thành công !",
-          );
+          // FunctionHelper.showSnackBar(
+          //   context: context,
+          //   title: "Xóa khoản thu thành công !",
+          // );
           BlocProvider.of<CostCollectBloc>(context).add(GetCostCollectsEvent());
         } else if (state is DeleteCostCollectErrorState) {
           LoadingHelper.hideLoading(context);

@@ -62,12 +62,13 @@ class _AddSpendScreenState extends State<AddSpendScreen> {
           } else if (state is CreateCostSpendSuccessState ||
               state is UpdateCostSpendSuccessState) {
             LoadingHelper.hideLoading(context);
-            Navigator.pop(context);
+
             FunctionHelper.showSnackBar(
                 context: context,
                 title: costSpend == null
                     ? 'Thêm khoản chi thành công !'
                     : 'Cập nhật khoản chi thành công !');
+            Navigator.pop(context);
             BlocProvider.of<CostSpendBloc>(context).add(GetCostSpendsEvent());
           } else if (state is CreateCostSpendErrorState) {
             LoadingHelper.hideLoading(context);
@@ -303,13 +304,19 @@ class _AddSpendScreenState extends State<AddSpendScreen> {
                             },
                             child: Padding(
                               padding: const EdgeInsets.only(top: 5, bottom: 5),
-                              child: Center(
-                                child: Text(
-                                  categorySpends[index].name,
-                                  style: AppThemes.commonText,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                              child: Column(
+
+                                children: [
+                                  const Divider(),
+                                  Center(
+                                    child: Text(
+                                      categorySpends[index].name,
+                                      style: AppThemes.commonText,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),

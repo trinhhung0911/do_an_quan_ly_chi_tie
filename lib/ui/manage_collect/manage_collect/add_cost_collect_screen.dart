@@ -22,13 +22,14 @@ class AddCostCollectScreen extends StatefulWidget {
   @override
   _AddCostCollectScreenState createState() => _AddCostCollectScreenState();
 }
-final refreshKeyCategory = GlobalKey<RefreshIndicatorState>();
-class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
 
+final refreshKeyCategory = GlobalKey<RefreshIndicatorState>();
+
+class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
   final TextEditingController _moneyController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
   final TextEditingController _categoryCollectController =
-  TextEditingController();
+      TextEditingController();
   final TextEditingController _dateController = TextEditingController();
   final refreshKeyCategory = GlobalKey<RefreshIndicatorState>();
   CostCollect? costCollect;
@@ -36,17 +37,19 @@ class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
 
   @override
   void initState() {
-    BlocProvider.of<CategoryCollectBloc>(context).add(GetCategoryCollectsEvent());
+    BlocProvider.of<CategoryCollectBloc>(context)
+        .add(GetCategoryCollectsEvent());
     if (widget.arg is CostCollect) {
       costCollect = widget.arg as CostCollect?;
       _moneyController.text = costCollect!.money.toString();
       _categoryCollectController.text = costCollect!.nameCategoryCollect;
       _dateController.text = costCollect!.dateTime.toString().split(' ')[0];
       _noteController.text = costCollect!.note.toString();
-      idCategoryCollect=costCollect!.idCategoryCollect.toString();
+      idCategoryCollect = costCollect!.idCategoryCollect.toString();
     }
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,18 +63,18 @@ class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
       body: BlocListener<CostCollectBloc, CostCollectState>(
         listener: (context, state) {
           if (state is CreateCostCollectLoadingState ||
-              state is UpdateCostCollectLoadingState
-          ) {
+              state is UpdateCostCollectLoadingState) {
             LoadingHelper.showLoading(context);
           } else if (state is CreateCostCollectSuccessState ||
               state is UpdateCostCollectSuccessState) {
             LoadingHelper.hideLoading(context);
-            Navigator.pop(context);
+
             FunctionHelper.showSnackBar(
                 context: context,
                 title: costCollect == null
                     ? 'Thêm khoản thu thành công !'
                     : 'Cập nhật khoản thu thành công !');
+            Navigator.pop(context);
             BlocProvider.of<CostCollectBloc>(context)
                 .add(GetCostCollectsEvent());
           } else if (state is CreateCostCollectErrorState) {
@@ -236,7 +239,7 @@ class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
                       Text(
                         costCollect == null ? "Ghi" : 'Cập nhật',
                         style:
-                        AppThemes.commonText.copyWith(color: Colors.white),
+                            AppThemes.commonText.copyWith(color: Colors.white),
                       ),
                     ],
                   ),
@@ -253,14 +256,14 @@ class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
                       var costCollect1 = CostCollect(
                         money: int.parse(_moneyController.text.trim()),
                         nameCategoryCollect:
-                        _categoryCollectController.text.trim(),
+                            _categoryCollectController.text.trim(),
                         note: _noteController.text.trim(),
                         idCategoryCollect: idCategoryCollect,
                         idUser: idUser,
                         dateTime: _dateController.text.isEmpty
                             ? DateTime.now()
                             : FunctionHelper.formatDateText(
-                            _dateController.text.trim()),
+                                _dateController.text.trim()),
                       );
                       if (costCollect == null) {
                         BlocProvider.of<CostCollectBloc>(context).add(
@@ -290,7 +293,10 @@ class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
       context: context,
       builder: (context) => SimpleDialog(
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20),),),
+          borderRadius: BorderRadius.all(
+            Radius.circular(20),
+          ),
+        ),
         title: const Center(
           child: Text('Chọn loại thu'),
         ),
@@ -300,49 +306,55 @@ class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
             width: 200,
             child: SingleChildScrollView(
               physics: const AlwaysScrollableScrollPhysics(),
-
               child: Column(
                 children: [
                   categoryCollects.isNotEmpty
                       ? ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    primary: false,
-                    itemCount: categoryCollects.length,
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (context, index) => InkWell(
-                      onTap: () {
-                        setState(() {
-                          _categoryCollectController.text =
-                              categoryCollects[index].name;
-                          idCategoryCollect = categoryCollects[index].id!;
-                          Navigator.pop(context);
-                        });
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 5, bottom: 5),
-                        child: Center(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          primary: false,
+                          itemCount: categoryCollects.length,
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (context, index) => InkWell(
+                            onTap: () {
+                              setState(
+                                () {
+                                  _categoryCollectController.text =
+                                      categoryCollects[index].name;
+                                  idCategoryCollect =
+                                      categoryCollects[index].id!;
+                                  Navigator.pop(context);
+                                },
+                              );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 5, bottom: 5),
+                              child: Column(
+                                children: [
+                                  const Divider(),
+                                  Center(
+                                    child: Text(
+                                      categoryCollects[index].name,
+                                      style: AppThemes.commonText,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                      : Center(
                           child: Text(
-                            categoryCollects[index].name,
+                            "Chưa có danh mục thu !",
                             style: AppThemes.commonText,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                      ),
-                    ),
-                  )
-                      : Center(
-                    child: Text(
-                      "Chưa có danh mục thu !",
-                      style: AppThemes.commonText,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
                 ],
               ),
             ),
           ),
-
           TextButton(
             onPressed: () async {
               await Navigator.pushNamed(
@@ -355,9 +367,11 @@ class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
       ),
     );
   }
+
   Future<void> refresh() async {
     refreshKeyCategory.currentState?.show();
     await Future.delayed(const Duration(microseconds: 400));
-    BlocProvider.of<CategoryCollectBloc>(context).add(GetCategoryCollectsEvent());
+    BlocProvider.of<CategoryCollectBloc>(context)
+        .add(GetCategoryCollectsEvent());
   }
 }
