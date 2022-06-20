@@ -10,8 +10,6 @@ import 'package:quan_ly_chi_tieu/configs/constants.dart';
 import 'package:quan_ly_chi_tieu/configs/themes.dart';
 import 'package:quan_ly_chi_tieu/models/cost_collect.dart';
 import 'package:quan_ly_chi_tieu/storage/secure_storge.dart';
-import 'package:quan_ly_chi_tieu/ui/Components/card/refresh_card.dart';
-import 'package:quan_ly_chi_tieu/ui/components/card/refresh_card.dart';
 import 'package:quan_ly_chi_tieu/utils/function_helper.dart';
 import 'package:quan_ly_chi_tieu/utils/loading_helper.dart';
 import '../category_collect/category_collect_screen.dart';
@@ -53,6 +51,7 @@ class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: AppColors.appColor,
         title: Center(

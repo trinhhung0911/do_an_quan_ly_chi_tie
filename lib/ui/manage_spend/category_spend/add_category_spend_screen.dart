@@ -53,6 +53,7 @@ class _AddTypeSpendScreenState extends State<AddTypeSpendScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: AppColors.appColor,
         title:  Center(child: Text(categorySpend==null?"Thêm danh mục chi ":"Cập nhật danh mục chi !"),),

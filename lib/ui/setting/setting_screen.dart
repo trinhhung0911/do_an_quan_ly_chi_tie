@@ -30,6 +30,7 @@ class _SettingScreenState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text("Cài đặt"),
         centerTitle: true,
@@ -72,7 +73,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       onChanged: (String? newValue) {
                         setState(
                               () {
-                           dropDownValueColor = newValue!;
+                            dropDownValueColor = newValue!;
                           },
                         );
                       },
