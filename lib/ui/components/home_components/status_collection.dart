@@ -96,13 +96,13 @@ class _StatusCollectionState extends State<StatusCollection> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     Container(
-                      height: sumSpend!=0? sumSpend*100/(sumSpend+sumCollect):100,
+                      height:( sumSpend==0&&sumCollect!=0)?100:sumSpend*100/(sumSpend+sumCollect),
                       width: 40,
                       color: Colors.red,
                     ),
                     const SizedBox(width: 20,),
                     Container(
-                      height:sumCollect!=0? sumCollect*100/(sumSpend+sumCollect):100,
+                      height:( sumSpend==0&&sumCollect!=0)?100: sumCollect*100/(sumSpend+sumCollect),
                       width: 40,
                       color: Colors.green,
                     ),
