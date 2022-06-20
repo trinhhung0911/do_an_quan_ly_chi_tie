@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:quan_ly_chi_tieu/configs/colors.dart';
 
@@ -11,26 +10,27 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () {
-          FocusScope.of(context).requestFocus(FocusNode());
-        },
-        child: GlobalLoaderOverlay(
-          overlayColor: Colors.black,
-          overlayOpacity: 0.7,
-          child: MaterialApp(
-            theme: ThemeData(
-                primaryColor: AppColors.appColor
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: GlobalLoaderOverlay(
+        overlayColor: Colors.black,
+        overlayOpacity: 0.7,
+        child: MaterialApp(
+          theme: ThemeData(primaryColor: AppColors.appColor),
+          debugShowCheckedModeBanner: false,
+          home: AnimatedSplashScreen(
+            duration: 2000,
+            splash: const Text(
+              'Quản lý chi tiêu',
+              style: TextStyle(fontSize: 38, color: AppColors.appColor),
             ),
-            debugShowCheckedModeBanner: false,
-            home: AnimatedSplashScreen(
-              duration: 2000,
-                splash:const Text('Quản lý chi tiêu',style:  TextStyle(fontSize: 20,color: AppColors.appColor),),
-               nextScreen: const LoginScreen(),
-              splashTransition: SplashTransition.rotationTransition,
-            ),
-            onGenerateRoute: onGenerateRoute,
+            nextScreen: const LoginScreen(),
+            splashTransition: SplashTransition.rotationTransition,
           ),
+          onGenerateRoute: onGenerateRoute,
         ),
+      ),
     );
   }
 }
