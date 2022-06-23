@@ -186,7 +186,7 @@ class _ManageCollectScreenState extends State<ManageCollectScreen> {
       ManageCollectScreen.isFetch = false;
     }
     if (InputSearchCollect.dropDownValue
-            .compareTo(InputSearchCollect.items[3]) ==
+        .compareTo(InputSearchCollect.items[3]) ==
         0) {
       ManageCollectScreen.indext = 3;
       ManageCollectScreen.isFetch = false;

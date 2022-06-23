@@ -8,8 +8,7 @@ import 'package:quan_ly_chi_tieu/storage/secure_storge.dart';
 class CostSpendService{
 //tạo khoản chi
   Future<dynamic> createCostSpend({required CostSpend costSpend,}) async {
-    CollectionReference categoryCollection = FirebaseFirestore.instance
-        .collection(CollectionName.costSpend.name);
+    CollectionReference categoryCollection = FirebaseFirestore.instance.collection(CollectionName.costSpend.name);
     await categoryCollection.add(costSpend.toJson(),);
     //Trừ vào sumMoney
     var idUser = await SecureStorage().getString(key: SecureStorage.userId);
@@ -24,7 +23,24 @@ class CostSpendService{
             {'sumMoney': e.sumMoney! - costSpend.money});
       }
     }
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   //get danh muc chi
   Future<List<CategorySpend>> getCostCategorySpends() async {
     var idUser=await SecureStorage().getString(key: SecureStorage.userId);

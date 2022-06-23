@@ -25,11 +25,12 @@ class _AddSpendScreenState extends State<AddSpendScreen> {
   final TextEditingController _moneyController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
   final TextEditingController _categorySpendController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _dateController = TextEditingController();
   late String idCategorySpend;
   final refreshKeyCategory = GlobalKey<RefreshIndicatorState>();
   CostSpend? costSpend;
+  late int maxMin;
   @override
   void initState() {
     if (widget.arg is CostSpend) {
@@ -52,7 +53,7 @@ class _AddSpendScreenState extends State<AddSpendScreen> {
         backgroundColor: AppColors.appColor,
         title: Center(
           child:
-              Text(costSpend == null ? 'Thêm khoản chi' : 'Cập nhật khoản chi'),
+          Text(costSpend == null ? 'Thêm khoản chi' : 'Cập nhật khoản chi'),
         ),
       ),
       body: BlocListener<CostSpendBloc, CostSpendState>(
@@ -225,7 +226,7 @@ class _AddSpendScreenState extends State<AddSpendScreen> {
                       Text(
                         costSpend == null ? "Ghi" : 'Cập nhật',
                         style:
-                            AppThemes.commonText.copyWith(color: Colors.white),
+                        AppThemes.commonText.copyWith(color: Colors.white),
                       ),
                     ],
                   ),
@@ -237,25 +238,30 @@ class _AddSpendScreenState extends State<AddSpendScreen> {
                   onPressed: () async {
                     if (_moneyController.text.isNotEmpty &&
                         _categorySpendController.text.isNotEmpty) {
-                      var idUser = await SecureStorage()
-                          .getString(key: SecureStorage.userId);
-                      var costSpend1 = CostSpend(
-                        money: int.parse(_moneyController.text.trim()),
-                        nameCategorySpend: _categorySpendController.text.trim(),
-                        note: _noteController.text.trim(),
-                        idCategorySpend: idCategorySpend,
-                        idUser: idUser,
-                        dateTime: _dateController.text.isEmpty ? DateTime.now() : FunctionHelper.formatDateText(
-                                _dateController.text.trim(),),
-                      );
-                      if (costSpend == null) {
-                        BlocProvider.of<CostSpendBloc>(context)
-                            .add(CreateCostSpendEvent(costSpend: costSpend1));
-                      } else {
-                        costSpend1.id = costSpend?.id;
-                        costSpend1.idUser = costSpend!.idUser;
-                        BlocProvider.of<CostSpendBloc>(context)
-                            .add(UpdateCostSpendEvent(costSpend: costSpend1));
+                      if(int.parse(_moneyController.text.toString())<=maxMin||maxMin==0){
+                        var idUser = await SecureStorage()
+                            .getString(key: SecureStorage.userId);
+                        var costSpend1 = CostSpend(
+                          money: int.parse(_moneyController.text.trim()),
+                          nameCategorySpend: _categorySpendController.text.trim(),
+                          note: _noteController.text.trim(),
+                          idCategorySpend: idCategorySpend,
+                          idUser: idUser,
+                          dateTime: _dateController.text.isEmpty ? DateTime.now() : FunctionHelper.formatDateText(
+                            _dateController.text.trim(),),
+                        );
+                        if (costSpend == null) {
+                          BlocProvider.of<CostSpendBloc>(context)
+                              .add(CreateCostSpendEvent(costSpend: costSpend1));
+                        } else {
+                          costSpend1.id = costSpend?.id;
+                          costSpend1.idUser = costSpend!.idUser;
+                          BlocProvider.of<CostSpendBloc>(context)
+                              .add(UpdateCostSpendEvent(costSpend: costSpend1));
+                        }
+                      }else{
+                        FunctionHelper.showSnackBar(
+                            context: context, title: "Qúa hạn mức cho phép");
                       }
                     } else {
                       FunctionHelper.showSnackBar(
@@ -290,44 +296,45 @@ class _AddSpendScreenState extends State<AddSpendScreen> {
                 children: [
                   categorySpends.isNotEmpty
                       ? ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          primary: false,
-                          itemCount: categorySpends.length,
-                          scrollDirection: Axis.vertical,
-                          itemBuilder: (context, index) => InkWell(
-                            onTap: () {
-                              setState(() {
-                                _categorySpendController.text = categorySpends[index].name;
-                                idCategorySpend = categorySpends[index].id!;
-                                Navigator.pop(context);
-                              });
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 5, bottom: 5),
-                              child: Column(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    primary: false,
+                    itemCount: categorySpends.length,
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (context, index) => InkWell(
+                      onTap: () {
+                        setState(() {
+                          _categorySpendController.text = categorySpends[index].name;
+                          idCategorySpend = categorySpends[index].id!;
+                          maxMin=categorySpends[index].maximum!;
+                          Navigator.pop(context);
+                        });
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 5, bottom: 5),
+                        child: Column(
 
-                                children: [
-                                  const Divider(),
-                                  Center(
-                                    child: Text(
-                                      categorySpends[index].name,
-                                      style: AppThemes.commonText,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                ],
+                          children: [
+                            const Divider(),
+                            Center(
+                              child: Text(
+                                categorySpends[index].name,
+                                style: AppThemes.commonText,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                          ),
-                        )
-                      : Center(
-                          child: Text(
-                            "Chưa có danh mục chi !",
-                            style: AppThemes.commonText,
-                          ),
+                          ],
                         ),
+                      ),
+                    ),
+                  )
+                      : Center(
+                    child: Text(
+                      "Chưa có danh mục chi !",
+                      style: AppThemes.commonText,
+                    ),
+                  ),
                 ],
               ),
             ),

@@ -67,15 +67,14 @@ class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
           } else if (state is CreateCostCollectSuccessState ||
               state is UpdateCostCollectSuccessState) {
             LoadingHelper.hideLoading(context);
-
             FunctionHelper.showSnackBar(
                 context: context,
                 title: costCollect == null
                     ? 'Thêm khoản thu thành công !'
                     : 'Cập nhật khoản thu thành công !');
             Navigator.pop(context);
-            BlocProvider.of<CostCollectBloc>(context)
-                .add(GetCostCollectsEvent());
+            BlocProvider.of<CostCollectBloc>(context).add(GetCostCollectsEvent());
+
           } else if (state is CreateCostCollectErrorState) {
             LoadingHelper.hideLoading(context);
             FunctionHelper.showSnackBar(context: context, title: state.error);

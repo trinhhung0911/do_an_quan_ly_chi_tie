@@ -10,7 +10,7 @@ class StatusCollection extends StatefulWidget {
 }
 
 class _StatusCollectionState extends State<StatusCollection> {
-  static List<String> items = ["Tất cả", "Ngày này", "Tháng này", "Năm nay"];
+  static List<String> items = ["Tất cả", "Ngày này", "Tháng này", "Năm này"];
   late String dropDownValue;
   late int sumSpend;
   late int sumCollect;

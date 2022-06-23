@@ -74,24 +74,24 @@ class _ManageSpendScreenState extends State<ManageSpendScreen> {
                       } else if (ManageSpendScreen.indext == 1) {
                         final suggestions = costSpends
                             .where((costSpends) =>
-                                costSpends.dateTime!.day.toString() ==
-                                DateTime.now().day.toString())
+                        costSpends.dateTime!.day.toString() ==
+                            DateTime.now().day.toString())
                             .toList();
                         empCostSpends = suggestions;
                         empCostSpendsTmp = empCostSpends;
                       } else if (ManageSpendScreen.indext == 2) {
                         final suggestions = costSpends
                             .where((costSpends) =>
-                                costSpends.dateTime!.month.toString() ==
-                                DateTime.now().month.toString())
+                        costSpends.dateTime!.month.toString() ==
+                            DateTime.now().month.toString())
                             .toList();
                         empCostSpends = suggestions;
                         empCostSpendsTmp = empCostSpends;
                       } else if (ManageSpendScreen.indext == 3) {
                         final suggestions = costSpends
                             .where((costSpends) =>
-                                costSpends.dateTime!.year.toString() ==
-                                DateTime.now().year.toString())
+                        costSpends.dateTime!.year.toString() ==
+                            DateTime.now().year.toString())
                             .toList();
                         empCostSpends = suggestions;
                         empCostSpendsTmp = empCostSpends;
@@ -100,28 +100,28 @@ class _ManageSpendScreenState extends State<ManageSpendScreen> {
                     }
                     return empCostSpends.isNotEmpty
                         ? Column(
-                            children: [
-                              ListView.builder(
-                                padding: const EdgeInsets.only(
-                                    left: 16, right: 16, top: 16),
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                primary: false,
-                                itemCount: empCostSpends.length,
-                                itemBuilder: (context, index) =>
-                                    CostSpendCard(empCostSpends[index], index),
-                              ),
-                            ],
-                          )
+                      children: [
+                        ListView.builder(
+                          padding: const EdgeInsets.only(
+                              left: 16, right: 16, top: 16),
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          primary: false,
+                          itemCount: empCostSpends.length,
+                          itemBuilder: (context, index) =>
+                              CostSpendCard(empCostSpends[index], index),
+                        ),
+                      ],
+                    )
                         : Padding(
-                            padding: const EdgeInsets.only(top: 250),
-                            child: Center(
-                              child: Text(
-                                'Chưa có khoản chi !',
-                                style: AppThemes.commonText,
-                              ),
-                            ),
-                          );
+                      padding: const EdgeInsets.only(top: 250),
+                      child: Center(
+                        child: Text(
+                          'Chưa có khoản chi !',
+                          style: AppThemes.commonText,
+                        ),
+                      ),
+                    );
                   }
                   return Container();
                 },
@@ -140,10 +140,10 @@ class _ManageSpendScreenState extends State<ManageSpendScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           var result =
-              await Navigator.pushNamed(context, Constants.addSpendScreen);
+          await Navigator.pushNamed(context, Constants.addSpendScreen);
           if (result != null) {
             setState(
-              () {
+                  () {
                 costSpends.add(result as CostSpend);
               },
             );
@@ -192,7 +192,7 @@ class _ManageSpendScreenState extends State<ManageSpendScreen> {
       return name.contains(input);
     }).toList();
     setState(
-      () {
+          () {
         empCostSpends = suggestions;
       },
     );

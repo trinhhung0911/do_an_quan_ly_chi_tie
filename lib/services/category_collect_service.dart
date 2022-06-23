@@ -19,8 +19,7 @@ class CategoryCollectService{
     for (var category in nameCategoryCollect.docs) {
       var categoryName = CategoryCollect.fromJson(category.data() as Map<String, dynamic>)..id = category.id;
       if(categoryName.name==categoryCollect.name&&categoryName.idUser == idUser){
-        print('Trùng111');
-       // throw Exception("Bạn đã xin nghỉ ở buổi này !");
+        print('Đã có !');
       }
     }
     categoryCollect.idUser=idUser;

@@ -218,7 +218,7 @@ class _StatisticalYearScreenState extends State<StatisticalYearScreen> {
                         ? SfCircularChart(
                         legend: Legend(
                           title: LegendTitle(
-                              text:'Tình hinhg thu',
+                              text:'Tình hình thu',
                               textStyle: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w900

@@ -1,4 +1,5 @@
 class CostSpend{
+
   String ? id;
   String ?idUser;
   String ?idCategorySpend;
@@ -6,6 +7,7 @@ class CostSpend{
   String nameCategorySpend;
   DateTime? dateTime;
   String ?note;
+
   CostSpend({this.id, this.idUser,  this.idCategorySpend, required this.money,
       required this.nameCategorySpend, this.dateTime, this.note});
   //Gửi lên

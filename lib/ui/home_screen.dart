@@ -46,7 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Center(
           child: Text('Trang chủ'),
         ),
-        //centerTitle: true,
       ),
       body: RefreshWidget(
         onRefresh: refresh,
