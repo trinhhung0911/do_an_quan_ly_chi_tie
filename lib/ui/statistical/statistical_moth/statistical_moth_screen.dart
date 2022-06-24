@@ -25,6 +25,9 @@ class _StatisticalMothScreenState extends State<StatisticalMothScreen>  {
   bool overview = true;
   bool spend = true;
   bool collect = true;
+  late int last;
+  late int now;
+
   @override
   void initState() {
     _tooltipBehavior1 = TooltipBehavior(enable: true);
@@ -33,6 +36,8 @@ class _StatisticalMothScreenState extends State<StatisticalMothScreen>  {
     dropDownValueOverview = items[0];
     dropDownValueSpend = items[0];
     dropDownValueCollect = items[0];
+    last = widget.getStatistical!.sumLastMoth ?? 0;
+    now = widget.getStatistical!.sumMoth ?? 0;
     // TODO: implement initState
     super.initState();
   }
@@ -51,6 +56,13 @@ class _StatisticalMothScreenState extends State<StatisticalMothScreen>  {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
+              last > now
+                  ? Text('Tháng này chi tiêu ít hơn tháng trước',
+                  style: AppThemes.commonText.copyWith(
+                    color: AppColors.appColor,
+                  ))
+                  : Text('Tháng này chi tiêu nhiều hơn tháng trước',
+                  style: AppThemes.commonText.copyWith(color: Colors.red)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[

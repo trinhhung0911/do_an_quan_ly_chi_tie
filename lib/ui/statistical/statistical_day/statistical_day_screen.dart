@@ -25,6 +25,8 @@ class _StatisticalDayScreenState extends State<StatisticalDayScreen> {
   bool overview = true;
   bool spend = true;
   bool collect = true;
+  late int last;
+  late int now;
 
   @override
   void initState() {
@@ -34,6 +36,8 @@ class _StatisticalDayScreenState extends State<StatisticalDayScreen> {
     dropDownValueOverview = items[0];
     dropDownValueSpend = items[0];
     dropDownValueCollect = items[0];
+    last = widget.getStatistical!.sumLastDay ?? 0;
+    now = widget.getStatistical!.sumDay ?? 0;
     // TODO: implement initState
     super.initState();
   }
@@ -53,6 +57,13 @@ class _StatisticalDayScreenState extends State<StatisticalDayScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
+              last > now
+                  ? Text('Hôm nay chi tiêu ít hơn hôm qua',
+                      style: AppThemes.commonText.copyWith(
+                        color: AppColors.appColor,
+                      ))
+                  : Text('Hôm nay chi tiêu nhiều hơn hôm qua',
+                      style: AppThemes.commonText.copyWith(color: Colors.red)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -107,7 +118,7 @@ class _StatisticalDayScreenState extends State<StatisticalDayScreen> {
                           )
                         ])
                   : SfCartesianChart(
-                backgroundColor: Colors.white,
+                      backgroundColor: Colors.white,
                       primaryXAxis: CategoryAxis(),
                       primaryYAxis: NumericAxis(
                           minimum: 0,
@@ -170,8 +181,7 @@ class _StatisticalDayScreenState extends State<StatisticalDayScreen> {
                 children: [
                   Expanded(
                     flex: 5,
-                    child:
-                        ( spend == true
+                    child: (spend == true
                         ? SfCircularChart(
                             legend: Legend(
                               title: LegendTitle(
@@ -189,7 +199,8 @@ class _StatisticalDayScreenState extends State<StatisticalDayScreen> {
                             series: <CircularSeries<GroupBy, String>>[
                                 // Initialize line series
                                 PieSeries<GroupBy, String>(
-                                  dataSource: widget.getStatistical!.groupBySpendDay,
+                                  dataSource:
+                                      widget.getStatistical!.groupBySpendDay,
                                   xValueMapper: (GroupBy sales, _) =>
                                       sales.name,
                                   yValueMapper: (GroupBy sales, _) =>
@@ -203,14 +214,18 @@ class _StatisticalDayScreenState extends State<StatisticalDayScreen> {
                             primaryXAxis: CategoryAxis(),
                             primaryYAxis: NumericAxis(
                                 minimum: 0,
-                                maximum: double.parse(widget.getStatistical!
-                                .groupSumSpendCollectDay![1].money
-                                .toString(),),
+                                maximum: double.parse(
+                                  widget.getStatistical!
+                                      .groupSumSpendCollectDay![1].money
+                                      .toString(),
+                                ),
                                 interval: 10),
                             tooltipBehavior: _tooltipBehavior2,
                             series: <ChartSeries<GroupBy, String>>[
                               ColumnSeries<GroupBy, String>(
-                                dataSource: widget.getStatistical!.groupBySpendDay??AppData.sumCollectSpend,
+                                dataSource:
+                                    widget.getStatistical!.groupBySpendDay ??
+                                        AppData.sumCollectSpend,
                                 xValueMapper: (GroupBy sales, _) => sales.name,
                                 yValueMapper: (GroupBy sales, _) => sales.money,
                                 name: 'Số tiền',
@@ -228,10 +243,10 @@ class _StatisticalDayScreenState extends State<StatisticalDayScreen> {
                         ? SfCircularChart(
                             legend: Legend(
                               title: LegendTitle(
-                                  text: 'Tình hình thu',
-                                  textStyle: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w900),),
+                                text: 'Tình hình thu',
+                                textStyle: const TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w900),
+                              ),
                               isVisible: true,
                               position: LegendPosition.bottom,
                               overflowMode: LegendItemOverflowMode.scroll,
@@ -239,7 +254,8 @@ class _StatisticalDayScreenState extends State<StatisticalDayScreen> {
                             tooltipBehavior: _tooltipBehavior3,
                             series: <CircularSeries<GroupBy, String>>[
                                 PieSeries<GroupBy, String>(
-                                  dataSource: widget.getStatistical!.groupByCollectDay,
+                                  dataSource:
+                                      widget.getStatistical!.groupByCollectDay,
                                   xValueMapper: (GroupBy sales, _) =>
                                       sales.name,
                                   yValueMapper: (GroupBy sales, _) =>
@@ -252,13 +268,19 @@ class _StatisticalDayScreenState extends State<StatisticalDayScreen> {
                         : SfCartesianChart(
                             primaryXAxis: CategoryAxis(),
                             primaryYAxis: NumericAxis(
-                                minimum: 0, maximum: double.parse(widget.getStatistical!
-                                .groupSumSpendCollectDay![0].money
-                                .toString(),), interval: 10),
+                                minimum: 0,
+                                maximum: double.parse(
+                                  widget.getStatistical!
+                                      .groupSumSpendCollectDay![0].money
+                                      .toString(),
+                                ),
+                                interval: 10),
                             tooltipBehavior: _tooltipBehavior3,
                             series: <ChartSeries<GroupBy, String>>[
                               ColumnSeries<GroupBy, String>(
-                                dataSource: widget.getStatistical!.groupByCollectDay??AppData.sumCollectSpend,
+                                dataSource:
+                                    widget.getStatistical!.groupByCollectDay ??
+                                        AppData.sumCollectSpend,
                                 xValueMapper: (GroupBy sales, _) => sales.name,
                                 yValueMapper: (GroupBy sales, _) => sales.money,
                                 name: 'Số tiền',

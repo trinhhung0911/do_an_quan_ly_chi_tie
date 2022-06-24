@@ -16,6 +16,39 @@ class StatisticalServices{
     CollectionReference costCollectCollection = FirebaseFirestore.instance.collection(CollectionName.costCollect.name);
     CollectionReference categorySpendCollection= FirebaseFirestore.instance.collection(CollectionName.categorySpend.name);
     CollectionReference categoryCollectCollection= FirebaseFirestore.instance.collection(CollectionName.categoryCollect.name);
+
+    //Tổng chi theo ngày,tháng,năm hôm qua
+    //Tổng tất cả tiền chi theo ngày hôm qua
+    int sumDaySpendLast= 0;
+    var dataSumDaySpendAllLats = await costSpendCollection.get();
+    for (var item in dataSumDaySpendAllLats.docs) {
+      var e = CostSpend.formJson(item.data() as Map<String, dynamic>)..id = item.id;
+      if (e.idUser == idUser && e.dateTime!.day.toString() == (DateTime.now().day-1).toString()) {
+        sumDaySpendLast = sumDaySpendLast + e.money;
+      }
+    }
+    int sumMothSpendLast= 0;
+    var dataSumMothSpendAllLats = await costSpendCollection.get();
+    for (var item in dataSumMothSpendAllLats.docs) {
+      var e = CostSpend.formJson(item.data() as Map<String, dynamic>)..id = item.id;
+      if (e.idUser == idUser && e.dateTime!.month.toString() == (DateTime.now().month-1).toString()) {
+        sumMothSpendLast = sumMothSpendLast + e.money;
+      }
+    }
+    int sumYearSpendLast= 0;
+    var dataSumYearSpendAllLats = await costSpendCollection.get();
+    for (var item in dataSumYearSpendAllLats.docs) {
+      var e = CostSpend.formJson(item.data() as Map<String, dynamic>)..id = item.id;
+      if (e.idUser == idUser && e.dateTime!.year.toString() == (DateTime.now().year-1).toString()) {
+        sumYearSpendLast = sumYearSpendLast + e.money;
+      }
+    }
+    //Tổng chi ngày hôm nay.
+
+
+
+
+
     //Tổng thu chi theo ngày
     //tổng tất cả tiền thu theo ngày
     int sumDayCollect = 0;
@@ -279,6 +312,12 @@ class StatisticalServices{
         groupByCollectDay: groupByDayCollect,
       groupByCollectMoth: groupByMothCollect,
       groupByCollectYear: groupByYearCollect,
+      sumLastDay: sumDaySpendLast,
+      sumLastMoth: sumMothSpendLast,
+        sumLastYear: sumYearSpendLast,
+      sumDay: sumDaySpend,
+      sumMoth: sumMothSpend,
+      sumYear: sumYearSpend
     );
     return value;
 

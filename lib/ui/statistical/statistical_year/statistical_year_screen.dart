@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quan_ly_chi_tieu/configs/app_data.dart';
 import 'package:quan_ly_chi_tieu/configs/colors.dart';
 import 'package:quan_ly_chi_tieu/configs/themes.dart';
+import 'package:quan_ly_chi_tieu/models/cost_spend.dart';
 import 'package:quan_ly_chi_tieu/models/get_statistical.dart';
 import 'package:quan_ly_chi_tieu/models/group_by.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -24,6 +25,8 @@ class _StatisticalYearScreenState extends State<StatisticalYearScreen> {
   bool overview = true;
   bool spend = true;
   bool collect = true;
+  late int last;
+  late int now;
 
   @override
   void initState() {
@@ -33,6 +36,8 @@ class _StatisticalYearScreenState extends State<StatisticalYearScreen> {
     dropDownValueOverview = items[0];
     dropDownValueSpend = items[0];
     dropDownValueCollect = items[0];
+    last = widget.getStatistical!.sumLastYear ?? 0;
+    now = widget.getStatistical!.sumYear ?? 0;
     // TODO: implement initState
     super.initState();
   }
@@ -52,7 +57,15 @@ class _StatisticalYearScreenState extends State<StatisticalYearScreen> {
         padding: const EdgeInsets.only(bottom: 10, right: 24, left: 24),
         child: SingleChildScrollView(
           child: Column(
+
             children: <Widget>[
+              last > now
+                  ? Text('Năm nay chi tiêu ít hơn năm trước',
+                  style: AppThemes.commonText.copyWith(
+                    color: AppColors.appColor,
+                  ))
+                  : Text('Năm nay chi tiêu nhiều hơn năm trước',
+                  style: AppThemes.commonText.copyWith(color: Colors.red)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[

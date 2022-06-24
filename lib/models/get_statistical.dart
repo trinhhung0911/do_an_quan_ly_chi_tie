@@ -5,7 +5,12 @@ class GetStatistical{
    List<GroupBy>? groupSumSpendCollectDay;
    List<GroupBy>? groupSumSpendCollectMoth;
    List<GroupBy>? groupSumSpendCollectYear;
-
+   int ? sumLastDay;
+   int ? sumLastMoth;
+   int? sumLastYear;
+   int ? sumDay;
+   int ? sumMoth;
+   int? sumYear;
   //tổng chi theo ngày
   List<GroupBy>? groupBySpendDay;
   //thổng thu theo ngày
@@ -27,5 +32,12 @@ class GetStatistical{
       this.groupBySpendMoth,
       this.groupByCollectMoth,
       this.groupBySpendYear,
-      this.groupByCollectYear});
+      this.groupByCollectYear,
+       this.sumLastDay,
+       this.sumLastMoth,
+       this.sumLastYear,
+       this.sumDay,
+       this.sumMoth,
+       this.sumYear
+     });
 }
