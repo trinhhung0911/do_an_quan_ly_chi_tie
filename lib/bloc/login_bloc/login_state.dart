@@ -4,7 +4,6 @@ import 'package:equatable/equatable.dart';
 abstract class LoginState extends Equatable {
   const LoginState();
   @override
-  // TODO: implement props
   List<Object?> get props => [];
 }
 // Trạng thái khởi tạo

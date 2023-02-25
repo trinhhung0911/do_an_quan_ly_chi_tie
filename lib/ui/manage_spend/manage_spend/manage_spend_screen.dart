@@ -71,7 +71,8 @@ class _ManageSpendScreenState extends State<ManageSpendScreen> {
                       if (ManageSpendScreen.indext == 0) {
                         empCostSpends = costSpends;
                         empCostSpendsTmp = empCostSpends;
-                      } else if (ManageSpendScreen.indext == 1) {
+                      }
+                      else if (ManageSpendScreen.indext == 1) {
                         final suggestions = costSpends
                             .where((costSpends) =>
                         costSpends.dateTime!.day.toString() ==
@@ -79,7 +80,8 @@ class _ManageSpendScreenState extends State<ManageSpendScreen> {
                             .toList();
                         empCostSpends = suggestions;
                         empCostSpendsTmp = empCostSpends;
-                      } else if (ManageSpendScreen.indext == 2) {
+                      }
+                      else if (ManageSpendScreen.indext == 2) {
                         final suggestions = costSpends
                             .where((costSpends) =>
                         costSpends.dateTime!.month.toString() ==
@@ -87,10 +89,9 @@ class _ManageSpendScreenState extends State<ManageSpendScreen> {
                             .toList();
                         empCostSpends = suggestions;
                         empCostSpendsTmp = empCostSpends;
-                      } else if (ManageSpendScreen.indext == 3) {
-                        final suggestions = costSpends
-                            .where((costSpends) =>
-                        costSpends.dateTime!.year.toString() ==
+                      }
+                      else if (ManageSpendScreen.indext == 3) {
+                        final suggestions = costSpends.where((costSpends) => costSpends.dateTime!.year.toString() ==
                             DateTime.now().year.toString())
                             .toList();
                         empCostSpends = suggestions;

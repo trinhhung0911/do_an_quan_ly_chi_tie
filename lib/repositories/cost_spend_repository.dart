@@ -3,8 +3,7 @@ import 'package:quan_ly_chi_tieu/models/cost_spend.dart';
 import 'package:quan_ly_chi_tieu/services/cost_spend_service.dart';
 
 class CostSpendRepository{
-  Future<dynamic> createCostSpend({required CostSpend costSpend,
-  }) async {
+  Future<dynamic> createCostSpend({required CostSpend costSpend,}) async {
     await CostSpendService().createCostSpend(costSpend: costSpend);
   }
   Future<List<CategorySpend>> getCostCategorySpends() async {

@@ -7,6 +7,7 @@ import 'package:quan_ly_chi_tieu/configs/colors.dart';
 import 'package:quan_ly_chi_tieu/configs/constants.dart';
 import 'package:quan_ly_chi_tieu/models/category_Collect.dart';
 import 'package:quan_ly_chi_tieu/models/get_user.dart';
+import 'package:quan_ly_chi_tieu/storage/secure_storge.dart';
 import 'package:quan_ly_chi_tieu/ui/components/card/refresh_card.dart';
 import 'package:quan_ly_chi_tieu/ui/components/home_components/chart_collection.dart';
 import 'package:quan_ly_chi_tieu/ui/components/home_components/money_home.dart';
@@ -30,7 +31,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final refreshKeyUsers = GlobalKey<RefreshIndicatorState>();
   late List<GetUser> getUser;
   @override
-  void initState() {
+  Future<void> initState() async {
+    var email=await SecureStorage().getString(key: SecureStorage.email);
     HomeScreen.email = widget.arg;
     BlocProvider.of<UserBloc>(context).add(GetUserEvent());
     super.initState();
@@ -43,9 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: AppColors.appColor,
         centerTitle: true,
-        title: const Center(
-          child: Text('Trang chủ'),
-        ),
+        title: Text('Trang chủ'),
       ),
       body: RefreshWidget(
         onRefresh: refresh,

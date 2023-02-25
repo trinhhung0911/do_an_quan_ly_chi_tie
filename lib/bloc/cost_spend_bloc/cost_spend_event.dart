@@ -14,6 +14,7 @@ class CreateCostSpendEvent extends CostSpendEvent {
 }
 
 class GetCostCategorySpendsEvent extends CostSpendEvent{}
+
 class GetCostSpendsEvent extends CostSpendEvent{}
 
 class UpdateCostSpendEvent extends CostSpendEvent{

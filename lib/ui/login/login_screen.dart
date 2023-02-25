@@ -7,6 +7,7 @@ import 'package:quan_ly_chi_tieu/bloc/login_bloc/login_state.dart';
 import 'package:quan_ly_chi_tieu/configs/colors.dart';
 import 'package:quan_ly_chi_tieu/configs/constants.dart';
 import 'package:quan_ly_chi_tieu/configs/themes.dart';
+import 'package:quan_ly_chi_tieu/storage/secure_storge.dart';
 import 'package:quan_ly_chi_tieu/utils/function_helper.dart';
 import 'package:quan_ly_chi_tieu/utils/loading_helper.dart';
 import 'package:quan_ly_chi_tieu/utils/validate_helper.dart';
@@ -18,7 +19,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
   late String _email = '';
@@ -48,13 +48,10 @@ class _LoginScreenState extends State<LoginScreen> {
           listener: (context, state) {
             if (state is LoginLoadingState) {
               LoadingHelper.showLoading(context);
-            }
-            else if (state is LoginSuccessState) {
+            } else if (state is LoginSuccessState) {
               LoadingHelper.hideLoading(context);
-              Navigator.pushNamed(context, Constants.homeScreen,
-                  arguments: _emailController.text);
-            }
-            else if (state is LoginErrorState) {
+              Navigator.pushNamed(context, Constants.homeScreen, arguments: _emailController.text);
+            } else if (state is LoginErrorState) {
               LoadingHelper.hideLoading(context);
               FunctionHelper.showSnackBar(context: context, title: state.error);
             }
@@ -174,7 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ..onTap = () {
                             Navigator.pushNamed(
                                 context, Constants.forgotPasswordScreen);
-                         //  Navigator.pushNamed(context, Constants.homeScreen,arguments: 'hung09112000@gmail.com');
+
                           },
                         text: "Quên mật khẩu ?",
                         style: AppThemes.lightText,
@@ -188,32 +185,37 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: double.infinity,
                     height: 50,
                     child: FlatButton(
-                        child: const Text(
-                          "Đăng nhập",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                          ),
+                      child: const Text(
+                        "Đăng nhập",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
                         ),
-                        color: AppColors.appColor,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
-                          ),
+                      ),
+                      color: AppColors.appColor,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
                         ),
-                        onPressed: () {
-                          if (_email.trim().isNotEmpty &&
-                              validateEmail == true &&
-                              _pass.trim().isNotEmpty) {
-                            BlocProvider.of<LoginBloc>(context)
-                                .add(LoginAddEvent(
+                      ),
+                      onPressed: () async {
+                        await SecureStorage().saveString(key: SecureStorage.email, value: _emailController.text.trim());
+                        if (_email.trim().isNotEmpty && validateEmail == true && _pass.trim().isNotEmpty)
+                        {
+                          BlocProvider.of<LoginBloc>(context).add(
+                            LoginAddEvent(
                               email: _emailController.text.trim(),
                               password: _passController.text.trim(),
-                            ));
-                          }else{
-                            FunctionHelper.showSnackBar(context: context, title: 'Bạn cần nhập đầy đủ thông tin');
-                          }
-                        }),
+                            ),
+                          );
+                        }
+                        else {
+                          FunctionHelper.showSnackBar(
+                              context: context,
+                              title: 'Bạn cần nhập đầy đủ thông tin');
+                        }
+                      },
+                    ),
                   ),
                 ),
                 SizedBox(
