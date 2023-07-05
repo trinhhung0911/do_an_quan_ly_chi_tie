@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quan_ly_chi_tieu/bloc/category_collect_bloc/category_collect_bloc.dart';
@@ -221,7 +222,7 @@ class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
                 width: double.infinity,
                 height: 50,
                 margin: const EdgeInsets.only(top: 35),
-                child: FlatButton(
+                child: CupertinoButton(
                   color: AppColors.appColor,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -240,11 +241,6 @@ class _AddCostCollectScreenState extends State<AddCostCollectScreen> {
                             AppThemes.commonText.copyWith(color: Colors.white),
                       ),
                     ],
-                  ),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
                   ),
                   onPressed: () async {
                     if (_moneyController.text.isNotEmpty &&

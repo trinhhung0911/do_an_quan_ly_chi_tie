@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quan_ly_chi_tieu/bloc/category_collect_bloc/category_collect_state.dart';
@@ -106,8 +107,8 @@ class _AddCategoryCollectScreenState extends State<AddCategoryCollectScreen> {
               Container(
                 width: double.infinity,
                 height: 50,
-                margin: EdgeInsets.only(top: 20),
-                child: FlatButton(
+                margin: const EdgeInsets.only(top: 20),
+                child: CupertinoButton(
                   color: AppColors.appColor,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -127,11 +128,7 @@ class _AddCategoryCollectScreenState extends State<AddCategoryCollectScreen> {
                       ),
                     ],
                   ),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
-                  ),
+
                   onPressed: () {
                     var categoryCollect = CategoryCollect(
                         name: _nameController.text.trim(),

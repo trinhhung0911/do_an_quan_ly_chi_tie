@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quan_ly_chi_tieu/bloc/forgot_bloc/forgot_bloc.dart';
@@ -177,15 +178,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               SizedBox(
                 width: double.infinity,
                 height: 50,
-                child: RaisedButton(
+                child: CupertinoButton(
                   child: const Text(
                     "Đổi mật khẩu ",
                     style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
                   color: AppColors.appColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+
                   onPressed: () {
                     if (_checkEmptyPassword() == true) {
                       if (_checkNewPassword() == true) {

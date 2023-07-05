@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -120,18 +121,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         child: SizedBox(
                           width: double.infinity,
                           height: 50,
-                          child: FlatButton(
+                          child: CupertinoButton(
                             child: const Text(
                               "Gửi",
                               style:
                                   TextStyle(color: Colors.white, fontSize: 18),
                             ),
                             color: AppColors.appColor,
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                            ),
+
                             onPressed: () {
                               if (validateEmail == true &&
                                   _emailController.text.isNotEmpty) {

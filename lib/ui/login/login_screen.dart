@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -184,7 +185,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: SizedBox(
                     width: double.infinity,
                     height: 50,
-                    child: FlatButton(
+                    child: CupertinoButton(
                       child: const Text(
                         "Đăng nhập",
                         style: TextStyle(
@@ -193,11 +194,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       color: AppColors.appColor,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                      ),
+
                       onPressed: () async {
                         await SecureStorage().saveString(key: SecureStorage.email, value: _emailController.text.trim());
                         if (_email.trim().isNotEmpty && validateEmail == true && _pass.trim().isNotEmpty)
@@ -221,17 +218,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   width: double.infinity,
                   height: 50,
-                  child: FlatButton(
+                  child: CupertinoButton(
                     child: const Text(
                       "Đăng ký",
                       style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
                     color: AppColors.appColor,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                    ),
+
                     onPressed: () {
                       Navigator.pushNamed(context, Constants.registerScreen);
                     },

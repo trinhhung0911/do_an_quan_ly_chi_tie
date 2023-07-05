@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -221,15 +222,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 SizedBox(
                   width: double.infinity,
                   height: 50,
-                  child: RaisedButton(
+                  child: CupertinoButton(
                     child: const Text(
                       "Đăng ký",
                       style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
                     color: AppColors.appColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
+                    borderRadius: BorderRadius.circular(10),
                     onPressed: () {
                       if (validatePassWord == true &&
                           validateEmail == true &&

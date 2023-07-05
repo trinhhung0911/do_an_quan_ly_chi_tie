@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quan_ly_chi_tieu/bloc/category_spend_bloc/category_spend_event.dart';
@@ -128,8 +129,8 @@ class _AddTypeSpendScreenState extends State<AddTypeSpendScreen> {
               Container(
                 width: double.infinity,
                 height: 50,
-               margin: EdgeInsets.only(top: 20),
-                child: FlatButton(
+               margin: const EdgeInsets.only(top: 20),
+                child: CupertinoButton(
                   color: AppColors.appColor,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -144,11 +145,6 @@ class _AddTypeSpendScreenState extends State<AddTypeSpendScreen> {
                       ),
                       Text(categorySpend==null?"Thêm":"Cập nhật",style: AppThemes.commonText.copyWith(color: Colors.white),),
                     ],
-                  ),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
                   ),
                   onPressed:(){
                     if(_nameController.text.trim().isNotEmpty){

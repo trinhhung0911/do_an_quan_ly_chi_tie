@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quan_ly_chi_tieu/configs/colors.dart';
 import 'package:quan_ly_chi_tieu/configs/themes.dart';
@@ -171,18 +172,14 @@ class _SettingScreenState extends State<SettingScreen> {
             SizedBox(
               width: double.infinity,
               height: 50,
-              child: RaisedButton(
+              child: CupertinoButton(
                 child: const Text(
                   "Đồng bộ dữ liệu ",
                   style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
                 color:AppColors.appColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ), onPressed: () {
-                  setState(() {
-                   // AppColors.appColor=Color(0xFF208990);
-                  });
+                onPressed: () {
+                  setState(() {});
 
               },
               ),
